@@ -24,13 +24,13 @@ USE `tagit`;
 DROP TABLE IF EXISTS `bookmark`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bookmark` (
+CREATE TABLE `bookmarks` (
   `bookmarkid` int(11) NOT NULL AUTO_INCREMENT,
   `bookmark_name` varchar(60) DEFAULT NULL,
   `notebook_id` int(11) NOT NULL,
   PRIMARY KEY (`bookmarkid`),
   KEY `notebook_id_idx` (`notebook_id`),
-  CONSTRAINT `notebook_id` FOREIGN KEY (`notebook_id`) REFERENCES `notebook` (`notebookid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `notebook_id` FOREIGN KEY (`notebook_id`) REFERENCES `notebooks` (`notebookid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,9 +38,9 @@ CREATE TABLE `bookmark` (
 -- Dumping data for table `bookmark`
 --
 
-LOCK TABLES `bookmark` WRITE;
-/*!40000 ALTER TABLE `bookmark` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bookmark` ENABLE KEYS */;
+LOCK TABLES `bookmarks` WRITE;
+/*!40000 ALTER TABLE `bookmarks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bookmarks` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -50,7 +50,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `comment` (
+CREATE TABLE `comments` (
   `commetid` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(1000) DEFAULT NULL,
   `comment_user_id` int(11) DEFAULT NULL,
@@ -58,8 +58,8 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`commetid`),
   KEY `user_id_idx` (`comment_user_id`),
   KEY `bookmark_id_idx` (`comment_bookmark_id`),
-  CONSTRAINT `comment_bookmark_id` FOREIGN KEY (`comment_bookmark_id`) REFERENCES `bookmark` (`bookmarkid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `comment_user_id` FOREIGN KEY (`comment_user_id`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `comment_bookmark_id` FOREIGN KEY (`comment_bookmark_id`) REFERENCES `bookmarks` (`bookmarkid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_user_id` FOREIGN KEY (`comment_user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,9 +67,9 @@ CREATE TABLE `comment` (
 -- Dumping data for table `comment`
 --
 
-LOCK TABLES `comment` WRITE;
-/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -79,13 +79,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `notebook`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `notebook` (
+CREATE TABLE `notebooks` (
   `notebookid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `owner_id` int(11) NOT NULL,
   PRIMARY KEY (`notebookid`),
   KEY `owner_id_idx` (`owner_id`),
-  CONSTRAINT `owner_id` FOREIGN KEY (`owner_id`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `owner_id` FOREIGN KEY (`owner_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,9 +93,9 @@ CREATE TABLE `notebook` (
 -- Dumping data for table `notebook`
 --
 
-LOCK TABLES `notebook` WRITE;
-/*!40000 ALTER TABLE `notebook` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notebook` ENABLE KEYS */;
+LOCK TABLES `notebooks` WRITE;
+/*!40000 ALTER TABLE `notebooks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notebooks` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -113,8 +113,8 @@ CREATE TABLE `share` (
   PRIMARY KEY (`shareid`),
   KEY `share_user_id_idx` (`share_user_id`),
   KEY `share_notebook_id_idx` (`share_notebook_id`),
-  CONSTRAINT `share_notebook_id` FOREIGN KEY (`share_notebook_id`) REFERENCES `notebook` (`notebookid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `share_user_id` FOREIGN KEY (`share_user_id`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `share_notebook_id` FOREIGN KEY (`share_notebook_id`) REFERENCES `notebooks` (`notebookid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `share_user_id` FOREIGN KEY (`share_user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,13 +134,13 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `tag`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tag` (
+CREATE TABLE `tags` (
   `tagid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `bookmark_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`tagid`),
   KEY `bookmark_id_idx` (`bookmark_id`),
-  CONSTRAINT `bookmark_id` FOREIGN KEY (`bookmark_id`) REFERENCES `bookmark` (`bookmarkid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `bookmark_id` FOREIGN KEY (`bookmark_id`) REFERENCES `bookmarks` (`bookmarkid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,9 +148,9 @@ CREATE TABLE `tag` (
 -- Dumping data for table `tag`
 --
 
-LOCK TABLES `tag` WRITE;
-/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
+LOCK TABLES `tags` WRITE;
+/*!40000 ALTER TABLE `tags` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -160,7 +160,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `userid` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(60) DEFAULT NULL,
   `password` varchar(60) DEFAULT NULL,
@@ -176,9 +176,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
