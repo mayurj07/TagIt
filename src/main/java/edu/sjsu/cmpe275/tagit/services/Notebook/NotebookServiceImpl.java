@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.tagit.services.Notebook;
 
+import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Notebook.NoteBookDao;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,15 @@ public class NotebookServiceImpl implements NotebookService {
     private NoteBookDao noteBookDao;
 
     @Override
-    public Notebook create(Notebook notebook){
+    public Notebook create(Notebook notebook) {
 
         noteBookDao.save(notebook);
+        return notebook;
+    }
+
+    @Override
+    public Notebook getNotebookByID(long id) throws EntityNotFound {
+        Notebook notebook = noteBookDao.findOne(id);
         return notebook;
     }
 }

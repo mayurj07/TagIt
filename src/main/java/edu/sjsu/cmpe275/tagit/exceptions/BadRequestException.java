@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275.tagit.execptions;
+package edu.sjsu.cmpe275.tagit.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

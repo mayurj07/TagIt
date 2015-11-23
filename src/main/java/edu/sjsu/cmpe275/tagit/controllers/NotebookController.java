@@ -1,6 +1,7 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
-import edu.sjsu.cmpe275.tagit.execptions.BadRequestException;
+import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
+import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,31 @@ public class NotebookController {
         }
 
         return new ResponseEntity<Notebook>(notebookService.create(newNB), HttpStatus.CREATED);
+    }
+
+
+    //Update a Notebook. PUT method
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Notebook> updateNotebook(@PathVariable(value="id") int nbId, @Valid @RequestBody Notebook notebook, BindingResult result)
+    {
+        if(result.hasErrors())
+            throw new BadRequestException("Bad Request Exception");
+
+        try {
+            Notebook noteBookToUpdate = notebookService.getNotebookByID(nbId);
+
+            if(notebook.getName() !=null || !notebook.getName().trim().equals(""))
+                noteBookToUpdate.setName(notebook.getName());
+
+            if (notebook.getOwner_id()==null || notebook.getOwner_id().trim().equals(""))
+                noteBookToUpdate.setOwner_id(notebook.getOwner_id());
+
+            return new ResponseEntity<Notebook>(notebookService.create(noteBookToUpdate), HttpStatus.OK);
+
+        }catch (Exception e){
+            throw new EntityNotFound("Notebook "+nbId+" does not exist to update.");
+        }
     }
 
 }

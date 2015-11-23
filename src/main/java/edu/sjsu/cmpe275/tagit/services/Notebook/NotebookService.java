@@ -7,4 +7,5 @@ public interface NotebookService {
 
     public Notebook create(Notebook notebook);
 
+    public Notebook getNotebookByID(long id);
 }

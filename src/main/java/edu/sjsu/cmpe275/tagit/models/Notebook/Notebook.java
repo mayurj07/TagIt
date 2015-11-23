@@ -14,7 +14,7 @@ public class Notebook {
     @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="notebookid")
-    private int notebookid;
+    private long notebookid;
 
     @NotNull
     @JsonProperty
@@ -37,20 +37,21 @@ public class Notebook {
 
     //setter and getters
 
+
+    public long getNotebookid() {
+        return notebookid;
+    }
+
+    public void setNotebookid(long notebookid) {
+        this.notebookid = notebookid;
+    }
+
     public String getOwner_id() {
         return owner_id;
     }
 
     public void setOwner_id(String owner_id) {
         this.owner_id = owner_id;
-    }
-
-    public long getNotebookid() {
-        return notebookid;
-    }
-
-    public void setNotebookid(int notebookid) {
-        this.notebookid = notebookid;
     }
 
     public String getName() {
