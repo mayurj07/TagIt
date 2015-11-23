@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "bookmark")
+@Table(name = "bookmarks")
 public class Bookmark {
 
     @Id
@@ -17,7 +17,7 @@ public class Bookmark {
     private String bookmarkName;
 
     @NotNull
-    @Column(name="bookmark_description")
+    @Column(name="bookmarkDesc")
     private String bookmarkDescription;
 
     @NotNull

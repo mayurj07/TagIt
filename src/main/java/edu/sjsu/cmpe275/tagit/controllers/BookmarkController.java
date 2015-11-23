@@ -1,8 +1,7 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
 import edu.sjsu.cmpe275.tagit.models.Bookmark;
-import edu.sjsu.cmpe275.tagit.models.BookmarkDAO;
-import edu.sjsu.cmpe275.tagit.models.User;
+import edu.sjsu.cmpe275.tagit.models.BookmarkDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,5 +29,5 @@ public class BookmarkController {
     }
 
     @Autowired
-    private BookmarkDAO bookmarkDao;
+    private BookmarkDao bookmarkDao;
 }
