@@ -1,4 +1,6 @@
-package edu.sjsu.cmpe275.tagit.models;
+package edu.sjsu.cmpe275.tagit.models.Bookmark;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,26 +10,30 @@ import javax.validation.constraints.NotNull;
 public class Bookmark {
 
     @Id
+    @JsonProperty
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="bookmarkid")
     private long bookmarkId;
 
     @NotNull
+    @JsonProperty
     @Column(name="bookmark_name")
     private String bookmarkName;
 
     @NotNull
+    @JsonProperty
     @Column(name="bookmarkDesc")
     private String bookmarkDescription;
 
     @NotNull
+    @JsonProperty
     @Column(name="notebook_id")
     private long notebookId;
 
 
     public Bookmark(){}
 
-    public Bookmark(String bookmarkName, String bookmarkDescription, long notebookId) {
+    public Bookmark(@JsonProperty String bookmarkName, @JsonProperty String bookmarkDescription, @JsonProperty long notebookId) {
         this.bookmarkName = bookmarkName;
         this.bookmarkDescription = bookmarkDescription;
         this.notebookId = notebookId;
@@ -39,6 +45,14 @@ public class Bookmark {
 
     public String getBookmarkName() {
         return bookmarkName;
+    }
+
+    public String getBookmarkDescription() {
+        return bookmarkDescription;
+    }
+
+    public void setBookmarkDescription(String bookmarkDescription) {
+        this.bookmarkDescription = bookmarkDescription;
     }
 
     public long getNotebookId() {

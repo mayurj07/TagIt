@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275.tagit.models;
+package edu.sjsu.cmpe275.tagit.models.Bookmark;
 
 import org.springframework.data.repository.CrudRepository;
 
