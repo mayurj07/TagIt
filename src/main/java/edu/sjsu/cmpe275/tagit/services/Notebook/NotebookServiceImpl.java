@@ -27,4 +27,9 @@ public class NotebookServiceImpl implements NotebookService {
         Notebook notebook = noteBookDao.findOne(id);
         return notebook;
     }
+
+    @Override
+    public void removeNotebook(long id) throws EntityNotFound {
+         noteBookDao.delete(id);
+    }
 }
