@@ -25,11 +25,7 @@ public class Bookmark {
     private long notebookId;
 
 
-
-
-    public Bookmark(){
-
-    }
+    public Bookmark(){}
 
     public Bookmark(String bookmarkName, String bookmarkDescription, long notebookId) {
         this.bookmarkName = bookmarkName;

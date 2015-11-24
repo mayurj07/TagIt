@@ -4,10 +4,12 @@ import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Notebook.NoteBookDao;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("NotebookService")
+@Component
 @Transactional
 public class NotebookServiceImpl implements NotebookService {
 
@@ -16,7 +18,6 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public Notebook create(Notebook notebook) {
-
         noteBookDao.save(notebook);
         return notebook;
     }

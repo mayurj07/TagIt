@@ -1,27 +1,40 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
+import edu.sjsu.cmpe275.tagit.configuration.AppConfig;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
+import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
 
+
+//@EnableAutoConfiguration
+//@ComponentScan
+//@Import(AppConfig.class)
+
 @RestController
+@Component("NotebookController")
 @RequestMapping("/notebook")
-public class NotebookController {
+public class NotebookController{
 
     @Autowired
     NotebookService notebookService;
 
     //Creating a moderator. POST method
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    @ResponseStatus(HttpStatus.CREATED)
+//    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Notebook> createNotebook(@Valid @RequestBody Notebook notebook, BindingResult result) {
         if (notebook.getName() == null || notebook.getName().trim().equals(""))
             throw new BadRequestException("Notebook name required.");
@@ -79,5 +92,7 @@ public class NotebookController {
             throw new EntityNotFound("Notebook " + nbId + " not found.");
         }
     }
+
+
 
 }
