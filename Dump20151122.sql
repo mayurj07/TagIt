@@ -27,6 +27,7 @@ DROP TABLE IF EXISTS `bookmark`;
 CREATE TABLE `bookmarks` (
   `bookmarkid` int(11) NOT NULL AUTO_INCREMENT,
   `bookmark_name` varchar(60) DEFAULT NULL,
+  `bookmarkDesc` varchar(200) DEFAULT NULL,
   `notebook_id` int(11) NOT NULL,
   PRIMARY KEY (`bookmarkid`),
   KEY `notebook_id_idx` (`notebook_id`),
