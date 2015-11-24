@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class BookmarkController {
 
+
+    @Autowired
+    private BookmarkDao bookmarkDao;
+
+
     @RequestMapping(value= "/createBookmark", method = RequestMethod.POST)
     @ResponseBody
     public String create(@RequestParam(value = "bookmarkName") String bookmarkName,
@@ -28,6 +33,4 @@ public class BookmarkController {
         return "Bookmark succesfully created! (id = " + bookmark.getBookmarkId() + ")";
     }
 
-    @Autowired
-    private BookmarkDao bookmarkDao;
 }

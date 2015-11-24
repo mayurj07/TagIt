@@ -10,7 +10,7 @@ public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="bookmarkid")
-    private long bookmarkId;
+    private int bookmarkId;
 
     @NotNull
     @Column(name="bookmark_name")
@@ -49,7 +49,7 @@ public class Bookmark {
         return notebookId;
     }
 
-    public void setBookmarkId(long bookmarkId) {
+    public void setBookmarkId(int bookmarkId) {
         this.bookmarkId = bookmarkId;
     }
 
