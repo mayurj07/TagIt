@@ -1,14 +1,8 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
-import edu.sjsu.cmpe275.tagit.configuration.AppConfig;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 
 
@@ -19,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@Import(AppConfig.class)
 
 @Controller
-public class MainController extends WebMvcConfigurerAdapter {
+public class MainController{
 
   @RequestMapping("/")
   @ResponseBody

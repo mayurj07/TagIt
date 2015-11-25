@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 
 @RestController
@@ -106,6 +107,32 @@ public class NotebookController {
         } catch (Exception e) {
             throw new EntityNotFound("Notebook " + nbId + " not found.");
         }
+    }
+
+    /**
+     * Get All Notebooks for the user
+     * @param userId
+     * @return List of notebooks
+     */
+    @RequestMapping(value = "/getAll/user/{id}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@PathVariable(value = "id") int userId) {
+        try {
+            //check if the user exists
+
+//            Notebook notebook = notebookService.getNotebookByID(notebookId);
+//            if(notebook.getName()!=null){
+
+                ArrayList<Notebook> notebooks = notebookService.getAllNotebooks(userId);
+                return new ResponseEntity<ArrayList<Notebook>>(notebooks, HttpStatus.OK);
+//            }
+//            else{
+//                throw new EntityNotFound("Notebook " + notebookId + " not found.");
+//            }
+        }
+        catch (Exception e) {
+            throw new EntityNotFound("User " + userId + " not found.");
+        }
+
     }
 
 }

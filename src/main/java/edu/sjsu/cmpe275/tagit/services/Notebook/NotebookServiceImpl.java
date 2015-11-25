@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service("NotebookService")
 @Component
 @Transactional
@@ -30,6 +32,17 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public void removeNotebook(long id) throws EntityNotFound {
-         noteBookDao.delete(id);
+        noteBookDao.delete(id);
+    }
+
+    @Override
+    public ArrayList<Notebook> getAllNotebooks(long id) throws EntityNotFound {
+        ArrayList<Notebook> notebookArrayList = new ArrayList<Notebook>();
+        Iterable<Notebook> notebooks = noteBookDao.findNotebookByOwnerId(id);
+        for (Notebook nb : notebooks) {
+            System.out.println("id: " + nb.getNotebookid() + " NotebookName: " + nb.getName() + " owner_id: " + nb.getOwner_id());
+            notebookArrayList.add(nb);
+        }
+        return notebookArrayList;
     }
 }

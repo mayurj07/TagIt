@@ -6,4 +6,6 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface BookmarkDao extends CrudRepository<Bookmark, Long> {
+
+
 }
