@@ -2,12 +2,12 @@ package edu.sjsu.cmpe275.tagit.controllers;
 
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
-import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 
 @RestController
-//@Component("UserController")
+@Component("UserController")
 @RequestMapping("/user")
 public class UserController {
 

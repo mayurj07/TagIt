@@ -43,6 +43,9 @@ public class NotebookServiceImpl implements NotebookService {
             System.out.println("id: " + nb.getNotebookid() + " NotebookName: " + nb.getName() + " owner_id: " + nb.getOwner_id());
             notebookArrayList.add(nb);
         }
+        if(notebookArrayList.isEmpty()){
+            throw new EntityNotFound("User does not have any notebooks.");
+        }
         return notebookArrayList;
     }
 }

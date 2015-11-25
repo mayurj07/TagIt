@@ -3,7 +3,9 @@ package edu.sjsu.cmpe275.tagit.controllers;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
+import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
+import edu.sjsu.cmpe275.tagit.services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +25,12 @@ public class NotebookController {
     @Autowired
     NotebookService notebookService;
 
+    @Autowired
+    UserService userService;
+
     /**
      * Create a notebook. POST method
+     *
      * @param notebook
      * @return New Notebook object.
      */
@@ -49,6 +55,7 @@ public class NotebookController {
 
     /**
      * Update a Notebook. PUT method
+     *
      * @param nbId
      * @param notebook
      * @return Updated Notebook object.
@@ -76,6 +83,7 @@ public class NotebookController {
 
     /**
      * Get a Notebook by ID. GET method
+     *
      * @param nbId
      * @return Notebook object.
      */
@@ -95,6 +103,7 @@ public class NotebookController {
 
     /**
      * Delete a Notebook. DELETE method
+     *
      * @param nbId
      * @return Deleted Notebook object.
      */
@@ -110,29 +119,22 @@ public class NotebookController {
     }
 
     /**
-     * Get All Notebooks for the user
+     * Get all Notebooks for the user.
      * @param userId
      * @return List of notebooks
      */
     @RequestMapping(value = "/getAll/user/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@PathVariable(value = "id") int userId) {
         try {
-            //check if the user exists
-
-//            Notebook notebook = notebookService.getNotebookByID(notebookId);
-//            if(notebook.getName()!=null){
-
+            User user = userService.getUserById(userId);
+            if (user.getName() != null) {
                 ArrayList<Notebook> notebooks = notebookService.getAllNotebooks(userId);
                 return new ResponseEntity<ArrayList<Notebook>>(notebooks, HttpStatus.OK);
-//            }
-//            else{
-//                throw new EntityNotFound("Notebook " + notebookId + " not found.");
-//            }
+            } else
+                throw new EntityNotFound("User " + userId + " not found.");
+        } catch (Exception e) {
+            throw new EntityNotFound("" + e);
         }
-        catch (Exception e) {
-            throw new EntityNotFound("User " + userId + " not found.");
-        }
-
     }
 
 }
