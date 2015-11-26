@@ -1,0 +1,405 @@
+<!doctype html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	
+	<title>TagIt</title>
+	<meta name="description" content="Travel guide" />	    
+	<meta name="keywords" content="cmpe275, javascript, bookmarks, tagIt, tagit, project">
+	<meta property="og:title" content="">
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="fancybox/jquery.fancybox-v=2.1.5.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/font-awesome.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="css/style.css">	
+	
+	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	
+	
+	<link rel="prefetch" href="images/zoom.png">
+		
+</head>
+
+<body>
+	<div class="navbar navbar-fixed-top" data-activeslide="1">
+		<div class="container">
+		
+			<!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			
+			<div class="nav-collapse collapse navbar-responsive-collapse">
+				<ul class="nav row">
+					<li data-slide="1" class="col-12 col-sm-2"><a id="menu-link-1" href="#slide-1" title="Next Section"><span class="icon icon-home"></span> <span class="text">HOME</span></a></li>
+					<li data-slide="2" class="col-12 col-sm-2"><a id="menu-link-2" href="#slide-2" title="Next Section"><span class="icon icon-search"></span> <span class="text">SEARCH</span></a></li>
+					<li data-slide="3" class="col-12 col-sm-2"><a id="menu-link-3" href="#slide-3" title="Next Section"><span class="icon icon-picture"></span> <span class="text">HOT DESTINATIONS</span></a></li>
+					<li data-slide="4" class="col-12 col-sm-2"><a id="menu-link-4" href="#slide-4" title="Next Section"><span class="icon icon-gears"></span> <span class="text">PROCESS</span></a></li>
+					<!--li data-slide="5" class="col-12 col-sm-2"><a id="menu-link-5" href="#slide-5" title="Next Section"><span class="icon icon-heart"></span> <span class="text">CLIENTS</span></a></li-->
+					<li data-slide="6" class="col-12 col-sm-2"><a id="menu-link-6" href="#slide-6" title="Next Section"><span class="icon icon-envelope"></span> <span class="text">CONTACT</span></a></li>
+				</ul>
+				<div class="row">
+					<div class="col-sm-2 active-menu"></div>
+				</div>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</div><!-- /.navbar -->
+	
+	
+	<!-- === Arrows === -->
+	<div id="arrows">
+		<div id="arrow-up" class="disabled"></div>
+		<div id="arrow-down"></div>
+		<div id="arrow-left" class="disabled visible-lg"></div>
+		<div id="arrow-right" class="disabled visible-lg"></div>
+	</div><!-- /.arrows -->
+	
+	
+	<!-- === MAIN Background === -->
+	<div class="slide story player" id="slide-1" data-slide="1" data-property="{videoURL:'https://youtu.be/e56DUyuMQh8',containment:'self', autoPlay:true, mute:true, startAt:21, opacity:4, showControls:false, quality:'hd1080', loop:true}">
+		<div class="container">
+			<div id="home-row-1" class="row clearfix">
+				<div class="col-12">
+					<h1 class="font-semibold">TAGIT</h1>
+					<h4><span class="font-semibold">Save & Share Bookmarks</span></h4>
+					<br>
+					<br>
+				</div><!-- /col-12 -->
+			</div><!-- /row -->
+			<div id="home-row-2" class="row clearfix">
+				<div class="col-12 col-sm-4"><div class="home-hover navigation-slide" data-slide="4"><img src="images/s02.png"></div><span>PROCESS</span></div>
+				<div class="col-12 col-sm-4"><div class="home-hover navigation-slide" data-slide="3"><img src="images/s01.png"></div><span>FINEST PLACES</span></div>
+				<div class="col-12 col-sm-4"><div class="home-hover navigation-slide" data-slide="5"><img src="images/s03.png"></div><span>SUITABLE</span></div>
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /slide1 -->
+	
+	<!-- === Slide 2 === -->
+	<div class="slide story" id="slide-2" data-slide="2">
+		<div class="container">
+			<div class="row title-row">
+				<div class="col-12 font-thin">Weekend or not, put your travel shoes on and get set. But <span class="font-semibold">Where to?</span> Yes, your <span class="font-semibold">amigos</span> are here to help you with that.</div>
+			</div><!-- /row -->
+			<div class="row title-row">
+				<div class="container" style="width:600px; margin:50px auto;">
+				    <form class="searchbox">
+				        <input type="search" placeholder="Search your next adventure" name="search" class="searchbox-input" onkeyup="buttonUp();">
+				        <!--input type="submit" class="searchbox-submit" value="GO">
+				        <span class="searchbox-icon">Search</span-->
+				    </form>
+				</div>
+				<i class="icon icon-search"></i>
+			</div><!-- /row -->
+			<div class="row content-row">
+				<!--div class="col-12 col-lg-3 col-sm-6">
+					<p><i class="icon icon-eye-open"></i></p>
+					<h2 class="font-thin">Visual <span class="font-semibold">Identity</span></h2>
+					<h4 class="font-thin">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+				</div><!-- /col12 -->
+				<div class="col-12 col-lg-3 col-sm-6 col-sm-offset-2">
+					<p><i class="icon icon-laptop"></i></p>
+					<h2 class="font-thin">Web <span class="font-semibold">Design</span></h2>
+					<h4 class="font-thin">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+				</div><!-- /col12 -->
+				<div class="col-12 col-lg-3 col-sm-6 col-sm-offset-2">
+					<p><i class="icon icon-tablet"></i></p>
+					<h2 class="font-thin">Mobile <span class="font-semibold">Apps</span></h2>
+					<h4 class="font-thin">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+				</div><!-- /col12 -->
+				<!--div class="col-12 col-lg-3 col-sm-6">
+					<p><i class="icon icon-pencil"></i></p>
+					<h2 class="font-semibold">Development</h2>
+					<h4 class="font-thin">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h4>
+				</div><!-- /col12 -->
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /slide2 -->
+	
+	<!-- === SLide 3 - Portfolio -->
+	<div class="slide story" id="slide-3" data-slide="3">
+	<div class="row" style="padding: 30px;">
+		<div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	        <div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="San Francisco"><img src="//placehold.it/600x400/444/F8F8F8" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">San Francisco</span></p>
+	            <p></p>
+
+	          </div>
+	        </div><!--/panel-->
+	    </div><!--/col-->
+
+	    <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Los Angeles"><img src="//placehold.it/600x400/454545/FFF" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Los Angeles</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+	      </div><!--/col-->
+	      
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Denver"><img src="//placehold.it/600x400/555/F2F2F2" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Denver</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+	      
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Dallas"><img src="//placehold.it/600x400/555/FFF" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Dallas</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+	      
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Florida"><img src="//placehold.it/600x400/555/EEE" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Florida</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+	      
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Las Vegas"><img src="//placehold.it/600x400/666/F4F4F4" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Las Vegas</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="New York"><img src="//placehold.it/600x400/666/F4F4F4" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">New York</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Miami"><img src="//placehold.it/600x400/666/F4F4F4" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Miami</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Chicago"><img src="//placehold.it/600x400/666/F4F4F4" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Chicago</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+
+	      <div class="col-12 col-sm-4 col-lg-2 col-xs-6" style="padding: 30px;">
+	      
+	      	<div class="panel panel-default">
+	          <div class="panel-thumbnail"><a href="#" title="Phoenix"><img src="//placehold.it/600x400/666/F4F4F4" class="img-responsive"></a></div>
+	          <div class="panel-body" align="middle">
+	            <p><span class="font-semibold">Phoenix</span></p>
+	            <p></p>
+	            
+	          </div>
+	        </div><!--/panel--> 
+
+	      </div><!--/col--> 
+	  </div>
+    </div>
+	<!-- /slide3 -->
+
+	
+	<!-- === Slide 4 - Process === -->
+	<div class="slide story" id="slide-4" data-slide="4">
+		<div class="container">
+			<div class="row title-row">
+				<div class="col-12 font-thin">See us <span class="font-semibold">at work</span></div>
+			</div><!-- /row -->
+			<div class="row line-row">
+				<div class="hr">&nbsp;</div>
+			</div><!-- /row -->
+			<div class="row subtitle-row">
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+				<div class="col-12 col-sm-10 font-light">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</div>
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+			</div><!-- /row -->
+			<div class="row content-row">
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+				<div class="col-12 col-sm-2">
+					<p><i class="icon icon-bolt"></i></p>
+					<h2 class="font-thin">Listening to<br><span class="font-semibold" >your needs</span></h2>
+					<h4 class="font-thin">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h4>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2">
+					<p><i class="icon icon-cog"></i></p>
+					<h2 class="font-thin">Project<br><span class="font-semibold">discovery</span></h2>
+					<h4 class="font-thin">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h4>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2">
+					<p><i class="icon icon-cloud"></i></p>
+					<h2 class="font-thin">Storming<br><span class="font-semibold">our brains</span></h2>
+					<h4 class="font-thin">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h4>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2">
+					<p><i class="icon icon-map-marker"></i></p>
+					<h2 class="font-thin">Getting<br><span class="font-semibold">there</span></h2>
+					<h4 class="font-thin">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h4>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2">
+					<p><i class="icon icon-gift"></i></p>
+					<h2 class="font-thin">Delivering<br><span class="font-semibold">the product</span></h2>
+					<h4 class="font-thin">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</h4>
+				</div><!-- /col12 -->
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /slide4 -->
+	
+	<!-- === Slide 5 === -->
+	<!--div class="slide story" id="slide-5" data-slide="5">
+		<div class="container">
+			<div class="row title-row">
+				<div class="col-12 font-thin"><span class="font-semibold">Clients</span> we’ve worked with</div>
+			</div><!-- /row -->
+			<!--div class="row line-row">
+				<div class="hr">&nbsp;</div>
+			</div><!-- /row -->
+			<!--div class="row subtitle-row">
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+				<div class="col-12 col-sm-10 font-light">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. <br/><br/> The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero.</div>
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+			</div><!-- /row -->
+			<!--div class="row content-row">
+				<div class="col-1 col-sm-1 hidden-sm">&nbsp;</div>
+				<div class="col-12 col-sm-2"><img src="images/client01.png" alt=""></div>
+				<div class="col-12 col-sm-2"><img src="images/client02.png" alt=""></div>
+				<div class="col-12 col-sm-2"><img src="images/client03.png" alt=""></div>
+				<div class="col-12 col-sm-2"><img src="images/client04.png" alt=""></div>
+				<div class="col-12 col-sm-2"><img src="images/client05.png" alt=""></div>
+				<div class="col-1 col-sm-1 hidden-sm">&nbsp;</div>
+			</div><!-- /row -->
+		<!--/div><!-- /container -->
+	<!--/div><!-- /slide5 -->
+	
+	<!-- === Slide 6 / Contact === -->
+	<div class="slide story" id="slide-6" data-slide="6">
+		<div class="container">
+			<div class="row title-row">
+				<div class="col-12 font-light">Leave us a <span class="font-semibold">message</span></div>
+			</div><!-- /row -->
+			<div class="row line-row">
+				<div class="hr">&nbsp;</div>
+			</div><!-- /row -->
+			<div class="row subtitle-row">
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+				<div class="col-12 col-sm-10 font-light">You can find us literally anywhere, just push a button and we’re there</div>
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+			</div><!-- /row -->
+			<div id="contact-row-4" class="row">
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+				<div class="col-12 col-sm-2 with-hover-text">
+					<p><a target="_blank" href="#"><i class="icon icon-phone"></i></a></p>
+					<span class="hover-text font-light ">+44 4839-4343</span></a>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2 with-hover-text">
+					<p><a target="_blank" href="#"><i class="icon icon-envelope"></i></a></p>
+					<span class="hover-text font-light ">munter@blacktie.co</span></a>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2 with-hover-text">
+					<p><a target="_blank" href="#"><i class="icon icon-home"></i></a></p>
+					<span class="hover-text font-light ">London, England<br>zip code 98443</span></a>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2 with-hover-text">
+					<p><a target="_blank" href="#"><i class="icon icon-facebook"></i></a></p>
+					<span class="hover-text font-light ">facebook/blacktie_co</span></a>
+				</div><!-- /col12 -->
+				<div class="col-12 col-sm-2 with-hover-text">
+					<p><a target="_blank" href="#"><i class="icon icon-twitter"></i></a></p>
+					<span class="hover-text font-light ">@BlackTie_co</span></a>
+				</div><!-- /col12 -->
+				<div class="col-sm-1 hidden-sm">&nbsp;</div>
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div><!-- /Slide 6 -->
+	
+</body>
+
+	<!-- SCRIPTS -->
+	<script src="js/html5shiv.js"></script>
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery-migrate-1.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="fancybox/jquery.fancybox.pack-v=2.1.5.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/jquery.mb.YTPlayer.min.js"></script>
+	
+	<!-- fancybox init -->
+	<script>
+	$(document).ready(function(e) {
+		var lis = $('.nav > li');
+		menu_focus( lis[0], 1 );
+		
+		$(".fancybox").fancybox({
+			padding: 10,
+			helpers: {
+				overlay: {
+					locked: false
+				}
+			}
+		});
+	
+	});
+
+	$(function(){
+      $(".player").YTPlayer();
+    });
+	</script>
+
+</html>

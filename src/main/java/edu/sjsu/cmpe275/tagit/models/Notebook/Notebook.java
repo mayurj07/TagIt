@@ -37,7 +37,6 @@ public class Notebook {
 
     //setter and getters
 
-
     public long getNotebookid() {
         return notebookid;
     }
