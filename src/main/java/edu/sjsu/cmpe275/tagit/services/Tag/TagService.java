@@ -1,4 +1,4 @@
-package edu.sjsu.cmpe275.tagit.services;
+package edu.sjsu.cmpe275.tagit.services.Tag;
 
 import edu.sjsu.cmpe275.tagit.models.Tag;
 
