@@ -1,9 +1,11 @@
-package edu.sjsu.cmpe275.tagit.models;
+package edu.sjsu.cmpe275.tagit.models.Tag;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Generated;
 import org.hibernate.id.UUIDGenerationStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by akanksha on 11/22/2015.
@@ -13,15 +15,44 @@ import javax.persistence.*;
 public class Tag {
 
     @Column(name = "tagid")
+    @JsonProperty
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long tagid;
+    private long tagid;
 
+    @JsonProperty
+    @NotNull
     @Column(name="name")
-    String tagName;
+    private String tagName;
 
+    @JsonProperty
     @Column(name="bookmark_id")
-    long bookmarkID;
+    private long bookmarkID;
+
+    public long getTag_userid() {
+        return tag_userid;
+    }
+
+    public void setTag_userid(long tag_userid) {
+        this.tag_userid = tag_userid;
+    }
+
+    @JsonProperty
+    @Column(name="tag_userid")
+    private long tag_userid;
+
+    @JsonProperty
+    @Transient
+    private int tagCount;
+
+    public int getTagCount() {
+        return tagCount;
+    }
+
+    public void setTagCount(int tagCount) {
+        this.tagCount = tagCount;
+    }
+
 
     public long getBookmarkID() {
         return bookmarkID;

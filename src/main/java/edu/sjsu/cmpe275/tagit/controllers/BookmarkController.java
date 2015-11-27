@@ -3,16 +3,13 @@ package edu.sjsu.cmpe275.tagit.controllers;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Bookmark.Bookmark;
-import edu.sjsu.cmpe275.tagit.models.Bookmark.BookmarkDao;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import edu.sjsu.cmpe275.tagit.services.Bookmark.BookmarkService;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
