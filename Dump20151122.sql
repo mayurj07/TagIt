@@ -145,6 +145,15 @@ CREATE TABLE `tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE `tagit`.`tags`
+ADD COLUMN `tag_userid` INT NOT NULL AFTER `bookmark_id`,
+ADD INDEX `tag_userid_idx` (`tag_userid` ASC);
+ALTER TABLE `tagit`.`tags`
+ADD CONSTRAINT `tag_userid`
+FOREIGN KEY (`tag_userid`)
+REFERENCES `tagit`.`users` (`userid`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
 --
 -- Dumping data for table `tag`
 --
