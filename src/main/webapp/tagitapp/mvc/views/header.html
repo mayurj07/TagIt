@@ -1,0 +1,56 @@
+<div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-collapse collapse">
+            <nav id="main-nav" ng-transclude>
+                <li><a href="#" class="navbar-brand"><a class="navbar-brand" href="#/home"><img src="img/logo.png"></a></a></li>
+                <li data-value="system">
+                    <a href="#/notebooks"><i class="glyphicon glyphicon-book"></i> NOTEBOOKS</a>
+                </li>
+                <li data-value="user" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-comment"></span> BOOKMARKS <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-value="groups"><a href="#/user/unconfirmed-users">Unconfirmed Users</a></li>
+                        <li data-value="groups"><a href="#/user/users">Users</a></li>
+                        <li data-value="groups"><a href="#/user/groups">Groups</a></li>
+                    </ul>
+                </li>
+                <li data-value="messenger" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-comment"></span> TAGS <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-value="system-messages"><a href="#/messenger/system-messages">URL System Messages</a>
+                        </li>
+                        <!--<li data-value="system-messages"><a href="#/messenger/admin-messages">Admin Messages(test)</a></li>-->
+                        <li data-value="system-messages"><a href="#/messenger/sys-messages">NEW System Messages</a></li>
+                        <li data-value="polls"><a href="#/messenger/polls">Polls</a></li>
+                    </ul>
+                </li>
+                <li data-value="messenger" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-comment"></span> MY-ACCOUNT <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-value="filters"><a href="#/messenger/filters">Filters</a></li>
+                        <li data-value="triggers"><a href="#/messenger/triggers">Triggers</a></li>
+                        <li data-value="jobs"><a href="#/messenger/jobs">Jobs</a></li>
+                    </ul>
+                </li>
+                <li data-value="mail" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-envelope"></span> DASHBOARD <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-value="templates"><a href="#/mail/templates">Templates</a></li>
+                    </ul>
+                </li>
+                <li data-value="report" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-stats"></span> REPORT <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-value="overview"><a href="#/report/overview">Overview</a></li>
+                    </ul>
+                </li>
+            </nav>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>

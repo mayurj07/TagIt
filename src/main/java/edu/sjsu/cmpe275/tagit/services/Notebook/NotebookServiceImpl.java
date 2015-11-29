@@ -40,7 +40,6 @@ public class NotebookServiceImpl implements NotebookService {
         ArrayList<Notebook> notebookArrayList = new ArrayList<Notebook>();
         Iterable<Notebook> notebooks = noteBookDao.findNotebookByOwnerId(id);
         for (Notebook nb : notebooks) {
-            System.out.println("id: " + nb.getNotebookid() + " NotebookName: " + nb.getName() + " owner_id: " + nb.getOwner_id());
             notebookArrayList.add(nb);
         }
         if(notebookArrayList.isEmpty()){

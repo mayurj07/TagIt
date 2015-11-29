@@ -1,0 +1,153 @@
+<ol class="breadcrumb">
+  <li><a href="javascript:void(0);">Messenger</a></li>
+  <li class="active">Jobs</li>
+</ol>
+<div id="main-content" class="container-fluid content">
+  <div class="row-fluid">
+    <div class="col-lg-3">
+      <table id="messengerMessagesList" class="table table-hover selectable">
+        <thead>
+          <tr>
+            <th width="10"></th>
+            <th>Jobs</th>
+            <th width="10"><a href="javascript:void(0);" ng-click="refreshList()"><span class="glyphicon glyphicon-refresh"></span></a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities">
+            <td>
+              <span class="glyphicon glyphicon-stop" ng-show="entity.status == 'STOP'"></span>
+              <span class="glyphicon glyphicon-play" ng-show="entity.status == 'RUNNING'"></span>
+              <span class="glyphicon glyphicon-question-sign" ng-show="entity.status != 'STOP' && entity.status != 'RUNNING'"></span>
+            </td>
+            <td colspan=2 tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="updated at {{entity.updated_at | moment:'fromNow'}}" ng-click="renderUpdate(entity['_id'])">{{entity.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-9">
+      <form role="form" ng-submit="save()" method="POST">
+        <div class="form-group">
+          <label class="control-label" for="name">Name *</label>
+          <input name="subject" ng-model="entity.name" type="text" class="form-control" placeholder="Enter Job Name">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="filter">Repeat</label>
+          <input ng-model="entity.repeat" type="checkbox">
+        </div>
+        <div class="form-group" ng-show="entity.repeat">
+          <label class="control-label" for="interval">Interval *</label>
+          <input name="subject" ng-model="entity.interval" type="text" class="form-control" placeholder="Enter Time(Seconds) that you want the job to wait for next turn">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="expectStopAt">Stop At</label>
+          <input name="expectStopAt" ng-model="entity.expectStopAt" type="text" class="form-control" placeholder="YYYY-MM-DD HH:mm:ss (eg. 2014-09-01 20:08:00)">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="filter">Filter *</label>
+          <p class="form-control-static"><span class="clickable" ng-click="showFilterSelect()">{{entity.filter ? entity.filterText : 'N/A'}}</span> <span class="glyphicon glyphicon-remove" ng-show="entity.filter" ng-click="resetFilterSelect()"></span></p>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="trigger">Trigger</label>
+          <p class="form-control-static"><span class="clickable" ng-click="showTriggerSelect()">{{entity.trigger ? entity.triggerText : 'N/A'}}</span> <span class="glyphicon glyphicon-remove" ng-show="entity.trigger" ng-click="resetTriggerSelect()"></span></p>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="type">Type</label>
+          <select class="form-control" ng-model="entity.type" ng-options="type for type in types">
+          </select>
+        </div>
+        <div class="form-group" ng-show="isType('SCRIPT')">
+          <label class="control-label" for="script">Script *</label>
+          <div ui-ace="{mode: 'javascript'}" ng-model="entity.script" class="ace_editor"></div>
+        </div>
+        <div class="form-group" ng-show="isType('SYS_MSG')">
+          <label class="control-label" for="withFullSync">Full Sync</label>
+          <input ng-model="entity.withFullSync" type="checkbox">
+        </div>
+        <div class="form-group" ng-show="isType('SYS_MSG')">
+          <label class="control-label" for="url">URL *</label>
+          <input name="subject" ng-model="entity.url" type="text" class="form-control" placeholder="Enter Message URL">
+        </div>
+        <div class="form-group" ng-show="isType('SYS_MSG')">
+          <label class="control-label" for="ref">REF *</label>
+          <input name="subject" ng-model="entity.ref" type="text" class="form-control" placeholder="Enter REF URL">
+        </div>
+        <div class="form-group" ng-show="isType('EMAIL')">
+          <label class="control-label" for="email-template">Email Template *</label>
+          <p class="form-control-static"><span class="clickable" ng-click="showEmailTemplateSelect()">{{entity.emailTemplate ? entity.emailTemplateText : 'N/A'}}</span> <span class="glyphicon glyphicon-remove" ng-show="entity.emailTemplate" ng-click="resetEmailTemplateSelect()"></span></p>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary pull-right" style="margin-left: 1em;" ng-show="entity.status == 'STOP'">{{ updateMode ? "Save" : "Create" }}</button>
+          <button type="button" class="btn btn-warning pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="cancelUpdate()">Cancel</button>
+          <button type="button" class="btn btn-danger pull-right" style="margin-left: 1em;" ng-show="updateMode && entity.status == 'STOP'" ng-click="remove()">Remove</button>
+          <button type="button" class="btn btn-success" ng-click="startJob(entity)" ng-show="updateMode && entity.status == 'STOP'">Run</button>
+          <button type="button" class="btn btn-warning" ng-click="stopJob(entity)" ng-show="updateMode && entity.status != 'STOP'">Stop</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="filterSelect" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Filters</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover selectable">
+          <tbody>
+            <tr ng-repeat="filter in filters">
+              <td ng-click="selectFilter(filter['_id'], filter.name)">{{filter.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div ui-ace="{mode: 'javascript'}" ng-model="entity.filterParams" class="ace_editor"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="triggerSelect" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Triggers</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover selectable">
+          <tbody>
+            <tr ng-repeat="trigger in triggers">
+              <td ng-click="selectTrigger(trigger['_id'], trigger.name)">{{trigger.name}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div ui-ace="{mode: 'javascript'}" ng-model="entity.triggerParams" class="ace_editor"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="emailTemplateSelect" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Email Templates</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover selectable">
+          <tbody>
+            <tr ng-repeat="template in emailTemplates">
+              <td ng-click="selectEmailTemplates(template['_id'], template.subject)">{{template.subject}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div ui-ace="{mode: 'javascript'}" ng-model="entity.emailTemplateParams" class="ace_editor"></div>
+      </div>
+    </div>
+  </div>
+</div>
