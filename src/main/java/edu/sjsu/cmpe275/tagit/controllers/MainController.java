@@ -4,14 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
-//@RestController
-//@EnableAutoConfiguration
-//@ComponentScan
-//@RequestMapping("/")
-//@Import(AppConfig.class)
-
 @Controller
 public class MainController{
 
@@ -19,10 +11,11 @@ public class MainController{
   @ResponseBody
   public String index() {
 
-      return "/webapp/hangoutamigosapp/index.html";
-
-//      return "Proudly handcrafted by " +
-//        "<a href='http://netgloo.com/en'>netgloo</a> :)";
+      return "<h1>Welcome to CMPE 275 Project - Team 8 </h1>" +
+              "<h1>TagIt App - Save and Share your bookmarks like Evernote.</h1>" +
+              "<h2>" +
+                "<a href=\"http://localhost:8080/tagitapp/index.html\"> Open Web App </a>" +
+              "</h2>";
   }
 
 }
