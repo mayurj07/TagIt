@@ -48,4 +48,18 @@ public class NotebookServiceImpl implements NotebookService {
         }
         return notebookArrayList;
     }
+
+    @Override
+    public ArrayList<Notebook> getShared(long id) throws EntityNotFound {
+        ArrayList<Notebook> notebookArrayList = new ArrayList<Notebook>();
+        Iterable<Notebook> notebooks = noteBookDao.findSharedNotebook(id);
+        for (Notebook nb : notebooks) {
+            System.out.println("id: " + nb.getNotebookid() + " NotebookName: " + nb.getName() + " owner_id: " + nb.getOwner_id());
+            notebookArrayList.add(nb);
+        }
+        if(notebookArrayList.isEmpty()){
+            throw new EntityNotFound("User does not have any notebooks.");
+        }
+        return notebookArrayList;
+    }
 }

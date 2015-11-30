@@ -186,6 +186,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `user`
 --
 
+ALTER TABLE `tagit`.`notebooks`
+ADD COLUMN `write` INT(1) NULL DEFAULT 1 AFTER `owner_id`;
+
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
