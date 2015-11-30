@@ -13,11 +13,12 @@ import java.lang.Object;
 public interface CommentService {
 
     public Comment createComment(Comment comment);
-    //public Comment getCommentByCommentId(int id);
-    //public void removeComment(long id);
-    public ArrayList<Comment> getCommentByBookmarkId(int bookmarkId);
+    public Comment updateComment(Comment comment);
+    public Comment getCommentByCommentId(long id);
+    public void removeComment(long id);
+    public ArrayList<Comment> getCommentByBookmarkId(long bookmarkId);
 
     //void removeComment(int commentId);
-    //public ArrayList<Comment> getAllCommentsByBookmarkId(int id);
+    //public ArrayList<Comment> getAllCommentsByBookmarkId(long id);
 
 }
