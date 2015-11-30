@@ -21,6 +21,7 @@ tmp/
 .DS_Store
 .history
 .idea
+bower_components
 .idea_modules
 .project
 RUNNING_PID

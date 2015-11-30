@@ -182,6 +182,10 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+ALTER TABLE `tagit`.`comments`
+CHANGE COLUMN `commetid` `commentid` INT(11) NOT NULL AUTO_INCREMENT ;
+
 --
 -- Dumping data for table `user`
 --

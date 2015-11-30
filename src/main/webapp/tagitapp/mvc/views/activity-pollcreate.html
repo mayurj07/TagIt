@@ -1,0 +1,93 @@
+<div class="col-lg-12">
+    <h2>Create cross domain poll</h2>
+</div>
+<div class="col-lg-12">
+    <div class="success_space"></div>
+</div>
+<div class="col-lg-6">
+    <form id="create_poll_form" ng-submit="submitpoll()">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label class="control-label" for="from">FROM</label>
+                    <input name="from" ng-model="poll.email" type="text" class="form-control" placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                     <label class="control-label" for="pwd">PASSWORD</label>
+                     <input name="pwd" ng-model="poll.pwd" type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group" id ="divpoll">
+                    <label>What kind of poll is this?</label>
+                    
+                    <div class="radio">
+                        <label>
+                            <input type="radio"  id="type-radio1" value="option" ng-model = "poll.type">Poll with options
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="type-radio2" ng-model = "poll.type" value="score">Score (5-stars)
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="type-radio3"  ng-model = "poll.type" value="option-quiz">Option Quiz
+                        </label>
+                    </div>
+                 </div>
+                <h3>Domain Settings</h3>
+                <div class="form-group">
+                    <label>Choose a scope</label>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="scope" id="optionsRadios1" value="multi-domain" checked="" ng-model = "poll.scope">Multi-Domain
+                        </label>
+                        <input class="form-control" placeholder="Enter a comma separated set of domains" name="todomain" ng-model = "todomain">
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="scope" id="optionsRadios2" value="global" ng-model = "poll.scope">Global
+                        </label>
+                    </div>
+                </div>
+           </div>
+           <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Question</label>
+                    <input class="form-control" name="question" ng-model="poll.question">
+                    <p class="help-block">Enter the question you want answered.</p>
+                </div>
+
+                <div id = "Options" ng-show = "poll.type == 'option' || poll.type == 'option-quiz'">
+                    <h3>Options:</h3>
+
+                    <ul ng-repeat ="option in options">
+                        <li>
+                        <label>Option{{$index+1}}:</label>
+                        <input type = "text" placholder = "Enter your option" ng-model = "$parent[option]">
+                    </li>
+                </ul>
+                </div>
+                
+                <div class = "form-group">
+                     <input type = "button" id = "add-option" value = "Add +" ng-click = "addoption()"> 
+                </div>
+
+                <div class="form-group">
+                   <label class="control-label" for="isPrivate">PRIVATE</label>
+                   <input ng-model="poll.visibility" type="checkbox">
+                </div>
+
+                <div class="form-group">
+                    <input type = "file" id = "imagefile" fileread = "poll.image"><br>
+                     <img src = "" id = "imagesrc" ng-bind = "poll.image" height = "50px" width = "50px"></img> <br>
+                </div>
+            </div>   
+ 
+            <div class="form-group">
+                <button class="btn btn-success publish_poll form-control" type="submit">Publish Poll</button>
+            </div>
+            
+        </div>  
+    </form>
+</div>

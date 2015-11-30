@@ -1,0 +1,39 @@
+<ol class="breadcrumb">
+  <li><a href="javascript:void(0);">Messenger</a></li>
+  <li class="active">Filters</li>
+</ol>
+<div id="main-content" class="container-fluid content">
+  <div class="row-fluid">
+    <div class="col-lg-3">
+      <table id="messengerFilterList" class="table table-hover selectable">
+        <thead>
+          <tr>
+            <th>Filters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities">
+            <td tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="updated at {{entity.updated_at | moment:'fromNow'}}" ng-click="renderUpdate(entity['_id'])">{{entity.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-9">
+      <form role="form" ng-submit="save()" method="POST">
+        <div class="form-group">
+          <label class="control-label" for="name">Name</label>
+          <input name="subject" ng-model="entity.name" type="text" class="form-control" placeholder="Enter Filter Name">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="script">Script</label>
+          <div ui-ace="{mode: 'javascript'}" ng-model="entity.script" class="ace_editor"></div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary pull-right" style="margin-left: 1em;">{{ updateMode ? "Save" : "Create" }}</button>
+          <button type="button" class="btn btn-warning pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="cancelUpdate()">Cancel</button>
+          <button type="button" class="btn btn-danger pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="remove()">Remove</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
