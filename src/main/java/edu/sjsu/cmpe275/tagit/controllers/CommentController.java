@@ -12,9 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
-/**
- * Created by Cherisha on 11/28/15.
- */
 
 
 @RestController
@@ -35,7 +32,7 @@ public class CommentController {
 
 
         if (comment.getCommentBookmarkId()<= 0 ) {
-            throw new BadRequestException("Bookmark must belong to a valid bookmark.");
+            throw new BadRequestException("Comment must belong to a valid bookmark.");
         }
         if (comment.getCommentUserId()<= 0 ) {
             throw new BadRequestException("invalid user id.");
