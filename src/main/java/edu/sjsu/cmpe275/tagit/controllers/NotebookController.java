@@ -38,9 +38,8 @@ public class NotebookController {
     public ResponseEntity<Notebook> createNotebook(@Valid @RequestBody Notebook notebook, BindingResult result) {
         if (notebook.getName() == null || notebook.getName().trim().equals(""))
             throw new BadRequestException("Notebook name required.");
-        if (notebook.getOwner_id() == null || notebook.getOwner_id().trim().equals("")) {
+        if (notebook.getOwner_id() == null || notebook.getOwner_id().trim().equals(""))
             throw new BadRequestException("Owner Id required.");
-        }
         if (notebook.getAccess() == null || notebook.getAccess().trim().equals("")) {
             notebook.setAccess("yes");
         }

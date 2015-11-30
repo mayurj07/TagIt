@@ -7,13 +7,10 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by Cherisha on 11/28/15.
- */
 @Entity
 @Table(name = "comments")
 public class Comment {
-    @NotNull
+
     @Column(name = "commentid")
     @JsonProperty
     @Id

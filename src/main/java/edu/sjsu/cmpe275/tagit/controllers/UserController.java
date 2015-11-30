@@ -1,5 +1,7 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
+import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
+import edu.sjsu.cmpe275.tagit.Utils.Utils;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.User.User;
@@ -21,8 +23,11 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    EmailNotification emailNotification;
 
   //=================================================
   //          Create a new User
@@ -33,24 +38,32 @@ public class UserController {
       throw new BadRequestException("User name required.");
     if(user.getEmail() == null || user.getEmail().trim().equals(""))
       throw new BadRequestException("Email required.");
+    if(user.getCountry() == null || user.getCountry().trim().equals(""))
+      throw new BadRequestException("Country required.");
+    if(user.getPassword() == null || user.getPassword().trim().equals(""))
+      throw new BadRequestException("Password required.");
+    if(user.getState() == null || user.getState().trim().equals(""))
+      throw new BadRequestException("State required.");
 
-    User userob = new User();
 
-    try{
-      userob = new User(user.getName(), user.getEmail());
-      userob.setName(user.getName());
-      userob.setEmail(user.getEmail());
-     // System.out.println(user.getUserid());
+    //this call validated that email is not already in use
+    userService.isEmailAvailable(user.getEmail());
 
-    }catch(Exception e){
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-    User createdUser = userService.create(userob);
-    User userT = userService.getUserById(createdUser.getUserid());
-    System.out.println(" in user controller :: userid is : "+userT.getUserid());
-    response.addCookie(new Cookie("userid",String.valueOf(userT.getUserid()))); ////change to store the user email
+    String encryptPass = Utils.passwordEncrypter(user.getPassword());
+    System.out.println("encrypted pass: "+encryptPass);
 
-    return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
+      User userob = null;
+
+      try{
+          userob = new User(user.getName(), user.getEmail() , encryptPass, user.getCountry(),user.getState());
+          System.out.println(user.getUserid());
+      }
+      catch(Exception e){
+          return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
+
+      emailNotification.sendEmailonSignUp(user.getEmail(),user.getName());
+      return new ResponseEntity<User>(userService.create(userob), HttpStatus.CREATED);
   }
 
 
@@ -71,5 +84,26 @@ public class UserController {
     }
   }
 
+
+  //=================================================
+  //          User Login
+  //=================================================
+  @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
+  public ResponseEntity<User> validateUser(@Valid @RequestBody User user, BindingResult result){
+
+      User tempUser = userService.getUserByEmail(user.getEmail());
+      String savedPass = tempUser.getPassword();
+      String enteredPass =Utils.passwordEncrypter(user.getPassword());
+      System.out.println(savedPass);
+      System.out.println(enteredPass);
+      if( savedPass.equals(enteredPass) ){
+
+          return new ResponseEntity<User>(tempUser, HttpStatus.OK);
+      }
+      else{
+          throw new BadRequestException("Password incorrect");
+      }
+
+  }
 
 } // class UserController

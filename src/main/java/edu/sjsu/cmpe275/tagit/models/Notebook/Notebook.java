@@ -30,6 +30,7 @@ public class Notebook {
     @Column(name="access")
     private String access;
 
+
     //constructors
     public Notebook(){}
 
@@ -73,5 +74,13 @@ public class Notebook {
     public void setName(String name) {
         this.name = name;
     }
+
+//    public long getWrite() {
+//        return write;
+//    }
+
+//    public void setWrite(long write) {
+//        this.write = write;
+//    }
 
 }
