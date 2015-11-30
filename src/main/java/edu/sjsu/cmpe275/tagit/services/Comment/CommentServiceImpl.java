@@ -23,18 +23,29 @@ public class CommentServiceImpl implements CommentService {
         commentDao.save(comment);
         return comment;
     }
-
-
     @Override
-    public ArrayList<Comment> getCommentByBookmarkId(int bookmarkId) {
-        ArrayList<Comment> comment = (ArrayList<Comment>) commentDao.getCommentByBookmarkId(bookmarkId);
+    public Comment updateComment(Comment comment) {
+        commentDao.save(comment);
         return comment;
     }
 
 
-  /*  @Override
-    public void removeComment(int id) throws EntityNotFound {
-        commentDao.delete(id);
-    }*/
+    @Override
+    public ArrayList<Comment> getCommentByBookmarkId(long bookmarkId) {
+        ArrayList<Comment> comment = (ArrayList<Comment>) commentDao.getCommentByBookmarkId(bookmarkId);
+        return comment;
+    }
+    @Override
+    public Comment getCommentByCommentId(long commentId) {
+       Comment comment = commentDao.getCommentByCommentId(commentId);
+        return comment;
+    }
+
+    @Override
+    public void removeComment(long commentId)
+    {
+        commentDao.delete(commentId);
+
+    }
 
 }

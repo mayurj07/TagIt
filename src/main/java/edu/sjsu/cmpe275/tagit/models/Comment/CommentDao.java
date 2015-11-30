@@ -7,6 +7,9 @@ import javax.transaction.Transactional;
 @Transactional
 
 public interface CommentDao extends CrudRepository<Comment, Long> {
-    @Query(value="SELECT * FROM comment c  WHERE  c.comment_bookmark_id=?1",nativeQuery = true)
+    @Query(value="SELECT * FROM comments c  WHERE  c.comment_bookmark_id=?1",nativeQuery = true)
     Iterable<Comment> getCommentByBookmarkId(long bookmarkid);
+
+    @Query(value="SELECT * FROM comments c  WHERE  c.commentid=?1",nativeQuery = true)
+    Comment getCommentByCommentId(long commentId);
 }

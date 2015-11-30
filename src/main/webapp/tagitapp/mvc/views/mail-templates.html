@@ -1,0 +1,87 @@
+<ol class="breadcrumb">
+  <li><a href="javascript:void(0);">Mail</a></li>
+  <li class="active">Templates</li>
+</ol>
+<div id="main-content" class="container-fluid content">
+  <div class="row-fluid">
+    <div class="col-lg-4">
+      <table id="mailTemplateList" class="table table-hover selectable">
+        <thead>
+          <tr>
+            <th colspan=2>Templates</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities">
+            <td ng-click="renderUpdate(entity['_id'])"><div tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="updated at {{entity.updated_at | moment:'fromNow'}}">{{entity.subject}}</div></td>
+            <td><span class="glyphicon glyphicon-share pull-right" ng-click="showTemplateID(entity['_id'])" data-toggle="modal" data-target="#showIDDialog"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-8">
+      <form role="form" ng-submit="save()" method="POST">
+        <div class="form-group">
+          <label class="control-label" for="subject">Subject</label>
+          <input name="subject" ng-model="entity.subject" type="text" class="form-control" placeholder="Enter Email Subject (Support Mustache Grammer)">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="text-body">Text Content</label>
+          <textarea name="text-body" ng-model="entity.textBody" class="form-control" rows="5" placeholder="Mail Content in Plain Text Format (Support Mustache Grammer)"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="html-body">HTML Content</label>
+          <textarea name="html-body" ui-tinymce="tinymceOptions" ng-model="entity.htmlBody" class="form-control" rows="10" placeholder="Mail Content in Plain Text Format (Support Mustache Grammer)"></textarea>
+        </div>
+        <div class="form-group">
+          <em>* Subject &amp; Content support <a href="http://mustache.github.io/mustache.5.html" target="_blank">mustache</a> grammer!</em>
+          <button type="submit" class="btn btn-primary pull-right" style="margin-left: 1em;">{{ updateMode ? "Save" : "Create" }}</button>
+          <button type="button" class="btn btn-warning pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="cancelUpdate()">Cancel</button>
+          <button type="button" class="btn btn-danger pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="remove()">Remove</button>
+          <button type="button" class="btn btn-info pull-right" style="margin-left: 1em;" ng-show="updateMode" data-toggle="modal" data-target="#testMailDialog">Test</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="testMailDialog" class="modal fade">
+  <form role="form" method="POST" ng-submit="send()">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title">Mail Testing</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="control-label" for="params">Parameters</label>
+            <div ui-ace="{mode: 'javascript'}" ng-model="testCase.params" class="ace_editor"></div>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="emailAddr">Email Address</label>
+            <input name="emailAddr" ng-model="testCase.email" type="text" class="form-control" placeholder="Enter Email Address" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save &amp; Send</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="showIDDialog" class="modal fade">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Template ID</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center"><mark>{{selectedTemplateID}}</mark></p>
+      </div>
+    </div>
+  </div>
+</div>

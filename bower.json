@@ -1,0 +1,60 @@
+{
+  "name": "tagit",
+  "version": "0.0.1",
+  "description": "Tagit - Bookmark Sharing App",
+  "main": "index.html",
+  "authors": [
+    "mayurj07@gmail.com"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "jquery-pjax": "~1.9.4",
+    "bootstrap-sass": "~3.3.4",
+    "font-awesome": "~4.3.0",
+    "bootstrap-select": "~1.6.3",
+    "awesome-bootstrap-checkbox": "~0.3.3",
+    "angular": "~1.4.7",
+    "angular-ui-router": "0.2.13",
+    "ngstorage": "~0.3.0",
+    "angular-ui-utils": "bower-event",
+    "angular-bootstrap": "~0.12.1",
+    "angular-animate": "~1.3.14",
+    "angular-bootstrap-select": "~0.0.5",
+    "angular-datatables": "~0.4.3",
+    "angular-resource": "~1.4.3",
+    "angular-ui-calendar": "~0.8.1",
+    "backbone": "~1.1.2",
+    "backbone.paginator": "~2.0.2",
+    "morris.js": "~0.5.1",
+    "flot": "~0.8.3",
+    "flot.animator": "https://github.com/Codicode/flotanimator.git#3c256c0183d713fd3bf41d04417873928eb1a751",
+    "flot-orderBars": "https://github.com/emmerich/flot-orderBars.git#d44ff4f2fec4c8bb1254e59567ee39fa3684372e",
+    "jquery-autosize": "~1.18.17",
+    "bootstrap3-wysihtml5": "git://github.com/schnawel007/bootstrap3-wysihtml5.git#5f07036cb228c1cc8bab2d271701ceff0de66828",
+    "switchery": "~0.7.0",
+    "dropzone": "~4.0.0",
+    "jquery-ui": "~1.11.2",
+    "datatables": "~1.10.4",
+    "jquery-animateNumber": "https://github.com/aishek/jquery-animateNumber.git#v0.0.10",
+    "skycons": "https://github.com/darkskyapp/skycons.git#60d41374ea97c5da1f92622ddcecca6dd1d9beed",
+    "angular-cookies": "~1.4.2",
+    "angular-sanitize": "~1.0.5",
+    "bootstrap": "~3.3.5",
+    "lodash": "~3.10.0",
+    "underscore": ">=1.5.0",
+    "angular-route": "~1.4.8"
+  },
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "resolutions": {
+    "bootstrap-select": "~1.6.3",
+    "jquery": "~2.1.3",
+    "jquery-ui": "~1.11.2",
+    "underscore": ">=1.7.0",
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.7"
+  }
+}

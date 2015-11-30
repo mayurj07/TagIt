@@ -1,0 +1,14 @@
+<div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksSharedWithMe()">
+
+    <div class="row-fluid" ng-repeat="notebook in nb.sharedNotebooks">
+
+    <div class="col-lg-3 col-md-3">
+      <div class="bs-callout ng-class: status.WS.cls;">
+        <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
+        <h4>{{notebook.name}}</h4>
+        <span class="label label-info">Updated At: {{status.WS.ago}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

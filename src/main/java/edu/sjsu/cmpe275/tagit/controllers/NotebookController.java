@@ -138,4 +138,24 @@ public class NotebookController {
         }
     }
 
+    /**
+     * Get all Notebooks for the user.
+     * @param userId
+     * @return List of notebooks
+     */
+    @RequestMapping(value = "/getShared/user/{id}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Notebook>> getSharedNotebooks(@PathVariable(value = "id") int userId) {
+        try {
+            User user = userService.getUserById(userId);
+            if (user.getName() != null) {
+                ArrayList<Notebook> notebooks = notebookService.getShared(userId);
+                return new ResponseEntity<ArrayList<Notebook>>(notebooks, HttpStatus.OK);
+            } else
+                throw new EntityNotFound("User " + userId + " not found.");
+        } catch (Exception e) {
+            throw new EntityNotFound("" + e);
+        }
+    }
+
+
 }

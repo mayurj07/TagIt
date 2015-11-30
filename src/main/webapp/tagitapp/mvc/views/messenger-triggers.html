@@ -1,0 +1,61 @@
+<ol class="breadcrumb">
+  <li><a href="javascript:void(0);">Messenger</a></li>
+  <li class="active">Triggers</li>
+</ol>
+<div id="main-content" class="container-fluid content">
+  <div class="row-fluid">
+    <div class="col-lg-3">
+      <table id="messengerTriggerList" class="table table-hover selectable">
+        <thead>
+          <tr>
+            <th>Triggers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities">
+            <td tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="updated at {{entity.updated_at | moment:'fromNow'}}" ng-click="renderUpdate(entity['_id'])">{{entity.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-9">
+      <form role="form" ng-submit="save()" method="POST">
+        <div class="form-group">
+          <label class="control-label" for="name">Name</label>
+          <input name="subject" ng-model="entity.name" type="text" class="form-control" placeholder="Enter Trigger Name">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="script">Script</label>
+          <div ui-ace="{mode: 'javascript'}" ng-model="entity.script" class="ace_editor"></div>
+        </div>
+        <div class="form-group">
+          <em>"now" &amp; "lastSentAt" are <a href="http://momentjs.com/docs/" target="_blank">Moment</a> objects</em>
+          <button type="submit" class="btn btn-primary pull-right" style="margin-left: 1em;">{{ updateMode ? "Save" : "Create" }}</button>
+          <button type="button" class="btn btn-warning pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="cancelUpdate()">Cancel</button>
+          <button type="button" class="btn btn-danger pull-right" style="margin-left: 1em;" ng-show="updateMode" ng-click="remove()">Remove</button>
+          <button type="button" class="btn btn-info pull-right" style="margin-left: 1em;" data-toggle="modal" data-target="#testDialog">Test</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="testDialog" class="modal fade">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Trigger Script Testing</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="control-label" for="lastSentAt">Last Sent At</label>
+          <input name="lastSentAt" ng-model="testCase.lastSentAt" type="text" class="form-control" placeholder="YYYY-MM-DD HH:mm:ss (eg. 2014-09-01 20:08:00)" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="runTest()">Run</button>
+      </div>
+    </div>
+  </div>
+</div>

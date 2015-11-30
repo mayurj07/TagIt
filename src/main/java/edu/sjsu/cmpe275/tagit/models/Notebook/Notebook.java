@@ -26,6 +26,20 @@ public class Notebook {
     @Column(name="owner_id")
     private String owner_id;
 
+
+    @JsonProperty
+    @Column(name="write")
+    private int write;
+
+    public int getWrite() {
+        return write;
+    }
+
+    public void setWrite(int write) {
+        this.write = write;
+    }
+
+
     //constructors
     public Notebook(){}
 
