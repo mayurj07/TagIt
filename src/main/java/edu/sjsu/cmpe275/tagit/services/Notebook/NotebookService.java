@@ -14,4 +14,6 @@ public interface NotebookService {
     public void removeNotebook(long id);
 
     public ArrayList<Notebook> getAllNotebooks(long id);
+
+    public ArrayList<Notebook> getShared(long id);
 }
