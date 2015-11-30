@@ -1,6 +1,6 @@
 package edu.sjsu.cmpe275.tagit.configuration;
 
-import edu.sjsu.cmpe275.tagit.AOP.TagitLogin;
+import edu.sjsu.cmpe275.tagit.AOP.AOP;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class AppConfig {
     @Bean
-    public TagitLogin getTagitLogin(){
-        return new TagitLogin();
+    public AOP getTagitLogin(){
+        return new AOP();
     }
 }
