@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
+import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
 import edu.sjsu.cmpe275.tagit.Utils.Utils;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
@@ -20,8 +21,11 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    EmailNotification emailNotification;
 
   //=================================================
   //          Create a new User
@@ -55,6 +59,8 @@ public class UserController {
     catch(Exception e){
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+      emailNotification.sendEmailonSignUp(user.getEmail(),user.getName());
     return new ResponseEntity<User>(userService.create(userob), HttpStatus.CREATED);
   }
 
@@ -89,6 +95,7 @@ public class UserController {
       System.out.println(savedPass);
       System.out.println(enteredPass);
       if( savedPass.equals(enteredPass) ){
+
           return new ResponseEntity<User>(tempUser, HttpStatus.OK);
       }
       else{
