@@ -1,6 +1,8 @@
 package edu.sjsu.cmpe275.tagit.configuration;
 
+
 import edu.sjsu.cmpe275.tagit.AOP.AOP;
+import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,4 +22,10 @@ public class AppConfig {
     public AOP getTagitLogin(){
         return new AOP();
     }
+
+    @Bean
+    public EmailNotification getEmailNotification(){
+        return new EmailNotification();
+    }
+
 }

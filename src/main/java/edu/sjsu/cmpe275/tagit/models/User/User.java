@@ -27,6 +27,20 @@ public class User {
   @Column(name= "email")
   private String email;
 
+  @NotNull
+  @JsonProperty
+  @Column(name= "password")
+  private String password;
+
+  @NotNull
+  @JsonProperty
+  @Column(name= "country")
+  private String country;
+
+  @NotNull
+  @JsonProperty
+  @Column(name= "state")
+  private String state;
 
   //Constructors
   public User() { }
@@ -39,6 +53,18 @@ public class User {
               @JsonProperty String email) {
     this.email = email;
     this.name = name;
+  }
+
+  public User(@JsonProperty String name,
+              @JsonProperty String email,
+              @JsonProperty String password,
+              @JsonProperty String country,
+              @JsonProperty String state) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.country = country;
+    this.state = state;
   }
 
   //setters and getters
@@ -68,6 +94,30 @@ public class User {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public void setState(String state) {
+    this.state = state;
   }
 } // class User
 
