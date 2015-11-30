@@ -25,8 +25,12 @@ angular.module('app', [
             templateUrl: 'mvc/views/home.html',
             controller: 'HomeCtrl'
         })
-        .when('/notebooks', {
-            templateUrl: 'mvc/views/notebooks.html',
+        .when('/notebooks/owned', {
+            templateUrl: 'mvc/views/notebooks-owned.html',
+            controller: 'NotebookCtrl'
+        })
+        .when('/notebooks/shared', {
+            templateUrl: 'mvc/views/notebooks-shared.html',
             controller: 'NotebookCtrl'
         })
         .when('/user/users', {

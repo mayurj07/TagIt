@@ -3,8 +3,13 @@
         <div class="navbar-collapse collapse">
             <nav id="main-nav" ng-transclude>
                 <li><a href="#" class="navbar-brand"><a class="navbar-brand" href="#/home"><img src="img/logo.png"></a></a></li>
-                <li data-value="system">
-                    <a href="#/notebooks"><i class="glyphicon glyphicon-book"></i> NOTEBOOKS</a>
+                <li data-value="system" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span
+                            class="glyphicon glyphicon-book"></span> NOTEBOOKS <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li data-value="groups"><a href="#/notebooks/owned">Owned</a></li>
+                        <li data-value="groups"><a href="#/notebooks/shared">Shared With Me</a></li>
+                    </ul>
                 </li>
                 <li data-value="user" class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span

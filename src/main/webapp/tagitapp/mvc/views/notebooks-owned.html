@@ -1,0 +1,37 @@
+<div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksOwned()">
+
+    <br />
+    <button type="button" class="btn btn-default" ng-click="nb.open('sm')">Add Notebook</button>
+
+
+    <script type="text/ng-template" id="createNotebookModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Notebook Name</h3>
+        </div>
+        <form class="form-horizontal form-label-left" method="post" ng-submit="nb.createNotebook(nbName)">
+            <input type="text" class="form-control" ng-model="nbName" ng-init="name= MyNotebook"  required="required">
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+    </script>
+
+    <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
+
+    <div class="col-lg-3 col-md-3">
+      <div class="bs-callout ng-class: status.WS.cls;">
+        <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
+        <h4 ng-hide="editing" ng-click="editing = true">{{notebook.name}}</h4>
+          <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
+              <label>Name:</label>
+              <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
+              <br/>
+              <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
+          </form>
+        <span class="label label-info">Updated At: {{status.WS.ago}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

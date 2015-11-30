@@ -1,24 +1,46 @@
 angular.module('app.controllers.notebook', []).
   controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
-    $scope.status = {};
-
+    //$scope.status = {};
+    var vm = this;
+    vm.status = {};
     //$scope.items = ['item1', 'item2', 'item3'];
 
     $scope.animationsEnabled = true;
 
 
-    $scope.getAllNotebooks = function(){
+    vm.getAllNotebooksOwned = function(){
         $http.get('../../../notebook/getAll/user/1')
             .success(function(allNotebooks){
                 //$log.info(allNotebooks);
-                $scope.allNotebooks = allNotebooks;
+                vm.myNotebooks = allNotebooks;
             })
             .error(function (error) {
                 console.log(error);
             });
     };
 
-    $scope.open = function (size) {
+    vm.getAllNotebooksSharedWithMe = function(){
+        $http.get('../../../notebook/getShared/user/1')
+            .success(function(allNotebooks){
+                //$log.info(allNotebooks);
+                vm.sharedNotebooks = allNotebooks;
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
+    vm.updateNotebookName = function(newName, nbId){
+        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": "1"})
+            .success(function(updatedNotebook){
+                //$log.info(updatedNotebook);
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
+    vm.open = function (size) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -32,16 +54,9 @@ angular.module('app.controllers.notebook', []).
             }
         });
 
-        /*modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });*/
-
-
         modalInstance.result.then(function (allNotebooks) {
-            $scope.allNotebooks = allNotebooks;
-            $log.info(allNotebooks);
+            vm.myNotebooks = allNotebooks;
+            //$log.info(allNotebooks);
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
