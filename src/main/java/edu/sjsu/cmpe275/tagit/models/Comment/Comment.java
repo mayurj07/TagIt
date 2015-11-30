@@ -18,7 +18,7 @@ public class Comment {
     @JsonProperty
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int  commentid;
+    private long  commentid;
 
     @JsonProperty
     @Column(name="Description")
@@ -42,7 +42,7 @@ public class Comment {
     }
 
 
-    public int getCommentid() {
+    public long getCommentid() {
         return commentid;
     }
 
