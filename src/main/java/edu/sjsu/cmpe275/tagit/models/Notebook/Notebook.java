@@ -1,7 +1,6 @@
 package edu.sjsu.cmpe275.tagit.models.Notebook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,19 +25,9 @@ public class Notebook {
     @Column(name="owner_id")
     private String owner_id;
 
-
-    @JsonProperty
-    @Column(name="write")
-    private int write;
-
-    public int getWrite() {
-        return write;
-    }
-
-    public void setWrite(int write) {
-        this.write = write;
-    }
-
+//    @JsonProperty
+//    @Column(name="write")
+//    private long write;
 
     //constructors
     public Notebook(){}
@@ -74,5 +63,13 @@ public class Notebook {
     public void setName(String name) {
         this.name = name;
     }
+
+//    public long getWrite() {
+//        return write;
+//    }
+
+//    public void setWrite(long write) {
+//        this.write = write;
+//    }
 
 }

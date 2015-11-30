@@ -7,9 +7,10 @@ angular.module('app.controllers.notebook', []).
 
     $scope.animationsEnabled = true;
 
+    var sharedNotebooks = [];
 
     vm.getAllNotebooksOwned = function(){
-        $http.get('../../../notebook/getAll/user/1')
+        $http.get('../../../notebook/getAll/user/2')
             .success(function(allNotebooks){
                 //$log.info(allNotebooks);
                 vm.myNotebooks = allNotebooks;
@@ -20,10 +21,27 @@ angular.module('app.controllers.notebook', []).
     };
 
     vm.getAllNotebooksSharedWithMe = function(){
-        $http.get('../../../notebook/getShared/user/1')
+        $http.get('../../../notebook/getShared/user/2')
             .success(function(allNotebooks){
-                //$log.info(allNotebooks);
-                vm.sharedNotebooks = allNotebooks;
+                for(var i=0; i<allNotebooks.length; i++){
+                    $http.get('../../../user/' + allNotebooks[i].owner_id)
+                        .success(function(user){
+                            $log.info(user.name);
+
+                            sharedNotebooks.push({
+                                    "bookname": allNotebooks[0].name,
+                                    "notebookid": allNotebooks[0].notebookid,
+                                    "ownerId": allNotebooks[0].owner_id,
+                                    "ownerName": user.name,
+                                    "ownerEmail": user.email
+                                });
+                        })
+                        .error(function (error) {
+                            console.log(error);
+                        });
+                }
+                vm.sharedNotebooks = sharedNotebooks;
+
             })
             .error(function (error) {
                 console.log(error);
@@ -31,7 +49,7 @@ angular.module('app.controllers.notebook', []).
     };
 
     vm.updateNotebookName = function(newName, nbId){
-        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": "1"})
+        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": "2"})
             .success(function(updatedNotebook){
                 //$log.info(updatedNotebook);
             })
@@ -73,11 +91,11 @@ angular.module('app.controllers.notebook').controller('createNotebookModalCtrl',
 
     $scope.createNotebook = function(nbName){
         $log.info(nbName);
-        $http.post('../../../notebook', {"name": nbName, "owner_id": "1"})
+        $http.post('../../../notebook', {"name": nbName, "owner_id": "2"})
             .success(function(newNotebook){
                 $log.info(newNotebook);
 
-                $http.get('../../../notebook/getAll/user/1')
+                $http.get('../../../notebook/getAll/user/2')
                     .success(function(allNotebooks){
                         //$log.info(allNotebooks);
                         $uibModalInstance.close(allNotebooks);
