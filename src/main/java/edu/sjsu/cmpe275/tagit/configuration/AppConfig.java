@@ -1,6 +1,8 @@
 package edu.sjsu.cmpe275.tagit.configuration;
 
+import edu.sjsu.cmpe275.tagit.interceptor.LoginInterceptor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -14,5 +16,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 public class AppConfig {
+
+
+    @Bean
+    public LoginInterceptor loginInterceptor()
+    {
+        return new LoginInterceptor();
+    }
 
 }

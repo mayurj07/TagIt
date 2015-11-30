@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 
@@ -26,21 +28,29 @@ public class UserController {
   //          Create a new User
   //=================================================
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-  public ResponseEntity<User> createUser(@Valid @RequestBody User user, BindingResult result){
+  public ResponseEntity<User> createUser(@Valid @RequestBody User user, BindingResult result, HttpServletResponse response){
     if(user.getName() == null || user.getName().trim().equals(""))
       throw new BadRequestException("User name required.");
     if(user.getEmail() == null || user.getEmail().trim().equals(""))
       throw new BadRequestException("Email required.");
 
-    User userob = null;
+    User userob = new User();
 
     try{
       userob = new User(user.getName(), user.getEmail());
-      System.out.println(user.getUserid());
+      userob.setName(user.getName());
+      userob.setEmail(user.getEmail());
+     // System.out.println(user.getUserid());
+
     }catch(Exception e){
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-    return new ResponseEntity<User>(userService.create(userob), HttpStatus.CREATED);
+    User createdUser = userService.create(userob);
+    User userT = userService.getUserById(createdUser.getUserid());
+    System.out.println(" in user controller :: userid is : "+userT.getUserid());
+    response.addCookie(new Cookie("userid",String.valueOf(userT.getUserid()))); ////change to store the user email
+
+    return new ResponseEntity<User>(createdUser, HttpStatus.CREATED);
   }
 
 
