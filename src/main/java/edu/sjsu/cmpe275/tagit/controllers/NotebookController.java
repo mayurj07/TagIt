@@ -41,10 +41,13 @@ public class NotebookController {
         if (notebook.getOwner_id() == null || notebook.getOwner_id().trim().equals("")) {
             throw new BadRequestException("Owner Id required.");
         }
+        if (notebook.getAccess() == null || notebook.getAccess().trim().equals("")) {
+            notebook.setAccess("yes");
+        }
 
         Notebook newNB = null;
         try {
-            newNB = new Notebook(notebook.getName(), notebook.getOwner_id());
+            newNB = new Notebook(notebook.getName(), notebook.getOwner_id(),notebook.getAccess());
             System.out.println(notebook.getNotebookid());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
