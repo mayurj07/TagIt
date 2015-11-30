@@ -1,31 +1,25 @@
 package edu.sjsu.cmpe275.tagit.AOP;
 
-/**
- * Created by Cherisha on 11/29/15.
- */
-
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
 @Aspect
-public class TagitLogin {
+public class AOP {
     @Before("execution(* edu.sjsu.cmpe275.tagit.controllers.*.*(..))")
-    public void tagitBeforeLogging(JoinPoint joinPoint){
+    public void beforeLogging(JoinPoint joinPoint){
         try{
-            System.out.println("Entering the API to execute "+joinPoint.getSignature().getName()+" method");
+            System.out.println("Entering API method: "+joinPoint.getSignature().getName() + "()");
         }catch(Throwable e){
             e.printStackTrace();
         }
     }
 
     @After("execution(* edu.sjsu.cmpe275.tagit.controllers.*.*(..))")
-    public void qtagitAfterLogging(JoinPoint joinPoint){
+    public void afterLogging(JoinPoint joinPoint){
         try{
-            System.out.println("Exiting the API after execution of "+joinPoint.getSignature().getName()+" method");
+            System.out.println("Exiting API method: "+joinPoint.getSignature().getName() + "()");
         }catch(Throwable e){
             e.printStackTrace();
         }
