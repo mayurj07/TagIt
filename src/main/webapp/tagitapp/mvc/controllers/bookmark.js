@@ -1,5 +1,6 @@
-angular.module('app.controllers.notebook', []).
-controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
+
+angular.module('app.controllers.bookmark', []).
+controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
     //$scope.status = {};
     var vm = this;
     vm.status = {};
