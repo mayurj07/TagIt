@@ -16,4 +16,15 @@ public class ShareServiceImpl implements ShareService{
         shareDao.save(share);
         return share;
     }
+    @Override
+    public long unShareBookmark(long shareid)throws EntityNotFound {
+        shareDao.delete(shareid);
+        return shareid;
+    }
+
+    @Override
+    public long getShareId(long sharedOwnerId, long notebookId)throws EntityNotFound {
+        long shareid = shareDao.getShareByNotebookIdAndSharedOwnerId(sharedOwnerId,notebookId);
+        return shareid;
+    }
 }
