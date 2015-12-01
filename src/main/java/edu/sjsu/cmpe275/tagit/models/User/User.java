@@ -131,6 +131,19 @@ public class User {
   public void setState(String state) {
     this.state = state;
   }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "userid=" + userid +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", country='" + country + '\'' +
+            ", state='" + state + '\'' +
+            ", sessionid='" + sessionid + '\'' +
+            '}';
+  }
 } // class User
 
 
