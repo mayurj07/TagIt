@@ -8,25 +8,19 @@ import edu.sjsu.cmpe275.tagit.models.Tag.Tag;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.Tag.TagService;
 import edu.sjsu.cmpe275.tagit.services.User.UserService;
-
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.lang.Object;
 
 /**
  * Created by akanksha on 11/22/2015.
@@ -35,8 +29,8 @@ import java.lang.Object;
 @EnableAutoConfiguration
 @ComponentScan
 @Component("TagController")
-@RequestMapping("/*")
-public class TagController extends WebMvcConfigurerAdapter {
+@RequestMapping("/tag/*")
+public class TagController {
 
     @Autowired
     private TagService tagService;
@@ -49,7 +43,7 @@ public class TagController extends WebMvcConfigurerAdapter {
 
     /*
             Test method to test the cookies
-     */
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         System.out.println(" I am in the interceptor");
@@ -136,11 +130,13 @@ public class TagController extends WebMvcConfigurerAdapter {
      * @param userid
      * @return
      */
-    @RequestMapping(value ="/tag/getAll", method = RequestMethod.GET,produces = "application/json")
+    @RequestMapping(value ="/getAll", method = RequestMethod.GET,produces = "application/json")
     public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@CookieValue("userid") Integer userid )
     {
        // ArrayList<Tag> tags = new ArrayList<Tag>();
         ArrayList<Object[]> objTags = new ArrayList<Object[]>();
+
+        System.out.println(":::::::; in the tag getAll method ::: userid is :"+userid);
         User user = userService.getUserById(userid);
         if(user.getUserid()!=0) {
             System.out.println(" userid fetched! ");
