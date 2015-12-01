@@ -47,6 +47,11 @@
 			<param-name>cors.allowed.methods</param-name>
 			<param-value>GET, POST, PUT, DELETE, OPTIONS, HEAD</param-value>
 		</init-param>
+        <init-param>
+            <param-name>cors.allowed.credentials</param-name>
+            <param-value>TRUE</param-value>
+        </init-param>
+
 	</filter>
 	<filter-mapping>
 		<filter-name>CorsFilter</filter-name>

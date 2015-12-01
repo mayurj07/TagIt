@@ -109,25 +109,19 @@ public class UserController {
       User tempUser = userService.getUserByEmail(user.getEmail());
       String savedPass = tempUser.getPassword();
       String enteredPass =Utils.passwordEncrypter(user.getPassword());
-      System.out.println(savedPass);
-      System.out.println(enteredPass);
       if(savedPass != null){
           if( savedPass.equals(enteredPass) ){
 
           String sessionid = Utils.sessionIdGenerator(); //generate a session id
           tempUser.setSessionid(sessionid);
           User userWithSession = userService.create(tempUser); // update the user with sessionid
-          System.out.println(" user's session is is :"+userWithSession.getSessionid());
           if(userWithSession!=null)
               {
                   userWithSession.setPassword(null);
-                  Cookie cookie1 = new Cookie("user",userWithSession.toString());
+                  Cookie cookie1 = new Cookie("tagit",userWithSession.toString());
                   cookie1.setMaxAge(30000);
+                  cookie1.setPath("/");
                   response.addCookie(cookie1);
-                  Cookie cookie2 = new Cookie("sessionid",userWithSession.getSessionid());
-                  cookie2.setMaxAge(30000);
-                  response.addCookie(cookie2);
-
               }
               tempUser.setPassword(null);
               return new ResponseEntity<User>(tempUser, HttpStatus.OK);
@@ -147,10 +141,8 @@ public class UserController {
     @ResponseBody
     private boolean logout(HttpServletResponse response) {
 
-        response.addCookie(new Cookie("sessionid", ""));
-        response.addCookie(new Cookie("username", ""));
-        response.addCookie(new Cookie("userid", ""));
+        response.addCookie(new Cookie("tagit", ""));
         return true;
     }
 
-} // class UserController
+}

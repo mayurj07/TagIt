@@ -4,7 +4,7 @@
 
 
 angular.module('app.controllers.login', []).
-controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel) {
+controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel, $cookies) {
 
     $scope.username = null;
     $scope.password = null;

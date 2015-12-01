@@ -134,17 +134,16 @@ public class User {
 
   @Override
   public String toString() {
-    return "User{" +
+    return "{" +
             "userid=" + userid +
             ", name='" + name + '\'' +
             ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
             ", country='" + country + '\'' +
             ", state='" + state + '\'' +
             ", sessionid='" + sessionid + '\'' +
             '}';
   }
-} // class User
+}
 
 
 

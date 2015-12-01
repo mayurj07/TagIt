@@ -1,6 +1,5 @@
 package edu.sjsu.cmpe275.tagit.interceptor;
 
-import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.models.User.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +22,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println(" in the interceptor");
+        System.out.println(" ********************* in the interceptor");
         Cookie[] cookies = httpServletRequest.getCookies();
         boolean loggedin=false;
         Map<String,String> cookieMap = new HashMap<String,String>();
@@ -34,9 +33,11 @@ public class LoginInterceptor implements HandlerInterceptor {
                System.out.println(" cookie : "+cookie.getName()+" value :"+cookie.getValue());
            }
 
-            String userid = cookieMap.get("userid");
-            String sessionid = cookieMap.get("sessionid");
-            if(userid == null || "".equals(userid.trim()) || sessionid == null || "".equals(sessionid.trim())){
+            String tagitCookie  = cookieMap.get("tagit");
+
+            System.out.println(tagitCookie);
+//            String sessionid = cookieMap.get("sessionid");
+            /*if(userid == null || "".equals(userid.trim()) || sessionid == null || "".equals(sessionid.trim())){
                 httpServletResponse.sendError(400, "invalid session");
                 return false;
             }
@@ -44,10 +45,11 @@ public class LoginInterceptor implements HandlerInterceptor {
             System.out.println(" the userid is :: "+userid+ " long id is : "+idLong);
             User user = userDao.getUserByUseridAndSessionid(idLong,sessionid);
             if(user!=null)
-                loggedin=true;
+                loggedin=true;*/
 
         }
 
+        loggedin = true;
         return loggedin;
     }
 

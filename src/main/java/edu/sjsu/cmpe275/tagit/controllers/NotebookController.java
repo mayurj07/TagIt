@@ -2,11 +2,14 @@ package edu.sjsu.cmpe275.tagit.controllers;
 
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
+import edu.sjsu.cmpe275.tagit.interceptor.LoginInterceptor;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
 import edu.sjsu.cmpe275.tagit.services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -18,15 +21,33 @@ import java.util.ArrayList;
 
 
 @RestController
+@EnableAutoConfiguration
+@ComponentScan
 @Component("NotebookController")
-@RequestMapping("/notebook")
-public class NotebookController {
+@RequestMapping("/notebook/*")
+public class NotebookController{
 
     @Autowired
     NotebookService notebookService;
 
     @Autowired
     UserService userService;
+
+
+    @Autowired
+    LoginInterceptor loginInterceptor;
+
+    /*@Autowired
+    LoginInterceptor loginInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+
+        System.out.println("notebook interceptor");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook*//*");
+
+    }*/
+
 
     /**
      * Create a notebook. POST method

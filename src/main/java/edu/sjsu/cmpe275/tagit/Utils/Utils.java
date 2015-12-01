@@ -36,7 +36,6 @@ public class Utils {
     public static String sessionIdGenerator()
     {
         String sessionid = UUID.randomUUID().toString();
-        System.out.println(" session id is ::::"+sessionid);
         return sessionid;
     }
 }
