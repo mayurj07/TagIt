@@ -1,6 +1,6 @@
 body {
  padding-top: 50px;
- color: #3A3A3A;
+ color: #2d2d2e;
 }
 
 @-moz-document url-prefix() {
@@ -83,9 +83,9 @@ ul.groupList li {
   -moz-border-left-colors: none;
   -moz-border-right-colors: none;
   -moz-border-top-colors: none;
-  border-color: #eee;
+  border-color: #F30C0C;
   border-image: none;
-  border-radius: 3px;
+  border-radius: 5px;
   border-style: solid;
   border-width: 1px 1px 1px 5px;
   margin: 20px 0;
