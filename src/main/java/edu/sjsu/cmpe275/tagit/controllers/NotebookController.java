@@ -2,11 +2,14 @@ package edu.sjsu.cmpe275.tagit.controllers;
 
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
+import edu.sjsu.cmpe275.tagit.interceptor.LoginInterceptor;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
 import edu.sjsu.cmpe275.tagit.services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -18,8 +21,10 @@ import java.util.ArrayList;
 
 
 @RestController
+@EnableAutoConfiguration
+@ComponentScan
 @Component("NotebookController")
-@RequestMapping("/notebook")
+@RequestMapping("/notebook/*")
 public class NotebookController {
 
     @Autowired
@@ -28,6 +33,8 @@ public class NotebookController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    LoginInterceptor loginInterceptor;
     /**
      * Create a notebook. POST method
      *
@@ -126,8 +133,8 @@ public class NotebookController {
      * @param userId
      * @return List of notebooks
      */
-    @RequestMapping(value = "/getAll/user/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@PathVariable(value = "id") int userId) {
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@CookieValue(value = "userid") Integer userId) {
         try {
             User user = userService.getUserById(userId);
             if (user.getName() != null) {

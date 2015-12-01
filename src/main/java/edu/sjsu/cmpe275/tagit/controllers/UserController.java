@@ -37,13 +37,7 @@ public class UserController {
     @Autowired
     LoginInterceptor loginInterceptor;
 
-    /*public void addInterceptors(InterceptorRegistry registry) {
-        System.out.println("::::::::::::: in the add interceptor :::::::");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/user/*");
-    }*/
-
-
-        //=================================================
+  //=================================================
   //          Create a new User
   //=================================================
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -123,10 +117,16 @@ public class UserController {
                   userWithSession.setPassword(null);
                   Cookie cookie1 = new Cookie("user",userWithSession.toString());
                   cookie1.setMaxAge(30000);
+                  cookie1.setPath("/");
                   response.addCookie(cookie1);
                   Cookie cookie2 = new Cookie("sessionid",userWithSession.getSessionid());
                   cookie2.setMaxAge(30000);
+                  cookie2.setPath("/");
                   response.addCookie(cookie2);
+                  Cookie cookie3 = new Cookie("userid",String.valueOf(userWithSession.getUserid()));
+                  cookie3.setMaxAge(30000);
+                  cookie3.setPath("/");
+                  response.addCookie(cookie3);
 
               }
               tempUser.setPassword(null);
@@ -148,7 +148,7 @@ public class UserController {
     private boolean logout(HttpServletResponse response) {
 
         response.addCookie(new Cookie("sessionid", ""));
-        response.addCookie(new Cookie("username", ""));
+        response.addCookie(new Cookie("user", ""));
         response.addCookie(new Cookie("userid", ""));
         return true;
     }
