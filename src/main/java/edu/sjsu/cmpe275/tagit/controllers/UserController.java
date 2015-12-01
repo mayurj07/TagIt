@@ -114,16 +114,21 @@ public class UserController {
       if(savedPass != null){
           if( savedPass.equals(enteredPass) ){
 
-         /* String sessionid = Utils.sessionIdGenerator(); //generate a session id
+          String sessionid = Utils.sessionIdGenerator(); //generate a session id
           tempUser.setSessionid(sessionid);
-          User userWithSession = userService.updateSessionId(tempUser.getUserid(),tempUser.getSessionid()); // save the user with sessionid
+          User userWithSession = userService.create(tempUser); // update the user with sessionid
           System.out.println(" user's session is is :"+userWithSession.getSessionid());
           if(userWithSession!=null)
               {
-                  response.addCookie(new Cookie("userid",String.valueOf(userWithSession.getUserid())));
-                  response.addCookie(new Cookie("sessionid",userWithSession.getSessionid()));
-                  response.addCookie(new Cookie("username",userWithSession.getName()));
-              }*/
+                  userWithSession.setPassword(null);
+                  Cookie cookie1 = new Cookie("user",userWithSession.toString());
+                  cookie1.setMaxAge(30000);
+                  response.addCookie(cookie1);
+                  Cookie cookie2 = new Cookie("sessionid",userWithSession.getSessionid());
+                  cookie2.setMaxAge(30000);
+                  response.addCookie(cookie2);
+
+              }
               tempUser.setPassword(null);
               return new ResponseEntity<User>(tempUser, HttpStatus.OK);
           }

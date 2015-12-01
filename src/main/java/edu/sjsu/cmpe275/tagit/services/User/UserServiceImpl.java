@@ -53,10 +53,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public void updateSessionId(long id,String sessionid)
+   /* @Override
+    public void updateSessionId(long userid,String sessionid)
     {
-        userDao.updateSessionId(long id,String sessionid);
-    }
+        userDao.updateUserSession(sessionid, userid);
+    }*/
 
 }

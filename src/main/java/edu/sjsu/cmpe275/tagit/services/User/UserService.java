@@ -8,5 +8,5 @@ public interface UserService {
     public User getUserById(long userid);
     public void isEmailAvailable(String email);
     public User getUserByEmail(String email);
-    public void updateSessionId(long id,String sesionId);
+   // public void updateSessionId(long id,String sesionId);
 }
