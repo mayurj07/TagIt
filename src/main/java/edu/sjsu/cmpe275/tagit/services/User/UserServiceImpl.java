@@ -53,4 +53,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public void updateSessionId(long id,String sessionid)
+    {
+        userDao.updateSessionId(long id,String sessionid);
+    }
+
 }

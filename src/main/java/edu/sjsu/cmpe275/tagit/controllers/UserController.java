@@ -115,7 +115,7 @@ public class UserController {
 
           String sessionid = Utils.sessionIdGenerator(); //generate a session id
           tempUser.setSessionid(sessionid);
-          User userWithSession = userService.create(tempUser); // save the user with sessionid
+          User userWithSession = userService.updateSessionId(tempUser.getUserid(),tempUser.getSessionid()); // save the user with sessionid
           System.out.println(" user's session is is :"+userWithSession.getSessionid());
           if(userWithSession!=null)
               {
