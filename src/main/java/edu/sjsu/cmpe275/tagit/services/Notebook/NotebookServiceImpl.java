@@ -65,7 +65,8 @@ public class NotebookServiceImpl implements NotebookService {
     @Override
     public boolean validateOwner(String ownerId, String notebookId){
         Notebook notebook = noteBookDao.findNotebookByNotebookId(Long.parseLong(notebookId));
-        if(notebook.getOwner_id()==ownerId) {
+
+        if(notebook.getOwner_id().equals(ownerId)) {
             return true;
         }
         else{

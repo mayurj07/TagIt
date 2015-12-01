@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.tagit.controllers;
 
+import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.UnauthorizedException;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
@@ -31,6 +32,10 @@ public class ShareController {
     @Autowired
     private UserService userService;
 
+
+    @Autowired
+    EmailNotification emailNotification;
+
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Share> shareNotebook(@PathVariable(value = "id") String ownerId, @Valid @RequestBody Share share, BindingResult result) {
 
@@ -40,9 +45,10 @@ public class ShareController {
             throw new BadRequestException("Valid notebook must be shared.");
         Share shareObj=null;
 
-        User user = userService.getUserById(Long.parseLong(share.getShareUserId()));
-        if (user.getName() == null || user.getName().trim().equals("")){
-            throw new BadRequestException("Given user is not valid. Please share with valid user.");
+        User user1 =userService.getUserById(Long.parseLong(ownerId));
+        User user2 = userService.getUserById(Long.parseLong(share.getShareUserId()));
+        if (user2.getName() == null || user2.getName().trim().equals("")){
+            throw new BadRequestException("Given user2 is not valid. Please share with valid user2.");
         }
 
         Notebook notebook = notebookService.getNotebookByID(Long.parseLong(share.getShareNotebookId()));
@@ -55,10 +61,12 @@ public class ShareController {
 
             try {
                 shareObj = new Share(share.getShareUserId(), share.getShareNotebookId(), share.getWrite());
+
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
+            emailNotification.sendEmailOnSharing(user2.getEmail(),user2.getName(),user1.getName(),notebook.getName());
             return new ResponseEntity<Share>(shareService.shareBookmark(shareObj), HttpStatus.CREATED);
         }else{
             throw new UnauthorizedException("Unauthorized Access....This notebook does not belong to this owner.");

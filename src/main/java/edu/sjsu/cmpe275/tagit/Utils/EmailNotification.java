@@ -26,11 +26,11 @@ public class EmailNotification {
 
     }
 
-    public void sendEmailOnSharing(String userEmailAddress, String userName, String SharingUser, String quizname)
+    public void sendEmailOnSharing(String userEmailAddress, String userName, String SharingUser, String notebookName)
     {
 
         String subject = "Your friend [ " + SharingUser + " ]" + " has shared a notebook with you !";
-        String msgBody = "Hello "+ userEmailAddress + ",\n\nA notebook has been shared with you [Quiz Ref :"+ quizname +"] by " + SharingUser +"."+
+        String msgBody = "Hello "+ userEmailAddress + ",\n\nA notebook has been shared with you [Notebook Ref :"+ notebookName +"] by " + SharingUser +"."+
                 "\n\nPlease login to your TagIt account to view your bookmarks."+
                 "\n\n" +
                 "Team TagIt !!! ";
@@ -62,7 +62,7 @@ public class EmailNotification {
         try {
             Message msg = new MimeMessage(session);
             try {
-                msg.setFrom(new InternetAddress("bikeshare273@gmail.com", "QuizMe"));
+                msg.setFrom(new InternetAddress("CMPE275Tagit@gmail.com", "TagIt"));
             } catch (UnsupportedEncodingException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
