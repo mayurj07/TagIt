@@ -3,6 +3,8 @@ package edu.sjsu.cmpe275.tagit.configuration;
 
 import edu.sjsu.cmpe275.tagit.AOP.AOP;
 import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
+import edu.sjsu.cmpe275.tagit.services.Share.ShareService;
+import edu.sjsu.cmpe275.tagit.services.Share.ShareServiceImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,4 +30,8 @@ public class AppConfig {
         return new EmailNotification();
     }
 
+    @Bean
+    public ShareService getShareService(){
+        return new ShareServiceImpl();
+    }
 }

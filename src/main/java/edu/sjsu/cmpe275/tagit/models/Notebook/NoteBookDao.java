@@ -14,4 +14,7 @@ public interface NoteBookDao extends CrudRepository<Notebook, Long> {
             "join share s on s.share_notebook_id=n.notebookid " +
             "where s.share_user_id=?1",nativeQuery = true)
     Iterable<Notebook> findSharedNotebook(long id);
+
+    @Query(value = "SELECT * FROM tagit.notebooks nb WHERE nb.notebookid = ?1", nativeQuery = true)
+    Notebook findNotebookByNotebookId(long id);
 }
