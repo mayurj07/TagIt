@@ -1,13 +1,8 @@
 package edu.sjsu.cmpe275.tagit.interceptor;
 
-import edu.sjsu.cmpe275.tagit.models.Tag.Tag;
-import edu.sjsu.cmpe275.tagit.models.Tag.TagDao;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.models.User.UserDao;
-import edu.sjsu.cmpe275.tagit.services.Tag.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,15 +29,20 @@ public class LoginInterceptor implements HandlerInterceptor {
         Map<String,String> cookieMap = new HashMap<String,String>();
         if(cookies!=null)
         {
-           for(Cookie cookie:cookies)
-               cookieMap.put(cookie.getName(),cookie.getValue());
+           for(Cookie cookie:cookies) {
+               cookieMap.put(cookie.getName(), cookie.getValue());
+               System.out.println(" cookie : "+cookie.getName()+" value :"+cookie.getValue());
+           }
 
             String userid = cookieMap.get("userid");
-            System.out.println(" the userid is :: "+userid);
-            if(userid==null)
+            String sessionid = cookieMap.get("sessionid");
+            if(userid == null || "".equals(userid.trim()) || sessionid == null || "".equals(sessionid.trim())){
+                httpServletResponse.sendError(400, "invalid session");
                 return false;
-
-            User user = userDao.findOne(Long.getLong(userid));
+            }
+            Long idLong = Long.parseLong(userid);
+            System.out.println(" the userid is :: "+userid+ " long id is : "+idLong);
+            User user = userDao.getUserByUseridAndSessionid(idLong,sessionid);
             if(user!=null)
                 loggedin=true;
 

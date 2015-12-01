@@ -42,6 +42,18 @@ public class User {
   @Column(name= "state")
   private String state;
 
+  @JsonProperty
+  @Column(name = "sessionid")
+  private String sessionid;
+
+  public String getSessionid() {
+    return sessionid;
+  }
+
+  public void setSessionid(String sessionid) {
+    this.sessionid = sessionid;
+  }
+
   //Constructors
   public User() { }
 

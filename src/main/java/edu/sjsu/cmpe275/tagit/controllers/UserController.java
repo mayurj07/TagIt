@@ -4,9 +4,12 @@ import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
 import edu.sjsu.cmpe275.tagit.Utils.Utils;
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
+import edu.sjsu.cmpe275.tagit.interceptor.LoginInterceptor;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -19,8 +22,10 @@ import javax.validation.Valid;
 
 
 @RestController
+@EnableAutoConfiguration
+@ComponentScan
 @Component("UserController")
-@RequestMapping("/user")
+@RequestMapping("/user/*")
 public class UserController {
 
     @Autowired
@@ -29,7 +34,16 @@ public class UserController {
     @Autowired
     EmailNotification emailNotification;
 
-  //=================================================
+    @Autowired
+    LoginInterceptor loginInterceptor;
+
+    /*public void addInterceptors(InterceptorRegistry registry) {
+        System.out.println("::::::::::::: in the add interceptor :::::::");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/user/*");
+    }*/
+
+
+        //=================================================
   //          Create a new User
   //=================================================
   @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -89,7 +103,8 @@ public class UserController {
   //          User Login
   //=================================================
   @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
-  public ResponseEntity<User> validateUser(@Valid @RequestBody User user, BindingResult result){
+  @ResponseBody
+   public ResponseEntity<User> validateUser(@Valid @RequestBody User user, BindingResult result, HttpServletResponse response){
 
       User tempUser = userService.getUserByEmail(user.getEmail());
       String savedPass = tempUser.getPassword();
@@ -98,6 +113,16 @@ public class UserController {
       System.out.println(enteredPass);
       if( savedPass.equals(enteredPass) ){
 
+          String sessionid = Utils.sessionIdGenerator(); //generate a session id
+          tempUser.setSessionid(sessionid);
+          User userWithSession = userService.create(tempUser); // save the user with sessionid
+          System.out.println(" user's session is is :"+userWithSession.getSessionid());
+          if(userWithSession!=null)
+              {
+                  response.addCookie(new Cookie("userid",String.valueOf(userWithSession.getUserid())));
+                  response.addCookie(new Cookie("sessionid",userWithSession.getSessionid()));
+                  response.addCookie(new Cookie("username",userWithSession.getName()));
+              }
           return new ResponseEntity<User>(tempUser, HttpStatus.OK);
       }
       else{
@@ -105,5 +130,14 @@ public class UserController {
       }
 
   }
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ResponseBody
+    private boolean logout(HttpServletResponse response) {
+
+        response.addCookie(new Cookie("sessionid", ""));
+        response.addCookie(new Cookie("username", ""));
+        response.addCookie(new Cookie("userid", ""));
+        return true;
+    }
 
 } // class UserController

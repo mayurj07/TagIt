@@ -1,4 +1,4 @@
-angular.module('app', [
+var app = angular.module('app', [
     'ngRoute',
     'ngStorage',
     'ngResource',
@@ -24,6 +24,10 @@ angular.module('app', [
         .when('/home', {
             templateUrl: 'mvc/views/home.html',
             controller: 'HomeCtrl'
+        })
+        .when('/login', {
+            templateUrl: 'mvc/views/login.html',
+            controller: 'loginCtrl'
         })
         .when('/notebooks/owned', {
             templateUrl: 'mvc/views/notebooks-owned.html',
