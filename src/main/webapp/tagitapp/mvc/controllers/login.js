@@ -21,7 +21,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).success(function(data) {
             $log.info(data);
             delete data.password;
-            AuthenticationModel.setUser(data);
+            //AuthenticationModel.setUser(data);
             $location.path('/home');
         }).error(function (data) {
             AuthenticationModel.removeUser();
