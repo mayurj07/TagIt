@@ -36,13 +36,8 @@ public class Utils {
 
     public static String sessionIdGenerator()
     {
-<<<<<<< HEAD
-        String sessionid = UUID.randomUUID().toString();
-        return sessionid;
-=======
         Timestamp timestamp = new Timestamp(new Date().getTime());
         System.out.println(" time :"+timestamp.toString());
         return timestamp.toString();
->>>>>>> e94abf6f6fbf1643bafa0568a086a367af1a7903
     }
 }
