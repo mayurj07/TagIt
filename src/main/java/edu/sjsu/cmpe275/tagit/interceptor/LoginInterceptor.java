@@ -1,5 +1,6 @@
 package edu.sjsu.cmpe275.tagit.interceptor;
 
+import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.models.User.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,6 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         System.out.println(" ********************* in the interceptor");
         Cookie[] cookies = httpServletRequest.getCookies();
+        System.out.println(":::;;; getting the cookie value::::"+cookies[2].getValue());
         boolean loggedin=false;
         Map<String,String> cookieMap = new HashMap<String,String>();
         if(cookies!=null)
@@ -32,24 +34,29 @@ public class LoginInterceptor implements HandlerInterceptor {
                cookieMap.put(cookie.getName(), cookie.getValue());
                System.out.println(" cookie : "+cookie.getName()+" value :"+cookie.getValue());
            }
+            String user = cookieMap.get("user");
+            String[] userArr = user.split("%22");
+            for(String s:userArr)
+                System.out.print(s);
+            System.out.println("");
 
             String tagitCookie  = cookieMap.get("tagit");
-
             System.out.println(tagitCookie);
-//            String sessionid = cookieMap.get("sessionid");
-            /*if(userid == null || "".equals(userid.trim()) || sessionid == null || "".equals(sessionid.trim())){
-                httpServletResponse.sendError(400, "invalid session");
-                return false;
+
+           String userid = cookieMap.get("userid");
+           String sessionid = cookieMap.get("sessionid");
+           if(userid == null || "".equals(userid.trim()) || sessionid == null || "".equals(sessionid.trim())){
+              httpServletResponse.sendError(400, "invalid session");
+               return false;
             }
             Long idLong = Long.parseLong(userid);
             System.out.println(" the userid is :: "+userid+ " long id is : "+idLong);
-            User user = userDao.getUserByUseridAndSessionid(idLong,sessionid);
-            if(user!=null)
-                loggedin=true;*/
+            User loggedInUser = userDao.getUserByUseridAndSessionid(idLong,sessionid);
+            if(loggedInUser!=null)
+                loggedin=true;
 
         }
-
-        loggedin = true;
+        loggedin=true;
         return loggedin;
     }
 

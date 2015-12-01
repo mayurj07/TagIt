@@ -25,7 +25,7 @@ import java.util.ArrayList;
 @ComponentScan
 @Component("NotebookController")
 @RequestMapping("/notebook/*")
-public class NotebookController{
+public class NotebookController {
 
     @Autowired
     NotebookService notebookService;
@@ -33,22 +33,8 @@ public class NotebookController{
     @Autowired
     UserService userService;
 
-
     @Autowired
     LoginInterceptor loginInterceptor;
-
-    /*@Autowired
-    LoginInterceptor loginInterceptor;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-
-        System.out.println("notebook interceptor");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook*//*");
-
-    }*/
-
-
     /**
      * Create a notebook. POST method
      *
@@ -147,8 +133,8 @@ public class NotebookController{
      * @param userId
      * @return List of notebooks
      */
-    @RequestMapping(value = "/getAll/user/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@PathVariable(value = "id") int userId) {
+    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@CookieValue(value = "userid") Integer userId) {
         try {
             User user = userService.getUserById(userId);
             if (user.getName() != null) {

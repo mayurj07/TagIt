@@ -3,7 +3,8 @@ package edu.sjsu.cmpe275.tagit.Utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class Utils {
 
@@ -35,7 +36,13 @@ public class Utils {
 
     public static String sessionIdGenerator()
     {
+<<<<<<< HEAD
         String sessionid = UUID.randomUUID().toString();
         return sessionid;
+=======
+        Timestamp timestamp = new Timestamp(new Date().getTime());
+        System.out.println(" time :"+timestamp.toString());
+        return timestamp.toString();
+>>>>>>> e94abf6f6fbf1643bafa0568a086a367af1a7903
     }
 }
