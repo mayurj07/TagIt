@@ -111,9 +111,10 @@ public class UserController {
       String enteredPass =Utils.passwordEncrypter(user.getPassword());
       System.out.println(savedPass);
       System.out.println(enteredPass);
-      if( savedPass.equals(enteredPass) ){
+      if(savedPass != null){
+          if( savedPass.equals(enteredPass) ){
 
-          String sessionid = Utils.sessionIdGenerator(); //generate a session id
+         /* String sessionid = Utils.sessionIdGenerator(); //generate a session id
           tempUser.setSessionid(sessionid);
           User userWithSession = userService.updateSessionId(tempUser.getUserid(),tempUser.getSessionid()); // save the user with sessionid
           System.out.println(" user's session is is :"+userWithSession.getSessionid());
@@ -122,12 +123,19 @@ public class UserController {
                   response.addCookie(new Cookie("userid",String.valueOf(userWithSession.getUserid())));
                   response.addCookie(new Cookie("sessionid",userWithSession.getSessionid()));
                   response.addCookie(new Cookie("username",userWithSession.getName()));
-              }
-          return new ResponseEntity<User>(tempUser, HttpStatus.OK);
+              }*/
+              tempUser.setPassword(null);
+              return new ResponseEntity<User>(tempUser, HttpStatus.OK);
+          }
+          else{
+              System.out.println("Password incorrect");
+              throw new BadRequestException("Password incorrect");
+          }
+      }else {
+          System.out.println("User not found.");
+          throw new BadRequestException("User not found.");
       }
-      else{
-          throw new BadRequestException("Password incorrect");
-      }
+
 
   }
     @RequestMapping(value = "/logout", method = RequestMethod.GET)

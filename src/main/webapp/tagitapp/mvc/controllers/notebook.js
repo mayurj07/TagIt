@@ -1,5 +1,5 @@
 angular.module('app.controllers.notebook', []).
-  controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
+controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
     //$scope.status = {};
     var vm = this;
     vm.status = {};
