@@ -2,9 +2,9 @@
  * Created by mjain on 11/30/15.
  */
 
-'use strict';
 
-app.controller('loginCtrl', function ($scope, $http, $location, $window, ServerUrl, AuthenticationModel, $state, $log) {
+angular.module('app.controllers.login', []).
+controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel) {
 
     $scope.username = null;
     $scope.password = null;
@@ -15,19 +15,22 @@ app.controller('loginCtrl', function ($scope, $http, $location, $window, ServerU
     $scope.signIn = function (username, password) {
 
         $log.info(username + "" + password);
-        return $http.post('../../../login', {
+        return $http.post('../../../user/login', {
             email: username,
             password: password
         }).success(function(data) {
-            AuthenticationModel.setUser(data.user);
-            //$state.go('app.page', {page: 'dashboard', child: null});
+            $log.info(data);
+            delete data.password;
+            AuthenticationModel.setUser(data);
+            $location.path('/home');
         }).error(function (data) {
             AuthenticationModel.removeUser();
+            $location.path('/login');
             AuthenticationModel.errorMessage = data;
         });
     };
 
-    $scope.signUp = function (username, password, name) {
+ /*   $scope.signUp = function (username, password, name) {
         return $http.post(ServerUrl + '/api/auth/signup', {
             username: username,
             password: password,
@@ -40,12 +43,12 @@ app.controller('loginCtrl', function ($scope, $http, $location, $window, ServerU
             AuthenticationModel.removeUser();
             AuthenticationModel.errorMessage = data;
         });
-    };
+    };*/
 });
 
 
-
-app.factory('AuthenticationModel', function ($http, $cookies) {
+angular.module('app.controllers.login').
+factory('AuthenticationModel', function ($http, $cookies) {
 
     this.user = $cookies.getObject('user');
     this.errorMessage = null;

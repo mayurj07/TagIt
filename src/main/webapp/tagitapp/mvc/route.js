@@ -1,7 +1,8 @@
-var app = angular.module('app', [
+angular.module('app', [
     'ngRoute',
     'ngStorage',
     'ngResource',
+    'ngCookies',
     'ui.bootstrap',
     'ui.tinymce',
     'ui.ace',
@@ -18,8 +19,11 @@ var app = angular.module('app', [
     'app.controllers.mail',
     'app.controllers.report',
     'app.controllers.notebook',
+    'app.controllers.login',
     'app.controllers.feedbacks'
-]).config(['$routeProvider', function ($routeProvider) {
+])
+
+    .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/home', {
             templateUrl: 'mvc/views/home.html',
@@ -90,6 +94,6 @@ var app = angular.module('app', [
             controller: 'ReportOverviewCtrl'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
 }]);
