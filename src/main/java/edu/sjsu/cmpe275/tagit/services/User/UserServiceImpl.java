@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long userid) throws EntityNotFound{
         User user = userDao.findOne(userid);
+        System.out.println(" in the user dao :: "+user.getUserid());
         return user;
     }
 
@@ -51,5 +52,11 @@ public class UserServiceImpl implements UserService {
             return users.get(0);
         }
     }
+
+   /* @Override
+    public void updateSessionId(long userid,String sessionid)
+    {
+        userDao.updateUserSession(sessionid, userid);
+    }*/
 
 }

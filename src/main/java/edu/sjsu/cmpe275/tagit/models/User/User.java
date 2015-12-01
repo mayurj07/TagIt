@@ -42,6 +42,18 @@ public class User {
   @Column(name= "state")
   private String state;
 
+  @JsonProperty
+  @Column(name = "sessionid")
+  private String sessionid;
+
+  public String getSessionid() {
+    return sessionid;
+  }
+
+  public void setSessionid(String sessionid) {
+    this.sessionid = sessionid;
+  }
+
   //Constructors
   public User() { }
 
@@ -118,6 +130,19 @@ public class User {
 
   public void setState(String state) {
     this.state = state;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "userid=" + userid +
+            ", name='" + name + '\'' +
+            ", email='" + email + '\'' +
+            ", password='" + password + '\'' +
+            ", country='" + country + '\'' +
+            ", state='" + state + '\'' +
+            ", sessionid='" + sessionid + '\'' +
+            '}';
   }
 } // class User
 

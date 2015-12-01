@@ -3,6 +3,7 @@ package edu.sjsu.cmpe275.tagit.Utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 public class Utils {
 
@@ -30,5 +31,12 @@ public class Utils {
         }
 
         return generatedDigest;
+    }
+
+    public static String sessionIdGenerator()
+    {
+        String sessionid = UUID.randomUUID().toString();
+        System.out.println(" session id is ::::"+sessionid);
+        return sessionid;
     }
 }

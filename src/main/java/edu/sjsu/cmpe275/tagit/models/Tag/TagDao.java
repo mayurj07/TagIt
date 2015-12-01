@@ -24,5 +24,6 @@ public interface TagDao extends CrudRepository<Tag, Long> {
             "where t.tag_userid=?1 and t.name=?2",nativeQuery = true)
     List<Bookmark> findBookmarkByTag(long userid,String tagName);
 
-
+    @Query(value="select distinct name from tags where tagName=?1",nativeQuery = true)
+    Tag findTagByName(String name);
 }

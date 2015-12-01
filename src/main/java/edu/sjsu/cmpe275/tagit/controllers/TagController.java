@@ -2,31 +2,34 @@ package edu.sjsu.cmpe275.tagit.controllers;
 
 import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
+import edu.sjsu.cmpe275.tagit.interceptor.LoginInterceptor;
 import edu.sjsu.cmpe275.tagit.models.Bookmark.Bookmark;
 import edu.sjsu.cmpe275.tagit.models.Tag.Tag;
 import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.Tag.TagService;
 import edu.sjsu.cmpe275.tagit.services.User.UserService;
-
-import java.awt.print.Book;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.lang.Object;
 
 /**
  * Created by akanksha on 11/22/2015.
  */
 @RestController
+@EnableAutoConfiguration
+@ComponentScan
 @Component("TagController")
-@RequestMapping("/tag")
+@RequestMapping("/tag/*")
 public class TagController {
 
     @Autowired
@@ -35,12 +38,25 @@ public class TagController {
     @Autowired
     private UserService userService;
 
-    /**
-     *  Method to create a Tag
-     * @param tag
-     * @param result
-     * @return
-     */
+    @Autowired
+    LoginInterceptor loginInterceptor;
+
+    /*
+            Test method to test the cookies
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        System.out.println(" I am in the interceptor");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/getAll");
+    }
+
+        /**
+         *  Method to create a Tag
+         * @param tag
+         * @param result
+         * @return
+         */
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Tag> createNewTag(@Valid @RequestBody Tag tag,BindingResult result)
     {
@@ -114,11 +130,13 @@ public class TagController {
      * @param userid
      * @return
      */
-    @RequestMapping(value ="/getAll/user/{userid}", method = RequestMethod.GET,produces = "application/json")
-    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@PathVariable(value = "userid") Integer userid )
+    @RequestMapping(value ="/getAll", method = RequestMethod.GET,produces = "application/json")
+    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@CookieValue("userid") Integer userid )
     {
        // ArrayList<Tag> tags = new ArrayList<Tag>();
         ArrayList<Object[]> objTags = new ArrayList<Object[]>();
+
+        System.out.println(":::::::; in the tag getAll method ::: userid is :"+userid);
         User user = userService.getUserById(userid);
         if(user.getUserid()!=0) {
             System.out.println(" userid fetched! ");
@@ -167,5 +185,12 @@ public class TagController {
             return new ResponseEntity(HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+    @RequestMapping(value="/test",method = RequestMethod.POST)
+    public ResponseEntity testInterceptor(@Valid @RequestBody Tag tag, HttpServletResponse response)
+    {
+        response.addCookie(new Cookie("tagName",tag.getTagName()));
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

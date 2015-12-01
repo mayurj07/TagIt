@@ -5,8 +5,9 @@
     <div class="col-lg-3 col-md-3">
       <div class="bs-callout ng-class: status.WS.cls;">
         <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
-        <h4>{{notebook.name}}</h4>
-        <span class="label label-info">Updated At: {{status.WS.ago}}</span>
+        <h4>{{notebook.bookname}}</h4>
+        <span class="label label-info">Owned By: </span><br />
+          {{notebook.ownerName}}, {{notebook.ownerEmail}}
       </div>
     </div>
 

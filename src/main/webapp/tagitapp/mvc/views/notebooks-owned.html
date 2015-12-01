@@ -8,7 +8,7 @@
         <div class="modal-header">
             <h3 class="modal-title">Notebook Name</h3>
         </div>
-        <form class="form-horizontal form-label-left" method="post" ng-submit="nb.createNotebook(nbName)">
+        <form class="form-horizontal form-label-left" method="post" ng-submit="createNotebook(nbName)">
             <input type="text" class="form-control" ng-model="nbName" ng-init="name= MyNotebook"  required="required">
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">OK</button>

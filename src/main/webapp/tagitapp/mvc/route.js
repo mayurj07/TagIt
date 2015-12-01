@@ -2,6 +2,7 @@ angular.module('app', [
     'ngRoute',
     'ngStorage',
     'ngResource',
+    'ngCookies',
     'ui.bootstrap',
     'ui.tinymce',
     'ui.ace',
@@ -18,12 +19,19 @@ angular.module('app', [
     'app.controllers.mail',
     'app.controllers.report',
     'app.controllers.notebook',
+    'app.controllers.login',
     'app.controllers.feedbacks'
-]).config(['$routeProvider', function ($routeProvider) {
+])
+
+    .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/home', {
             templateUrl: 'mvc/views/home.html',
             controller: 'HomeCtrl'
+        })
+        .when('/login', {
+            templateUrl: 'mvc/views/login.html',
+            controller: 'loginCtrl'
         })
         .when('/notebooks/owned', {
             templateUrl: 'mvc/views/notebooks-owned.html',
@@ -86,6 +94,6 @@ angular.module('app', [
             controller: 'ReportOverviewCtrl'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
 }]);

@@ -1,5 +1,5 @@
 angular.module('app.controllers.notebook', []).
-  controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
+controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
     //$scope.status = {};
     var vm = this;
     vm.status = {};
@@ -7,6 +7,7 @@ angular.module('app.controllers.notebook', []).
 
     $scope.animationsEnabled = true;
 
+    var sharedNotebooks = [];
 
     vm.getAllNotebooksOwned = function(){
         $http.get('../../../notebook/getAll/user/1')
@@ -22,8 +23,25 @@ angular.module('app.controllers.notebook', []).
     vm.getAllNotebooksSharedWithMe = function(){
         $http.get('../../../notebook/getShared/user/1')
             .success(function(allNotebooks){
-                //$log.info(allNotebooks);
-                vm.sharedNotebooks = allNotebooks;
+                for(var i=0; i<allNotebooks.length; i++){
+                    $http.get('../../../user/' + allNotebooks[i].owner_id)
+                        .success(function(user){
+                            $log.info(user.name);
+
+                            sharedNotebooks.push({
+                                    "bookname": allNotebooks[0].name,
+                                    "notebookid": allNotebooks[0].notebookid,
+                                    "ownerId": allNotebooks[0].owner_id,
+                                    "ownerName": user.name,
+                                    "ownerEmail": user.email
+                                });
+                        })
+                        .error(function (error) {
+                            console.log(error);
+                        });
+                }
+                vm.sharedNotebooks = sharedNotebooks;
+
             })
             .error(function (error) {
                 console.log(error);
