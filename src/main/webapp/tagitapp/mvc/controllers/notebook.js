@@ -10,7 +10,7 @@ angular.module('app.controllers.notebook', []).
     var sharedNotebooks = [];
 
     vm.getAllNotebooksOwned = function(){
-        $http.get('../../../notebook/getAll/user/2')
+        $http.get('../../../notebook/getAll/user/1')
             .success(function(allNotebooks){
                 //$log.info(allNotebooks);
                 vm.myNotebooks = allNotebooks;
@@ -21,7 +21,7 @@ angular.module('app.controllers.notebook', []).
     };
 
     vm.getAllNotebooksSharedWithMe = function(){
-        $http.get('../../../notebook/getShared/user/2')
+        $http.get('../../../notebook/getShared/user/1')
             .success(function(allNotebooks){
                 for(var i=0; i<allNotebooks.length; i++){
                     $http.get('../../../user/' + allNotebooks[i].owner_id)
@@ -49,7 +49,7 @@ angular.module('app.controllers.notebook', []).
     };
 
     vm.updateNotebookName = function(newName, nbId){
-        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": "2"})
+        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": "1"})
             .success(function(updatedNotebook){
                 //$log.info(updatedNotebook);
             })
@@ -91,11 +91,11 @@ angular.module('app.controllers.notebook').controller('createNotebookModalCtrl',
 
     $scope.createNotebook = function(nbName){
         $log.info(nbName);
-        $http.post('../../../notebook', {"name": nbName, "owner_id": "2"})
+        $http.post('../../../notebook', {"name": nbName, "owner_id": "1"})
             .success(function(newNotebook){
                 $log.info(newNotebook);
 
-                $http.get('../../../notebook/getAll/user/2')
+                $http.get('../../../notebook/getAll/user/1')
                     .success(function(allNotebooks){
                         //$log.info(allNotebooks);
                         $uibModalInstance.close(allNotebooks);
