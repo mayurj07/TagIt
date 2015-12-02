@@ -18,82 +18,117 @@ angular.module('app', [
     'app.controllers.messenger',
     'app.controllers.mail',
     'app.controllers.report',
-    'app.controllers.notebook',
     'app.controllers.login',
+    'app.controllers.notebook',
+    'app.controllers.bookmark',
     'app.controllers.feedbacks'
-])
+]).config(['$routeProvider', function ($routeProvider) {
 
-    .config(['$routeProvider', function ($routeProvider) {
-    $routeProvider
-        .when('/home', {
-            templateUrl: 'mvc/views/home.html',
-            controller: 'HomeCtrl'
-        })
-        .when('/login', {
-            templateUrl: 'mvc/views/login.html',
-            controller: 'loginCtrl'
-        })
-        .when('/notebooks/owned', {
-            templateUrl: 'mvc/views/notebooks-owned.html',
-            controller: 'NotebookCtrl'
-        })
-        .when('/notebooks/shared', {
-            templateUrl: 'mvc/views/notebooks-shared.html',
-            controller: 'NotebookCtrl'
-        })
-        .when('/user/users', {
-            templateUrl: 'mvc/views/user-users.html',
-            controller: 'UserUsersCtrl'
-        })
-        .when('/user/unconfirmed-users', {
-            templateUrl: 'mvc/views/user-unconfirmed.html',
-            controller: 'UserUnconfirmedUsersCtrl'
-        })
-        .when('/user/groups', {
-            templateUrl: 'mvc/views/user-groups.html',
-            controller: 'UserGroupsCtrl'
-        })
-        .when('/messenger/system-messages', {
-            templateUrl: 'mvc/views/messenger-system-messages.html',
-            controller: 'MessengerSystemMessagesCtrl'
-        })
-        .when('/messenger/admin-messages', {
-            templateUrl: 'mvc/views/messenger-admin-messages.html',
-            controller: 'MessengerAdminMessagesCtrl'
-        })
-        .when('/messenger/sys-messages', {
-            templateUrl: 'mvc/views/messenger-sys-messages.html',
-            controller: 'MessengerSysMessagesCtrl'
-        })
-        .when('/messenger/polls', {
-            templateUrl: 'mvc/views/messenger-polls.html',
-            controller: 'MessengerPollsCtrl'
-        })
-        .when('/messenger/filters', {
-            templateUrl: 'mvc/views/messenger-filters.html',
-            controller: 'MessengerFiltersCtrl'
-        })
-        .when('/messenger/triggers', {
-            templateUrl: 'mvc/views/messenger-triggers.html',
-            controller: 'MessengerTriggersCtrl'
-        })
-        .when('/messenger/jobs', {
-            templateUrl: 'mvc/views/messenger-jobs.html',
-            controller: 'MessengerJobsCtrl'
-        })
-        .when('/mail/templates', {
-            templateUrl: 'mvc/views/mail-templates.html',
-            controller: 'MailTemplatesCtrl'
-        })
-        .when('/feedbacks', {
-            templateUrl: 'mvc/views/feedbacks.html',
-            controller: 'FeedbacksCtrl'
-        })
-        .when('/report/overview', {
-            templateUrl: 'mvc/views/report-overview.html',
-            controller: 'ReportOverviewCtrl'
-        })
-        .otherwise({
-            redirectTo: '/login'
+        $routeProvider
+            .when('/home', {
+                templateUrl: 'mvc/views/home.html',
+                controller: 'HomeCtrl'
+            })
+            .when('/login', {
+                templateUrl: 'mvc/views/login.html',
+                controller: 'loginCtrl'
+            })
+            .when('/signup', {
+                templateUrl: 'mvc/views/signup.html',
+                controller: 'loginCtrl'
+            })
+            .when('/notebooks/owned', {
+                templateUrl: 'mvc/views/notebooks-owned.html',
+                controller: 'NotebookCtrl'
+            })
+            .when('/notebooks/shared', {
+                templateUrl: 'mvc/views/notebooks-shared.html',
+                controller: 'NotebookCtrl'
+            })
+            .when('/bookmarks', {
+                templateUrl: 'mvc/views/bookmark.html',
+                controller: 'BookmarkCtrl'
+            })
+            .when('/user/users', {
+                templateUrl: 'mvc/views/user-users.html',
+                controller: 'UserUsersCtrl'
+            })
+            .when('/user/unconfirmed-users', {
+                templateUrl: 'mvc/views/user-unconfirmed.html',
+                controller: 'UserUnconfirmedUsersCtrl'
+            })
+            .when('/user/groups', {
+                templateUrl: 'mvc/views/user-groups.html',
+                controller: 'UserGroupsCtrl'
+            })
+            .when('/messenger/system-messages', {
+                templateUrl: 'mvc/views/messenger-system-messages.html',
+                controller: 'MessengerSystemMessagesCtrl'
+            })
+            .when('/messenger/admin-messages', {
+                templateUrl: 'mvc/views/messenger-admin-messages.html',
+                controller: 'MessengerAdminMessagesCtrl'
+            })
+            .when('/messenger/sys-messages', {
+                templateUrl: 'mvc/views/messenger-sys-messages.html',
+                controller: 'MessengerSysMessagesCtrl'
+            })
+            .when('/messenger/polls', {
+                templateUrl: 'mvc/views/messenger-polls.html',
+                controller: 'MessengerPollsCtrl'
+            })
+            .when('/messenger/filters', {
+                templateUrl: 'mvc/views/messenger-filters.html',
+                controller: 'MessengerFiltersCtrl'
+            })
+            .when('/messenger/triggers', {
+                templateUrl: 'mvc/views/messenger-triggers.html',
+                controller: 'MessengerTriggersCtrl'
+            })
+            .when('/messenger/jobs', {
+                templateUrl: 'mvc/views/messenger-jobs.html',
+                controller: 'MessengerJobsCtrl'
+            })
+            .when('/mail/templates', {
+                templateUrl: 'mvc/views/mail-templates.html',
+                controller: 'MailTemplatesCtrl'
+            })
+            .when('/feedbacks', {
+                templateUrl: 'mvc/views/feedbacks.html',
+                controller: 'FeedbacksCtrl'
+            })
+            .when('/report/overview', {
+                templateUrl: 'mvc/views/report-overview.html',
+                controller: 'ReportOverviewCtrl'
+            })
+            .otherwise({
+                redirectTo: '/login'
+            });
+    }])
+
+    .run(function ($rootScope, $location, AuthenticationModel, $window, $route) {
+
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+
+            var nextPath = $location.path();
+            //console.log(nextPath);
+            if (!AuthenticationModel.isSignedIn() && nextPath != '/signup') {
+                $location.path('/login');
+            }
+            else if(AuthenticationModel.isSignedIn() && ( nextPath == '/login' || nextPath == '/signup')){
+                $location.path('/home');
+            }
+
         });
-}]);
+
+
+        /* $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+         if (!AuthenticationModel.isSignedIn() ) {
+         $location.path('/trial');
+         }
+         else if (!AuthenticationModel.isSignedIn() && toState.name != 'signup' && toState.name != 'login' && toState.name != 'verifyEmail') {
+         $state.go('login', {reload: true});
+         }
+         });*/
+
+    });

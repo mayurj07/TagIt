@@ -29,12 +29,12 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
                             $log.info(user.name);
 
                             sharedNotebooks.push({
-                                    "bookname": allNotebooks[0].name,
-                                    "notebookid": allNotebooks[0].notebookid,
-                                    "ownerId": allNotebooks[0].owner_id,
-                                    "ownerName": user.name,
-                                    "ownerEmail": user.email
-                                });
+                                "bookname": allNotebooks[0].name,
+                                "notebookid": allNotebooks[0].notebookid,
+                                "ownerId": allNotebooks[0].owner_id,
+                                "ownerName": user.name,
+                                "ownerEmail": user.email
+                            });
                         })
                         .error(function (error) {
                             console.log(error);
@@ -106,8 +106,8 @@ angular.module('app.controllers.notebook').controller('createNotebookModalCtrl',
 
             })
             .error(function (error) {
-            console.log(error);
-        });
+                console.log(error);
+            });
     };
 
 

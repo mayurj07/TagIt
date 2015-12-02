@@ -1,0 +1,37 @@
+<div class="container-fluid" ng-controller="BookmarkCtrl as bm" ng-init="bm.getAllBookmark()">
+
+    <br />
+    <button type="button" class="btn btn-default" ng-click="bm.open('sm')">Add Bookmark</button>
+
+
+    <script type="text/ng-template" id="createBookmarkModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Bookmark Name</h3>
+        </div>
+        <form class="form-horizontal form-label-left" method="post" ng-submit="createBookmark(bmName)">
+            <input type="text" class="form-control" ng-model="bmName" ng-init="name= MyBookmark"  required="required">
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+    </script>
+
+    <div class="row-fluid" ng-repeat="bookmark in bm.mybookmarks">
+
+        <div class="col-lg-12 col-md-12">
+            <div class="bs-callout ng-class: status.WS.cls;">
+                <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
+                <h4 ng-hide="editing" ng-click="editing = true">{{bookmark.bookmarkName}}</h4>
+                <form ng-show="editing" ng-submit="bm.updateBookmarkName(bookmark.name, bookmark.bookmarkId)">
+                    <label>Name:</label>
+                    <input type="text" ng-model="bookmark.name" placeholder="Name" ng-required/>
+                    <br/>
+                    <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
+                </form>
+                <span class="label label-info">Updated At: {{status.WS.ago}}</span>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -47,9 +47,8 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor= loginInterceptor();
-        // registry.addInterceptor(loginInterceptor).addPathPatterns("/user/");
         registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/*");
-
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook/getAll/user/*");
 
     }
 

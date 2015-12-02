@@ -41,17 +41,7 @@ public class TagController {
     @Autowired
     LoginInterceptor loginInterceptor;
 
-    /*
-            Test method to test the cookies
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        System.out.println(" I am in the interceptor");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/getAll");
-    }
-
-        /**
+       /**
          *  Method to create a Tag
          * @param tag
          * @param result
@@ -130,13 +120,13 @@ public class TagController {
      * @param userid
      * @return
      */
-    @RequestMapping(value ="/getAll", method = RequestMethod.GET,produces = "application/json")
-    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@CookieValue("userid") Integer userid )
+    @RequestMapping(value ="/getAll/user/{userid}", method = RequestMethod.GET,produces = "application/json")
+    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@PathVariable("userid") Integer userid )
     {
        // ArrayList<Tag> tags = new ArrayList<Tag>();
         ArrayList<Object[]> objTags = new ArrayList<Object[]>();
 
-        System.out.println(":::::::; in the tag getAll method ::: userid is :"+userid);
+        System.out.println(":::::::; in the tag getAllTags method ::: userid is :"+userid);
         User user = userService.getUserById(userid);
         if(user.getUserid()!=0) {
             System.out.println(" userid fetched! ");

@@ -3,49 +3,49 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 300;
-  src: local("Open Sans Light"), local("OpenSans-Light"), url(fonts/google/open-sans-light.woff) format("woff");
+  src: local("Open Sans Light"), local("OpenSans-Light"), url(../font/google/open-sans-light.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: local("Open Sans"), local("OpenSans"), url(fonts/google/open-sans.woff) format("woff");
+  src: local("Open Sans"), local("OpenSans"), url(../font/google/open-sans.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: local("Open Sans Semibold"), local("OpenSans-Semibold"), url(fonts/google/open-sans-semibold.woff) format("woff");
+  src: local("Open Sans Semibold"), local("OpenSans-Semibold"), url(../font/google/open-sans-semibold.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 700;
-  src: local("Open Sans Bold"), local("OpenSans-Bold"), url(fonts/google/open-sans-bold.woff) format("woff");
+  src: local("Open Sans Bold"), local("OpenSans-Bold"), url(../font/google/open-sans-bold.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 300;
-  src: local("Open Sans Light Italic"), local("OpenSansLight-Italic"), url(fonts/google/open-sans-light-italic.woff) format("woff");
+  src: local("Open Sans Light Italic"), local("OpenSansLight-Italic"), url(../font/google/open-sans-light-italic.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  src: local("Open Sans Italic"), local("OpenSans-Italic"), url(fonts/google/open-sans-italic.woff) format("woff");
+  src: local("Open Sans Italic"), local("OpenSans-Italic"), url(../font/google/open-sans-italic.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  src: local("Open Sans Semibold Italic"), local("OpenSans-SemiboldItalic"), url(fonts/google/open-sans-semibold-italic.woff) format("woff");
+  src: local("Open Sans Semibold Italic"), local("OpenSans-SemiboldItalic"), url(../font/google/open-sans-semibold-italic.woff) format("woff");
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 700;
-  src: local("Open Sans Bold Italic"), local("OpenSans-BoldItalic"), url(fonts/google/open-sans-bold-italic.woff) format("woff");
+  src: local("Open Sans Bold Italic"), local("OpenSans-BoldItalic"), url(../font/google/open-sans-bold-italic.woff) format("woff");
 }
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
@@ -361,7 +361,7 @@ th {
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot");
-  src: url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+  src: url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../lib/bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff2") format("woff2"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../../bower_components/bootstrap-sass/assets/fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
 .glyphicon {
   position: relative;

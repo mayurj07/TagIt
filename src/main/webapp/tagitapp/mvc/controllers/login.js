@@ -4,7 +4,7 @@
 
 
 angular.module('app.controllers.login', []).
-controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel) {
+controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel, $route, $timeout) {
 
     $scope.username = null;
     $scope.password = null;
@@ -14,15 +14,13 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
 
     $scope.signIn = function (username, password) {
 
-        $log.info(username + "" + password);
         return $http.post('../../../user/login', {
             email: username,
             password: password
         }).success(function(data) {
-            $log.info(data);
             delete data.password;
             AuthenticationModel.setUser(data);
-            $location.path('/home');
+            $timeout(function(){ $location.path('/home');},1);
         }).error(function (data) {
             AuthenticationModel.removeUser();
             $location.path('/login');
@@ -30,27 +28,38 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         });
     };
 
- /*   $scope.signUp = function (username, password, name) {
-        return $http.post(ServerUrl + '/api/auth/signup', {
-            username: username,
+    $scope.signUp = function (name, email, password, country, state) {
+
+        console.log("email: " + email);
+        return $http.post('../../../user/signup', {
+            name: name,
+            email: email,
             password: password,
-            name: name
+            country: country,
+            state: state
         }).success(function(data) {
-            AuthenticationModel.setUser(data.user);
-            $state.go('app.page', {page: 'dashboard', child: null});
+            if(data){
+                AuthenticationModel.errorMessage = "Verification sent on your email. Please verify your email account.";
+                alert("Verification sent on your email. Please verify your email account.");
+            }
         }).error(function (data) {
-            alert(data);
-            AuthenticationModel.removeUser();
-            AuthenticationModel.errorMessage = data;
+            alert(data.message);
+            AuthenticationModel.errorMessage = data.message;
         });
-    };*/
+    };
+
+
+    $scope.openSignup = function(){
+        console.log("openSignup");
+      $location.path('/signup');
+    };
 });
 
 
 angular.module('app.controllers.login').
 factory('AuthenticationModel', function ($http, $cookies) {
 
-    this.user = $cookies.getObject('user');
+    this.user = $cookies.getObject('tagit');
     this.errorMessage = null;
 
 
@@ -61,14 +70,11 @@ factory('AuthenticationModel', function ($http, $cookies) {
     this.setUser = function(user) {
         this.errorMessage = null;
         this.user = user;
-        var now = new Date();
-        var exp = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);  //expiration to 1 day
-        $cookies.putObject('user', user, {expires: exp, path: '/'});
     };
 
     this.removeUser = function() {
         this.user = null;
-        $cookies.remove('user', {path: '/'});
+        $cookies.remove('tagit', {path: '/'});
     };
 
     return this;

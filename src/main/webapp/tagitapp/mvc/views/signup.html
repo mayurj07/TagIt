@@ -1,0 +1,89 @@
+
+<div class="container">
+    <main id="content" class="widget-login-container" role="main">
+        <div class="row">
+            <div class="col-lg-4 col-sm-5 col-xs-10 col-lg-offset-4 col-sm-offset-3 col-xs-offset-1">
+                <h4 class="widget-login-logo animated fadeInUp">
+                    <i class="fa fa-circle text-gray"></i> TagIt <i class="fa fa-circle text-warning"></i>
+                </h4>
+                <section class="widget widget-login animated fadeInUp">
+                    <header>
+                        <h3>SignUp</h3>
+                    </header>
+                    <div class="widget-body">
+
+                        <form class="form-horizontal form-label-left" method="post" ng-submit="signUp(name, email, password, country, state)"
+                              data-ui-jq="parsley"
+                              data-parsley-priority-enabled="false"
+                              novalidate="novalidate">
+                            <fieldset>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" >Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  class="form-control" placeholder="Name" ng-model="name" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" >Country</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  class="form-control" placeholder="Country" ng-model="country" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" >State</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  class="form-control" placeholder="State" ng-model="state" required="required">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" > E-mail </label>
+                                    <div class="col-sm-9">
+                                        <input type="email" class="form-control" ng-model="email" placeholder="Email (will be verified)"
+                                               data-parsley-trigger="change"
+                                               data-parsley-validation-threshold="1"
+                                               required="required">
+                                    <span class="help-block">
+                                    </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" > Password </label>
+                                    <div class="col-sm-9">
+                                        <input type="password" id="password" class="form-control mb-sm" placeholder="Minimum 6 characters"
+                                               data-parsley-trigger="change"
+                                               data-parsley-minlength="6"
+                                               required="required">
+                                    </div>
+                                    <label class="control-label col-sm-3" > Re-enter Password </label>
+                                    <div class="col-sm-9">
+                                        <input type="password" id="inputPassword" class="form-control" ng-model="password" placeholder="Minimum 6 characters"
+                                               data-parsley-trigger="change"
+                                               data-parsley-minlength="6"
+                                               data-parsley-equalto="#password"
+                                               required="required">
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <div class="clearfix control-group ">
+                                <p>Already have an account?  </p>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-rounded pull-right" >Create an Account</button>
+                            <button type="button" class="btn btn-danger btn-rounded " data-ui-sref="login">Login</button>
+                        </form>
+                    </div>
+                    <div ng-show="AuthenticationModel.errorMessage" class="alert alert-error">
+                        {{AuthenticationModel.errorMessage}}
+                    </div>
+                </section>
+            </div>
+            <!-- <div class="well-small">
+                 <legend>Or sign up with...</legend>
+                 <button class="btn btn-info" ng-click="signUpFacebookRequestToken()">Facebook</button>
+             </div>-->
+        </div>
+
+    </main>
+</div>

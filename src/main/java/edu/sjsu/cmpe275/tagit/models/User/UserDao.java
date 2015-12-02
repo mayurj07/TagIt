@@ -15,5 +15,5 @@ public interface UserDao extends CrudRepository<User, Long> {
     User updateUserSession(String sessionid,long id);
 */
     @Query(value = "select * from users where userid=?1 and sessionid=?2",nativeQuery = true)
-    User getUserByUseridAndSessionid(long userid,String sessionid);
+    User getUserByUseridAndSessionid(long userid,long sessionid);
 }
