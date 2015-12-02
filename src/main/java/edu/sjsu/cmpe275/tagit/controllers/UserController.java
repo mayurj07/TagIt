@@ -98,67 +98,44 @@ public class UserController {
     //=================================================
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<User> validateUser(@Valid @RequestBody User user, BindingResult result, HttpServletResponse response) {
+    public ResponseEntity<User> validateUser(@Valid @RequestBody User tmpUser, BindingResult result, HttpServletResponse response) {
 
-        User tempUser = userService.getUserByEmail(user.getEmail());
-        String savedPass = tempUser.getPassword();
-        String enteredPass = Utils.passwordEncrypter(user.getPassword());
-        System.out.println(savedPass);
-        System.out.println(enteredPass);
+        User user = userService.getUserByEmail(tmpUser.getEmail());
+        String savedPass = user.getPassword();
+        String enteredPass = Utils.passwordEncrypter(tmpUser.getPassword());
+
+        //compare given password with the actual password
         if (savedPass != null) {
             if (savedPass.equals(enteredPass)) {
 
-                Integer sessionid = Utils.sessionTokenGenerator(); //generate a session id
-                tempUser.setSessionid(sessionid);
-                User userWithSession = userService.create(tempUser); // update the user with sessionid
-                System.out.println(" user's session is is :" + userWithSession.getSessionid());
+                Integer sessionToken = Utils.sessionTokenGenerator(); //generate a session id
+                user.setSessionid(sessionToken);
+                User userWithSession = userService.create(user); // update the user with sessionid
                 if (userWithSession != null) {
                     userWithSession.setPassword(null);
-                    Cookie cookie1 = new Cookie("user", userWithSession.toString());
-                    cookie1.setMaxAge(30000);
+                    Cookie cookie1 = new Cookie("tagit", userWithSession.toString());
+                    cookie1.setMaxAge(30000);       //8.5 hrs expiry
                     cookie1.setPath("/");
                     response.addCookie(cookie1);
-                    Cookie cookie2 = new Cookie("sessionid", String.valueOf(userWithSession.getSessionid()));
-                    cookie2.setMaxAge(30000);
-                    cookie2.setPath("/");
-                    response.addCookie(cookie2);
-                    Cookie cookie3 = new Cookie("userid", String.valueOf(userWithSession.getUserid()));
-                    cookie3.setMaxAge(30000);
-                    cookie3.setPath("/");
-                    response.addCookie(cookie3);
-
                 }
-                tempUser.setPassword(null);
-                return new ResponseEntity<User>(tempUser, HttpStatus.OK);
+                user.setPassword(null);
+                return new ResponseEntity<User>(user, HttpStatus.OK);
             } else {
-                System.out.println("Password incorrect");
-                throw new BadRequestException("Password incorrect");
+                throw new BadRequestException("Incorrect Password");
             }
         } else {
-            System.out.println("User not found.");
             throw new BadRequestException("User not found.");
         }
-
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
     private boolean logout(HttpServletRequest request, HttpServletResponse response) {
-
-        Cookie cookie1 = new Cookie("user", null);
+        Cookie cookie1 = new Cookie("tagit", null);
         cookie1.setPath("/");
         cookie1.setMaxAge(0);
         response.addCookie(cookie1);
-        Cookie cookie2 = new Cookie("sessionid", null);
-        cookie2.setPath("/");
-        cookie2.setMaxAge(0);
-        response.addCookie(cookie2);
-        Cookie cookie3 = new Cookie("userid", null);
-        cookie3.setPath("/");
-        cookie3.setMaxAge(0);
-        response.addCookie(cookie3);
         return true;
-
     }
 
 }

@@ -18,6 +18,7 @@ angular.module('app', [
     'app.controllers.messenger',
     'app.controllers.mail',
     'app.controllers.report',
+    'app.controllers.login',
     'app.controllers.notebook',
     'app.controllers.bookmark',
     'app.controllers.feedbacks'
@@ -96,6 +97,6 @@ angular.module('app', [
             controller: 'ReportOverviewCtrl'
         })
         .otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
 }]);

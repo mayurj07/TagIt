@@ -10,8 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by akanksha on 11/28/2015.
@@ -24,18 +22,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        System.out.println(" ********************* in the interceptor");
         Cookie[] cookies = httpServletRequest.getCookies();
-//        System.out.println(":::;;; getting the cookie value::::"+cookies[2].getValue());
         boolean loggedin=false;
-
         ObjectMapper mapper = new ObjectMapper();
-
-        Map<String,String> cookieMap = new HashMap<String,String>();
         if(cookies!=null)
         {
            for(Cookie cookie:cookies) {
-//               cookieMap.put(cookie.getName(), cookie.getValue());
                System.out.println(" key: "+cookie.getName()+", value: "+cookie.getValue());
            }
 
@@ -44,15 +36,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             long userid = cookieUserObj.getUserid();
             long sessionid = cookieUserObj.getSessionid();
             System.out.println("userid: " + userid + " ,sessionid: " + sessionid);
-//            String user = cookieMap.get("user");
-//            String[] userArr = user.split("%22");
-//            for(String s:userArr)
-//                System.out.print(s);
-//            System.out.println("");
-
-
-//           String userid = cookieMap.get("userid");
-//           String sessionid = cookieMap.get("sessionid");
            if(userid == 0L || sessionid == 0L ){
               httpServletResponse.sendError(400, "Invalid session. Please Login again.");
                return false;

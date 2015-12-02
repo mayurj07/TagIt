@@ -50,7 +50,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
 angular.module('app.controllers.login').
 factory('AuthenticationModel', function ($http, $cookies) {
 
-    this.user = $cookies.getObject('user');
+    this.user = $cookies.getObject('tagit');
     this.errorMessage = null;
 
 
