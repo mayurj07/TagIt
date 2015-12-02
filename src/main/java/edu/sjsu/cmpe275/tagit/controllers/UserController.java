@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @EnableAutoConfiguration
 @ComponentScan
 @Component("UserController")
-@RequestMapping("/user/*")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
