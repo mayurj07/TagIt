@@ -4,7 +4,7 @@
 
 
 angular.module('app.controllers.login', []).
-controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel, $cookies) {
+controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel) {
 
     $scope.username = null;
     $scope.password = null;
@@ -21,7 +21,6 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).success(function(data) {
             $log.info(data);
             delete data.password;
-            //AuthenticationModel.setUser(data);
             $location.path('/home');
         }).error(function (data) {
             AuthenticationModel.removeUser();

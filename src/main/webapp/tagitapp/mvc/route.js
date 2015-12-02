@@ -99,4 +99,27 @@ angular.module('app', [
         .otherwise({
             redirectTo: '/login'
         });
-}]);
+}])
+
+.run(function ($rootScope, $location, AuthenticationModel, $window) {
+
+    $rootScope.$on('$routeChangeStart', function (event, next, current) {
+        if (!AuthenticationModel.isSignedIn()) {
+                $location.path('/login');
+        }
+        //else if (toState === undefined || toState.data.requireAuthentication === undefined) {
+        //    $location.path('/app/dashboard/');    //$state.go('/app/dashboard');  ... $state.go() not working
+        //}
+
+    });
+
+   /* $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+        if (!AuthenticationModel.isSignedIn() ) {
+            $location.path('/trial');
+        }
+        else if (!AuthenticationModel.isSignedIn() && toState.name != 'signup' && toState.name != 'login' && toState.name != 'verifyEmail') {
+            $state.go('login', {reload: true});
+        }
+    });*/
+
+});
