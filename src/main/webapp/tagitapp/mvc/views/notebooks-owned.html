@@ -1,7 +1,7 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksOwned()">
 
     <br/>
-    <button type="button" class="btn btn-default" ng-click="nb.open('sm')">Add Notebook</button>
+    <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">Add Notebook</button>
 
 
     <script type="text/ng-template" id="createNotebookModal.html">
@@ -33,6 +33,17 @@
                     <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
                 </form>
                 <span class="label label-info">Updated At: {{}}</span>
+
+                <br/><br/>
+                <button ng-hide="addNB" ng-click="addNB = true" class="btn btn-success" type="submit">Add Bookmark
+                </button>
+                <form ng-show="addNB" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">
+                    <h4><span class="fw-semi-bold"><label>Add NoteBook</label></span></h4>
+                    <label>Name:</label> <input type="text" ng-model="boomarkName" placeholder="Name" ng-required/><br />
+                    <label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link" ng-required/><br/>
+                    <button class="btn btn-success" type="submit" ng-click="addNB = false;">Add</button>
+                </form>
+
             </div>
         </div>
 

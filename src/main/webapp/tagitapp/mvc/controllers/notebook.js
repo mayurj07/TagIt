@@ -56,6 +56,25 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             });
     };
 
+    vm.addBookmark = function(bookmarkName, bookmarkDescription, notebookId){
+        $http.post('../../../bookmark', {"bookmarkName": bookmarkName, "bookmarkDescription": bookmarkDescription, "notebookId": notebookId})
+            .success(function(newBookmark){
+                $log.info(newBookmark);
+
+                /*$http.get('../../../boomark/getCount/user/' + userId)
+                    .success(function(allNotebooks){
+                        //$log.info(allNotebooks);
+                        $uibModalInstance.close(allNotebooks);
+                    })
+                    .error(function (error) {
+                        console.log(error);
+                    });*/
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
     vm.open = function (size) {
 
         var modalInstance = $uibModal.open({
@@ -87,7 +106,7 @@ angular.module('app.controllers.notebook').controller('createNotebookModalCtrl',
     var userId = parsedUserCookie.userid;
 
     $scope.createNotebook = function(nbName){
-        $log.info(nbName);
+        //$log.info(nbName);
         $http.post('../../../notebook', {"name": nbName, "owner_id": userId})
             .success(function(newNotebook){
                 $log.info(newNotebook);

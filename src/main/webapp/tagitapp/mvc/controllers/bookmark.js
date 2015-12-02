@@ -1,17 +1,16 @@
 
 angular.module('app.controllers.bookmark', []).
-controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
-    //$scope.status = {};
+controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies) {
     var am = this;
-    am.status = {};
-    //$scope.items = ['item1', 'item2', 'item3'];
-
     $scope.animationsEnabled = true;
 
+    var userCookie = $cookies.getObject('tagit');
+    var parsedUserCookie = JSON.parse(userCookie);
+    var userId = parsedUserCookie.userid;
     var sharedNotebooks = [];
 
     am.getAllBookmark = function(){
-        $http.get('../../../bookmark/getAll/1')
+        $http.get('../../../bookmark/getAll/' + userId)
             .success(function(allbookmarks){
 
                 console.log(allbookmarks);
@@ -23,7 +22,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
     };
 
     am.updateBookmark = function(newName, bookmarkId){
-        $http.put('../../../bookmark/'+ bookmarkId, { "name": newName, "owner_id": "1"})
+        $http.put('../../../bookmark/'+ bookmarkId, { "name": newName, "owner_id": userId})
             .success(function(updatedBookmark){
                 //$log.info(updatedNotebook);
             })
@@ -56,21 +55,20 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
 });
 
 
-angular.module('app.controllers.bookmark').controller('createBookmarkModalCtrl', function ($scope, $uibModalInstance, $log, $http, items) {
+angular.module('app.controllers.bookmark').controller('createBookmarkModalCtrl', function ($scope, $uibModalInstance, $log, $http, $cookies) {
 
-    //$scope.items = items;
-    //$scope.selected = {
-    //    item: $scope.items[0]
-    //};
+    var userCookie = $cookies.getObject('tagit');
+    var parsedUserCookie = JSON.parse(userCookie);
+    var userId = parsedUserCookie.userid;
 
     $scope.createBookmark = function(bmName){
         system.out.println("alert");
         $log.info(bmName);
-        $http.post('../../../bookmark', {"name":bmName, "owner_id": "1"})
+        $http.post('../../../bookmark', {"name":bmName, "owner_id": userId})
             .success(function(newBookmark){
                 $log.info(newBookmark);
 
-                $http.get('../../../bookmark/getAll/user/1')
+                $http.get('../../../bookmark/getAll/user/' + userId)
                     .success(function(allBookmarks){
                         //$log.info(allNotebooks);
                         $uibModalInstance.close(allBookmarks);
