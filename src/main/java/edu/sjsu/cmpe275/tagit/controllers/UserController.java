@@ -108,7 +108,7 @@ public class UserController {
         if (savedPass != null) {
             if (savedPass.equals(enteredPass)) {
 
-                String sessionid = Utils.sessionIdGenerator(); //generate a session id
+                Integer sessionid = Utils.sessionTokenGenerator(); //generate a session id
                 tempUser.setSessionid(sessionid);
                 User userWithSession = userService.create(tempUser); // update the user with sessionid
                 System.out.println(" user's session is is :" + userWithSession.getSessionid());
@@ -118,7 +118,7 @@ public class UserController {
                     cookie1.setMaxAge(30000);
                     cookie1.setPath("/");
                     response.addCookie(cookie1);
-                    Cookie cookie2 = new Cookie("sessionid", userWithSession.getSessionid());
+                    Cookie cookie2 = new Cookie("sessionid", String.valueOf(userWithSession.getSessionid()));
                     cookie2.setMaxAge(30000);
                     cookie2.setPath("/");
                     response.addCookie(cookie2);

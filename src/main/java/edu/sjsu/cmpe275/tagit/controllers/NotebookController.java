@@ -133,8 +133,8 @@ public class NotebookController {
      * @param userId
      * @return List of notebooks
      */
-    @RequestMapping(value = "/getAll", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@CookieValue(value = "userid") Integer userId) {
+    @RequestMapping(value = "/getAll/user/{userid}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Notebook>> getAllNotebooks(@PathVariable(value = "userid") int userId) {
         try {
             User user = userService.getUserById(userId);
             if (user.getName() != null) {

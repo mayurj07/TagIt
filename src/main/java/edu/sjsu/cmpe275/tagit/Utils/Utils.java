@@ -1,10 +1,10 @@
 package edu.sjsu.cmpe275.tagit.Utils;
 
 
+import org.joda.time.DateTime;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Timestamp;
-import java.util.Date;
 
 public class Utils {
 
@@ -34,10 +34,15 @@ public class Utils {
         return generatedDigest;
     }
 
-    public static String sessionIdGenerator()
+    public static Integer sessionTokenGenerator()
     {
-        Timestamp timestamp = new Timestamp(new Date().getTime());
-        System.out.println(" time :"+timestamp.toString());
-        return timestamp.toString();
+        DateTime dt = new DateTime();
+        Integer year = dt.getYear();
+        Integer month = dt.getMonthOfYear();
+        Integer day = dt.getDayOfYear();
+        Integer hour = dt.getHourOfDay();
+        Integer milli = dt.getMillisOfDay();
+        Integer id = 999 + year + month + day + hour + milli;
+        return id;
     }
 }
