@@ -11,9 +11,9 @@ public interface UserDao extends CrudRepository<User, Long> {
     @Query(value="SELECT * FROM users u  WHERE  u.email=?1",nativeQuery = true)
     ArrayList<User> getUserByEmail(String email);
 
-    @Query(value="update users set sessioid=?1 where userid=?2",nativeQuery = true)
-    User updateUser(String sessionid,int id);
-
+   /* @Query(value="update users set sessioid=?1 where userid=?2",nativeQuery = true)
+    User updateUserSession(String sessionid,long id);
+*/
     @Query(value = "select * from users where userid=?1 and sessionid=?2",nativeQuery = true)
-    User getUserByUseridAndSessionid(long userid,String sessionid);
+    User getUserByUseridAndSessionid(long userid,long sessionid);
 }

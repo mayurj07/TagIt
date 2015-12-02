@@ -4,6 +4,8 @@ package edu.sjsu.cmpe275.tagit;
 import edu.sjsu.cmpe275.tagit.AOP.AOP;
 import edu.sjsu.cmpe275.tagit.Utils.EmailNotification;
 import edu.sjsu.cmpe275.tagit.interceptor.LoginInterceptor;
+import edu.sjsu.cmpe275.tagit.services.Share.ShareService;
+import edu.sjsu.cmpe275.tagit.services.Share.ShareServiceImpl;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,6 +34,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public ShareService getShareService(){
+        return new ShareServiceImpl();
+    }
+
+    @Bean
     public LoginInterceptor loginInterceptor()
     {
         return new LoginInterceptor();
@@ -40,9 +47,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor= loginInterceptor();
-       // registry.addInterceptor(loginInterceptor).addPathPatterns("/user/");
         registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/*");
-
+        System.out.println(" in app config addInterceptor method after tag:::::::::::::::::::::::;;");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook/getAll/user/*");
 
     }
+
 }

@@ -41,17 +41,7 @@ public class TagController {
     @Autowired
     LoginInterceptor loginInterceptor;
 
-    /*
-            Test method to test the cookies
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        System.out.println(" I am in the interceptor");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag");
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/getAll");
-    }
-
-        /**
+       /**
          *  Method to create a Tag
          * @param tag
          * @param result

@@ -1,7 +1,8 @@
-var app = angular.module('app', [
+angular.module('app', [
     'ngRoute',
     'ngStorage',
     'ngResource',
+    'ngCookies',
     'ui.bootstrap',
     'ui.tinymce',
     'ui.ace',
@@ -19,7 +20,6 @@ var app = angular.module('app', [
     'app.controllers.report',
     'app.controllers.notebook',
     'app.controllers.bookmark',
-
     'app.controllers.feedbacks'
 ]).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
