@@ -1,7 +1,7 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksOwned()">
 
-    <br />
-    <button type="button" class="btn btn-default" ng-click="nb.open('sm')">Add Notebook</button>
+    <br/>
+    <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">Add Notebook</button>
 
 
     <script type="text/ng-template" id="createNotebookModal.html">
@@ -9,7 +9,8 @@
             <h3 class="modal-title">Notebook Name</h3>
         </div>
         <form class="form-horizontal form-label-left" method="post" ng-submit="createNotebook(nbName)">
-            <input type="text" class="form-control" ng-model="nbName" ng-init="name= MyNotebook"  required="required">
+            <input type="text" class="form-control" ng-model="nbName" ng-init="name= MyNotebook" required="required">
+
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">OK</button>
                 <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
@@ -19,19 +20,32 @@
 
     <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
 
-    <div class="col-lg-3 col-md-3">
-      <div class="bs-callout ng-class: status.WS.cls;">
-        <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
-        <h4 ng-hide="editing" ng-click="editing = true">{{notebook.name}}</h4>
-          <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
-              <label>Name:</label>
-              <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
-              <br/>
-              <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
-          </form>
-        <span class="label label-info">Updated At: {{status.WS.ago}}</span>
-      </div>
-    </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="bs-callout ng-class: status.WS.cls;">
+                <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
+                <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{notebook.name}}</span></h4>
+                <h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>
 
-  </div>
+                <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
+                    <label>Name:</label>
+                    <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
+                    <br/>
+                    <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
+                </form>
+                <span class="label label-info">Updated At: {{}}</span>
+
+                <br/><br/>
+                <button ng-hide="addNB" ng-click="addNB = true" class="btn btn-success" type="submit">Add Bookmark
+                </button>
+                <form ng-show="addNB" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">
+                    <h4><span class="fw-semi-bold"><label>Add NoteBook</label></span></h4>
+                    <label>Name:</label> <input type="text" ng-model="boomarkName" placeholder="Name" ng-required/><br />
+                    <label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link" ng-required/><br/>
+                    <button class="btn btn-success" type="submit" ng-click="addNB = false;">Add</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>

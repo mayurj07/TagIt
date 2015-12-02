@@ -6,6 +6,7 @@ import edu.sjsu.cmpe275.tagit.models.Tag.Tag;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Object;
+import java.util.Map;
 
 /**
  * Created by akanksha on 11/22/2015.
@@ -19,7 +20,7 @@ public interface TagService {
 
     public ArrayList<Tag> getTagByUserId(long userId);
 
-    public List<Object[]> getTagCount(long userId);
+    public Map<String, String> getTagCount(long userId);
 
     public ArrayList<Bookmark> getBookmarkByTag(long userid,String tagName);
 

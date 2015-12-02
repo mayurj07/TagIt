@@ -24,7 +24,7 @@ import java.util.ArrayList;
 @EnableAutoConfiguration
 @ComponentScan
 @Component("NotebookController")
-@RequestMapping("/notebook/*")
+@RequestMapping("/notebook")
 public class NotebookController {
 
     @Autowired

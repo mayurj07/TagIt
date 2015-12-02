@@ -1,16 +1,14 @@
 angular.module('app.controllers.notebook', []).
-controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http) {
-    //$scope.status = {};
+controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies) {
     var vm = this;
-    vm.status = {};
-    //$scope.items = ['item1', 'item2', 'item3'];
-
     $scope.animationsEnabled = true;
-
     var sharedNotebooks = [];
+    var userCookie = $cookies.getObject('tagit');
+    var parsedUserCookie = JSON.parse(userCookie);
+    var userId = parsedUserCookie.userid;
 
     vm.getAllNotebooksOwned = function(){
-        $http.get('../../../notebook/getAll/user/1')
+        $http.get('../../../notebook/getAll/user/' + userId)
             .success(function(allNotebooks){
                 //$log.info(allNotebooks);
                 vm.myNotebooks = allNotebooks;
@@ -21,7 +19,7 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
     };
 
     vm.getAllNotebooksSharedWithMe = function(){
-        $http.get('../../../notebook/getShared/user/1')
+        $http.get('../../../notebook/getShared/user/' + userId)
             .success(function(allNotebooks){
                 for(var i=0; i<allNotebooks.length; i++){
                     $http.get('../../../user/' + allNotebooks[i].owner_id)
@@ -49,9 +47,28 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
     };
 
     vm.updateNotebookName = function(newName, nbId){
-        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": "1"})
+        $http.put('../../../notebook/'+ nbId , { "name": newName, "owner_id": userId})
             .success(function(updatedNotebook){
                 //$log.info(updatedNotebook);
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
+    vm.addBookmark = function(bookmarkName, bookmarkDescription, notebookId){
+        $http.post('../../../bookmark', {"bookmarkName": bookmarkName, "bookmarkDescription": bookmarkDescription, "notebookId": notebookId})
+            .success(function(newBookmark){
+                $log.info(newBookmark);
+
+                /*$http.get('../../../boomark/getCount/user/' + userId)
+                    .success(function(allNotebooks){
+                        //$log.info(allNotebooks);
+                        $uibModalInstance.close(allNotebooks);
+                    })
+                    .error(function (error) {
+                        console.log(error);
+                    });*/
             })
             .error(function (error) {
                 console.log(error);
@@ -82,20 +99,19 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
 });
 
 
-angular.module('app.controllers.notebook').controller('createNotebookModalCtrl', function ($scope, $uibModalInstance, $log, $http, items) {
+angular.module('app.controllers.notebook').controller('createNotebookModalCtrl', function ($scope, $uibModalInstance, $log, $http, $cookies) {
 
-    //$scope.items = items;
-    //$scope.selected = {
-    //    item: $scope.items[0]
-    //};
+    var userCookie = $cookies.getObject('tagit');
+    var parsedUserCookie = JSON.parse(userCookie);
+    var userId = parsedUserCookie.userid;
 
     $scope.createNotebook = function(nbName){
-        $log.info(nbName);
-        $http.post('../../../notebook', {"name": nbName, "owner_id": "1"})
+        //$log.info(nbName);
+        $http.post('../../../notebook', {"name": nbName, "owner_id": userId})
             .success(function(newNotebook){
                 $log.info(newNotebook);
 
-                $http.get('../../../notebook/getAll/user/1')
+                $http.get('../../../notebook/getAll/user/' + userId)
                     .success(function(allNotebooks){
                         //$log.info(allNotebooks);
                         $uibModalInstance.close(allNotebooks);
