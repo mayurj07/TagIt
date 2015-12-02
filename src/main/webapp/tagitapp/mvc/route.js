@@ -45,6 +45,10 @@ angular.module('app', [
                 templateUrl: 'mvc/views/notebooks-shared.html',
                 controller: 'NotebookCtrl'
             })
+            .when('/getMyBookmarks', {
+                templateUrl: 'mvc/views/myBookmarks.html',
+                controller: 'NotebookCtrl'
+            })
             .when('/bookmarks', {
                 templateUrl: 'mvc/views/bookmark.html',
                 controller: 'BookmarkCtrl'

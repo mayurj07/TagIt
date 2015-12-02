@@ -1,0 +1,24 @@
+<div class="container-fluid" ng-controller="NotebookCtrl" >
+
+    <h2>Bookmaks</h2>
+    <div class="row-fluid" ng-repeat="bookmark in allBookmarksForNotebook">
+
+        <div class="col-lg-4 col-md-4">
+            <div class="bs-callout ng-class: status.WS.cls;">
+                <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
+                <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{bookmark.bookmarkName}}</span></h4>
+                <h6>Link: <span class="fw-semi-bold">{{notebook.bookmarkDescription}}</span></h6>
+
+                <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
+                    <label>Name:</label>
+                    <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
+                    <br/>
+                    <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
+                </form>
+                <span class="label label-info">Updated At: {{}}</span>
+
+            </div>
+        </div>
+
+    </div>
+</div>

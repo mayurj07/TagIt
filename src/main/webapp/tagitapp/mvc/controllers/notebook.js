@@ -1,8 +1,9 @@
 angular.module('app.controllers.notebook', []).
-controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies) {
+controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location) {
     var vm = this;
     $scope.animationsEnabled = true;
     var sharedNotebooks = [];
+    $scope.allBookmarksForNotebook = [];
     var userCookie = $cookies.getObject('tagit');
     var parsedUserCookie = JSON.parse(userCookie);
     var userId = parsedUserCookie.userid;
@@ -61,6 +62,7 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             .success(function(newBookmark){
                 $log.info(newBookmark);
 
+                //show count of all bookmarks
                 /*$http.get('../../../boomark/getCount/user/' + userId)
                     .success(function(allNotebooks){
                         //$log.info(allNotebooks);
@@ -74,6 +76,20 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
                 console.log(error);
             });
     };
+
+    vm.showBookmarksForNotebook = function(notebookId){
+        $http.get('../../../bookmark/getAll/' + notebookId)
+            .success(function(allBookmarks){
+                $log.info(allBookmarks);
+                $scope.allBookmarksForNotebook = allBookmarks;
+                $location.path('/getMyBookmarks');
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
+
 
     vm.open = function (size) {
 
