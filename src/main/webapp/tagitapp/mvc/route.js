@@ -33,6 +33,10 @@ angular.module('app', [
                 templateUrl: 'mvc/views/login.html',
                 controller: 'loginCtrl'
             })
+            .when('/signup', {
+                templateUrl: 'mvc/views/signup.html',
+                controller: 'loginCtrl'
+            })
             .when('/notebooks/owned', {
                 templateUrl: 'mvc/views/notebooks-owned.html',
                 controller: 'NotebookCtrl'

@@ -120,8 +120,8 @@ public class TagController {
      * @param userid
      * @return
      */
-    @RequestMapping(value ="/getAll", method = RequestMethod.GET,produces = "application/json")
-    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@CookieValue("userid") Integer userid )
+    @RequestMapping(value ="/getAll/{userid}", method = RequestMethod.GET,produces = "application/json")
+    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@PathVariable("userid") Integer userid )
     {
        // ArrayList<Tag> tags = new ArrayList<Tag>();
         ArrayList<Object[]> objTags = new ArrayList<Object[]>();
