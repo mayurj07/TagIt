@@ -2,7 +2,7 @@
 <div class="container">
     <main id="content" class="widget-login-container" role="main">
         <div class="row">
-            <div class="col-lg-5 col-sm-6 col-xs-10 col-lg-offset-3 col-sm-offset-3 col-xs-offset-1">
+            <div class="col-lg-4 col-sm-5 col-xs-10 col-lg-offset-4 col-sm-offset-3 col-xs-offset-1">
                 <h4 class="widget-login-logo animated fadeInUp">
                     <i class="fa fa-circle text-gray"></i> TagIt <i class="fa fa-circle text-warning"></i>
                 </h4>
@@ -12,7 +12,7 @@
                     </header>
                     <div class="widget-body">
 
-                        <form class="form-horizontal form-label-left" method="post" ng-submit="signUp(username, password, name)"
+                        <form class="form-horizontal form-label-left" method="post" ng-submit="signUp(name, email, password, country, state)"
                               data-ui-jq="parsley"
                               data-parsley-priority-enabled="false"
                               novalidate="novalidate">
@@ -21,9 +21,22 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" >Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text"  class="form-control" id="inputName" placeholder="Name" ng-model="name" required="required">
+                                        <input type="text"  class="form-control" placeholder="Name" ng-model="name" required="required">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" >Country</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  class="form-control" placeholder="Country" ng-model="country" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" >State</label>
+                                    <div class="col-sm-9">
+                                        <input type="text"  class="form-control" placeholder="State" ng-model="state" required="required">
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" > E-mail </label>
@@ -73,10 +86,6 @@
              </div>-->
         </div>
 
-
-
     </main>
-    <footer class="page-footer text-center">
-        2015 &copy; Palo Alto Research Center.
-    </footer>
 </div>
+<div ng-include src="'mvc/views/footer.html'"></div>

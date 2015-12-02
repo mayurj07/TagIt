@@ -30,11 +30,13 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         });
     };
 
-    $scope.signUp = function (username, password, name) {
-        return $http.post(ServerUrl + '/api/auth/signup', {
-            username: username,
+    $scope.signUp = function (name, email, password, country, state) {
+        return $http.post(ServerUrl + '/user', {
+            name: name,
+            email: email,
             password: password,
-            name: name
+            country: country,
+            state: state
         }).success(function(data) {
             AuthenticationModel.setUser(data.user);
             $state.go('app.page', {page: 'dashboard', child: null});
