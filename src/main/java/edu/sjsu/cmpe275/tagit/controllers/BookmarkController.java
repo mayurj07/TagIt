@@ -145,7 +145,7 @@ public class BookmarkController {
 
             if(user.getName()!=null){
 
-                ArrayList<Bookmark> bookmarks =new ArrayList<Bookmark>();//= bookmarkService.getAllBookmarkByUserId(userId);
+                ArrayList<Bookmark> bookmarks =new ArrayList<Bookmark>();
                 ArrayList<Notebook> notebooks = notebookService.getAllNotebooks(userId);
                 for(Notebook n : notebooks){
                     ArrayList<Bookmark> temp = bookmarkService.getAllBookmarkByNotebookId(n.getNotebookid());
