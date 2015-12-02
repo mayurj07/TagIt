@@ -4,7 +4,7 @@
 
 
 angular.module('app.controllers.login', []).
-controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel) {
+controller('loginCtrl', function ($scope, $http, $location, $window, $log, AuthenticationModel, $route, $timeout) {
 
     $scope.username = null;
     $scope.password = null;
@@ -21,7 +21,10 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).success(function(data) {
             $log.info(data);
             delete data.password;
-            $location.path('/home');
+            AuthenticationModel.setUser(data);
+            $timeout(function(){
+                $location.path('/home');
+            },1);
         }).error(function (data) {
             AuthenticationModel.removeUser();
             $location.path('/login');
@@ -60,14 +63,11 @@ factory('AuthenticationModel', function ($http, $cookies) {
     this.setUser = function(user) {
         this.errorMessage = null;
         this.user = user;
-        var now = new Date();
-        var exp = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1);  //expiration to 1 day
-        $cookies.putObject('user', user, {expires: exp, path: '/'});
     };
 
     this.removeUser = function() {
         this.user = null;
-        $cookies.remove('user', {path: '/'});
+        $cookies.remove('tagit', {path: '/'});
     };
 
     return this;
