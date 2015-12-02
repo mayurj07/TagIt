@@ -46,6 +46,14 @@ public class User {
     @Column(name = "sessionid")
     private Long sessionid;
 
+
+    @JsonProperty
+    @Column(name = "token")
+    private String token;
+
+    @JsonProperty
+    @Column(name = "verified")
+    private Boolean verified;
     //Constructors
     public User() {
     }
@@ -64,12 +72,16 @@ public class User {
                 @JsonProperty String email,
                 @JsonProperty String password,
                 @JsonProperty String country,
-                @JsonProperty String state) {
+                @JsonProperty String state,
+                @JsonProperty String token,
+                @JsonProperty boolean verified) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.country = country;
         this.state = state;
+        this.token=token;
+        this.verified=verified;
     }
 
     //setters and getters
@@ -131,6 +143,23 @@ public class User {
 
     public void setSessionid(Long sessionid) {
         this.sessionid = sessionid;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public Boolean isVerified() {
+        return verified;
     }
 
     @Override

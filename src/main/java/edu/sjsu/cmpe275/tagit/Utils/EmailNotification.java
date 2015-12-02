@@ -13,13 +13,15 @@ public class EmailNotification {
     static final String username = "CMPE275Tagit";
     static final String password = "qazedctgb";
 
-    public void sendEmailonSignUp(String userEmailAddress, String userName)
+    public void sendEmailonSignUp(String userEmailAddress, String userName, String token)
     {
         String subject = "Welcome to TagIt!";
 
         String msgBody = "Hello "+ userEmailAddress +",\n\nYour account has been successfully created." +
                 "\n\nThank you for choosing TagIt !" + "\n\nNow you can easily store and share bookmarks !!\n\n" +
-                "Team TagIt !!! ";
+                "Team TagIt !!! \n\n\n\n"+
+                "\nClick the link below to verify your email address: \n\n"+
+                "http://localhost:8080/user/verify/"+userEmailAddress+"/"+token;
 
         emailGenerator(userEmailAddress, userName, subject, msgBody);
 
