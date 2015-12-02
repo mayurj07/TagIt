@@ -58,20 +58,24 @@ public class UserController {
         //this call validated that email is not already in use
         userService.isEmailAvailable(user.getEmail());
 
+        String tokenString = Utils.verificationTokenGenerator(user.getEmail());
         String encryptPass = Utils.passwordEncrypter(user.getPassword());
         System.out.println("encrypted pass: " + encryptPass);
 
         User userob = null;
 
         try {
-            userob = new User(user.getName(), user.getEmail(), encryptPass, user.getCountry(), user.getState());
+            userob = new User(user.getName(), user.getEmail(), encryptPass, user.getCountry(), user.getState(),tokenString,false);
             System.out.println(user.getUserid());
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        emailNotification.sendEmailonSignUp(user.getEmail(), user.getName());
-        return new ResponseEntity<User>(userService.create(userob), HttpStatus.CREATED);
+        emailNotification.sendEmailonSignUp(user.getEmail(), user.getName(),tokenString);
+        userService.create(userob);
+        userob.setPassword(null);
+        userob.setToken(null);
+        return new ResponseEntity<User>(userob, HttpStatus.CREATED);
     }
 
 
@@ -104,6 +108,10 @@ public class UserController {
         String savedPass = user.getPassword();
         String enteredPass = Utils.passwordEncrypter(tmpUser.getPassword());
 
+        if(!user.isVerified()){
+            throw new BadRequestException("Please verify your email address");
+        }
+
         //compare given password with the actual password
         if (savedPass != null) {
             if (savedPass.equals(enteredPass)) {
@@ -113,6 +121,7 @@ public class UserController {
                 User userWithSession = userService.create(user); // update the user with sessionid
                 if (userWithSession != null) {
                     userWithSession.setPassword(null);
+                    userWithSession.setToken(null);
                     Cookie cookie1 = new Cookie("tagit", userWithSession.toString());
                     cookie1.setMaxAge(30000);       //8.5 hrs expiry
                     cookie1.setPath("/");
@@ -137,5 +146,25 @@ public class UserController {
         response.addCookie(cookie1);
         return true;
     }
+
+
+    @RequestMapping(value = "/verify/{email}/{token}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<User> verifyUser(@PathVariable(value = "email") String  email,@PathVariable(value = "token") String  token) {
+
+
+        User user = userService.getUserByEmail(email);
+        if(user.getToken().equals(token))
+        {
+            user.setVerified(true);
+            userService.create(user);
+            user.setPassword(null);
+            user.setToken(null);
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        }
+        else{
+            throw new BadRequestException("Incorrect user");
+        }
+    }
+
 
 }

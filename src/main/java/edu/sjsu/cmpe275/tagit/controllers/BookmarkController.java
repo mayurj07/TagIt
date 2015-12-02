@@ -4,8 +4,10 @@ import edu.sjsu.cmpe275.tagit.exceptions.BadRequestException;
 import edu.sjsu.cmpe275.tagit.exceptions.EntityNotFound;
 import edu.sjsu.cmpe275.tagit.models.Bookmark.Bookmark;
 import edu.sjsu.cmpe275.tagit.models.Notebook.Notebook;
+import edu.sjsu.cmpe275.tagit.models.User.User;
 import edu.sjsu.cmpe275.tagit.services.Bookmark.BookmarkService;
 import edu.sjsu.cmpe275.tagit.services.Notebook.NotebookService;
+import edu.sjsu.cmpe275.tagit.services.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,9 @@ public class BookmarkController {
 
     @Autowired
     private BookmarkService bookmarkService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private NotebookService notebookService;
@@ -99,6 +104,64 @@ public class BookmarkController {
         }
         catch (Exception e) {
             throw new EntityNotFound("Notebook " + notebookId + " not found.");
+        }
+
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<ArrayList<Bookmark>> getAllBookmarkForUser(@PathVariable(value = "id") int userId) {
+
+        try {
+           User user = userService.getUserById(userId);
+
+            if(user.getName()!=null){
+
+                ArrayList<Bookmark> bookmarks =new ArrayList<Bookmark>();//= bookmarkService.getAllBookmarkByUserId(userId);
+                ArrayList<Notebook> notebooks = notebookService.getAllNotebooks(userId);
+                for(Notebook n : notebooks){
+                   ArrayList<Bookmark> temp = bookmarkService.getAllBookmarkByNotebookId(n.getNotebookid());
+                    for(Bookmark b : temp){
+                        bookmarks.add(b);
+                    }
+                }
+
+                return new ResponseEntity<ArrayList<Bookmark>>(bookmarks, HttpStatus.OK);
+            }
+            else{
+                throw new EntityNotFound("User " + userId + " not found.");
+            }
+        }
+        catch (Exception e) {
+            throw new EntityNotFound("User " + userId + " not found.");
+        }
+
+    }
+
+    @RequestMapping(value = "/getCount/user/{id}", method = RequestMethod.GET, produces = "application/json")
+    public int countBookmarkForUser(@PathVariable(value = "id") int userId) {
+
+        try {
+            User user = userService.getUserById(userId);
+
+            if(user.getName()!=null){
+
+                ArrayList<Bookmark> bookmarks =new ArrayList<Bookmark>();//= bookmarkService.getAllBookmarkByUserId(userId);
+                ArrayList<Notebook> notebooks = notebookService.getAllNotebooks(userId);
+                for(Notebook n : notebooks){
+                    ArrayList<Bookmark> temp = bookmarkService.getAllBookmarkByNotebookId(n.getNotebookid());
+                    for(Bookmark b : temp){
+                        bookmarks.add(b);
+                    }
+                }
+
+                return bookmarks.size();
+            }
+            else{
+                throw new EntityNotFound("User " + userId + " not found.");
+            }
+        }
+        catch (Exception e) {
+            throw new EntityNotFound("User " + userId + " not found.");
         }
 
     }
