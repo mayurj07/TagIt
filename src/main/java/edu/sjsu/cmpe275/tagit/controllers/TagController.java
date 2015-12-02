@@ -21,6 +21,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by akanksha on 11/22/2015.
@@ -121,22 +123,15 @@ public class TagController {
      * @return
      */
     @RequestMapping(value ="/getAll/user/{userid}", method = RequestMethod.GET,produces = "application/json")
-    public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@PathVariable("userid") Integer userid )
+    public ResponseEntity<Map<String, String>> getTagsByUser (@PathVariable("userid") Integer userid )
     {
-       // ArrayList<Tag> tags = new ArrayList<Tag>();
-        ArrayList<Object[]> objTags = new ArrayList<Object[]>();
+        Map<String, String> tagWithCount = new HashMap<String, String>();
 
-        System.out.println(":::::::; in the tag getAllTags method ::: userid is :"+userid);
         User user = userService.getUserById(userid);
         if(user.getUserid()!=0) {
-            System.out.println(" userid fetched! ");
-           // tags = tagService.getTagByUserId(userid);
-           // System.out.println(" in tags "+tags.get(0).getTagName());
-            objTags = (ArrayList<Object[]>) tagService.getTagCount(userid);
-            System.out.println(" obj tags : "+objTags.get(0)[0]);
-
+            tagWithCount =  tagService.getTagCount(userid);
         }
-        return new ResponseEntity<ArrayList<Object[]>>(objTags,HttpStatus.OK);
+        return new ResponseEntity<Map<String, String>>(tagWithCount,HttpStatus.OK);
 
     }
 

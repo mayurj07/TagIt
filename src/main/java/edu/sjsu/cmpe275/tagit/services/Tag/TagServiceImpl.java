@@ -9,8 +9,10 @@ import edu.sjsu.cmpe275.tagit.models.Tag.Tag;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.lang.Object;
+import java.util.Map;
 
 /**
  * Created by akanksha on 11/22/2015.
@@ -50,10 +52,20 @@ public class TagServiceImpl implements TagService {
         return tags;
     }
 
-    public List<Object[]> getTagCount(long userid)
+    public Map<String, String> getTagCount(long userid)
     {
         List<Object[]> tags = (ArrayList<Object[]>)tagDao.findTagCount(userid);
-        return tags;
+
+        Map<String, String > tagCount = new HashMap<String, String >();
+
+        for(int i =0; i<tags.size(); i++){
+            tagCount.put(tags.get(i)[1].toString(),  tags.get(i)[0].toString());
+        }
+
+        for(String s: tagCount.keySet()){
+            System.out.println("key: " + s + ", value: " + tagCount.get(s));
+        }
+        return tagCount;
     }
 
     @Override
