@@ -44,7 +44,7 @@ public class User {
 
     @JsonProperty
     @Column(name = "sessionid")
-    private long sessionid;
+    private Long sessionid;
 
     //Constructors
     public User() {
@@ -125,11 +125,11 @@ public class User {
         this.state = state;
     }
 
-    public long getSessionid() {
+    public Long getSessionid() {
         return sessionid;
     }
 
-    public void setSessionid(long sessionid) {
+    public void setSessionid(Long sessionid) {
         this.sessionid = sessionid;
     }
 

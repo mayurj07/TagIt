@@ -20,9 +20,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).success(function(data) {
             delete data.password;
             AuthenticationModel.setUser(data);
-            $timeout(function(){
-                $location.path('/home');
-            },1);
+            $timeout(function(){ $location.path('/home');},1);
         }).error(function (data) {
             AuthenticationModel.removeUser();
             $location.path('/login');
@@ -31,19 +29,22 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
     };
 
     $scope.signUp = function (name, email, password, country, state) {
-        return $http.post(ServerUrl + '/user', {
+
+        console.log("email: " + email);
+        return $http.post('../../../user/signup', {
             name: name,
             email: email,
             password: password,
             country: country,
             state: state
         }).success(function(data) {
-            AuthenticationModel.setUser(data.user);
-            $state.go('app.page', {page: 'dashboard', child: null});
+            if(data){
+                AuthenticationModel.errorMessage = "Verification sent on your email. Please verify your email account.";
+                alert("Verification sent on your email. Please verify your email account.");
+            }
         }).error(function (data) {
-            alert(data);
-            AuthenticationModel.removeUser();
-            AuthenticationModel.errorMessage = data;
+            alert(data.message);
+            AuthenticationModel.errorMessage = data.message;
         });
     };
 

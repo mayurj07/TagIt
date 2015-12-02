@@ -120,13 +120,13 @@ public class TagController {
      * @param userid
      * @return
      */
-    @RequestMapping(value ="/getAll/{userid}", method = RequestMethod.GET,produces = "application/json")
+    @RequestMapping(value ="/getAll/user/{userid}", method = RequestMethod.GET,produces = "application/json")
     public ResponseEntity<ArrayList<Object[]>> getTagsByUser (@PathVariable("userid") Integer userid )
     {
        // ArrayList<Tag> tags = new ArrayList<Tag>();
         ArrayList<Object[]> objTags = new ArrayList<Object[]>();
 
-        System.out.println(":::::::; in the tag getAll method ::: userid is :"+userid);
+        System.out.println(":::::::; in the tag getAllTags method ::: userid is :"+userid);
         User user = userService.getUserById(userid);
         if(user.getUserid()!=0) {
             System.out.println(" userid fetched! ");

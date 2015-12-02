@@ -26,7 +26,7 @@ import javax.validation.Valid;
 @EnableAutoConfiguration
 @ComponentScan
 @Component("UserController")
-@RequestMapping("/user/*")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -41,7 +41,7 @@ public class UserController {
     //=================================================
     //          Create a new User
     //=================================================
-    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/signup", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user, BindingResult result, HttpServletResponse response) {
         if (user.getName() == null || user.getName().trim().equals(""))
             throw new BadRequestException("User name required.");
@@ -109,7 +109,7 @@ public class UserController {
             if (savedPass.equals(enteredPass)) {
 
                 Integer sessionToken = Utils.sessionTokenGenerator(); //generate a session id
-                user.setSessionid(sessionToken);
+                user.setSessionid(sessionToken.longValue());
                 User userWithSession = userService.create(user); // update the user with sessionid
                 if (userWithSession != null) {
                     userWithSession.setPassword(null);
