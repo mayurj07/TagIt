@@ -18,6 +18,8 @@ var app = angular.module('app', [
     'app.controllers.mail',
     'app.controllers.report',
     'app.controllers.notebook',
+    'app.controllers.bookmark',
+
     'app.controllers.feedbacks'
 ]).config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -36,6 +38,10 @@ var app = angular.module('app', [
         .when('/notebooks/shared', {
             templateUrl: 'mvc/views/notebooks-shared.html',
             controller: 'NotebookCtrl'
+        })
+        .when('/bookmarks', {
+            templateUrl: 'mvc/views/bookmark.html',
+            controller: 'BookmarkCtrl'
         })
         .when('/user/users', {
             templateUrl: 'mvc/views/user-users.html',
