@@ -106,16 +106,22 @@ angular.module('app', [
             });
     }])
 
-    .run(function ($rootScope, $location, AuthenticationModel, $window) {
+    .run(function ($rootScope, $location, AuthenticationModel, $window, $route) {
 
         $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            if (!AuthenticationModel.isSignedIn()) {
+
+            var nextPath = $location.path();
+            //console.log(nextPath);
+            if (!AuthenticationModel.isSignedIn() && nextPath != '/signup') {
                 $location.path('/login');
             }
-            else {
+            else if(AuthenticationModel.isSignedIn() && ( nextPath == '/login' || nextPath == '/signup')){
                 $location.path('/home');
             }
+
         });
+
+
         /* $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
          if (!AuthenticationModel.isSignedIn() ) {
          $location.path('/trial');

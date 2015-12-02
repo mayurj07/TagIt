@@ -14,12 +14,10 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
 
     $scope.signIn = function (username, password) {
 
-        $log.info(username + "" + password);
         return $http.post('../../../user/login', {
             email: username,
             password: password
         }).success(function(data) {
-            $log.info(data);
             delete data.password;
             AuthenticationModel.setUser(data);
             $timeout(function(){
@@ -32,7 +30,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         });
     };
 
- /*   $scope.signUp = function (username, password, name) {
+    $scope.signUp = function (username, password, name) {
         return $http.post(ServerUrl + '/api/auth/signup', {
             username: username,
             password: password,
@@ -45,7 +43,13 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
             AuthenticationModel.removeUser();
             AuthenticationModel.errorMessage = data;
         });
-    };*/
+    };
+
+
+    $scope.openSignup = function(){
+        console.log("openSignup");
+      $location.path('/signup');
+    };
 });
 
 
