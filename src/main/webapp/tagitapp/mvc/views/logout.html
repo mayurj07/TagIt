@@ -1,9 +1,9 @@
 
-<div class="container">
+<div class="container" ng-controller="loginCtrl">
     <div class="row">
         <main id="content" class="widget-login-container" role="main">
 
-            <div class="col-lg-4 col-sm-6 col-xs-10 col-lg-offset-4 col-sm-offset-4 col-xs-offset-1">
+            <div class="col-lg-4 col-sm-6 col-xs-10 col-lg-offset-4 col-sm-offset-3 col-xs-offset-1">
                 <h4 class="widget-login-logo animated fadeInUp">
                     <i class="fa fa-circle text-gray"></i> TagIt <i class="fa fa-circle text-warning"></i>
                 </h4>
@@ -11,16 +11,17 @@
                 <div class="row">
                     <section class="widget widget-login animated fadeInUp">
                         <header>
-                            <h1>Welcome to TagIt</h1>
-                            <br />
-                            <h3>Bookmark Sharing App</h3>
+                            <h3>Logout</h3>
                         </header>
+                        <div class="widget-body">
+
+                            <form ng-submit="logout()">
+                                <button type="submit" class="btn btn-success btn-rounded pull-right">Logout</button>
+                            </form>
+                        </div>
                     </section>
                 </div>
             </div>
         </main>
     </div>
-    <footer class="page-footer text-center">
-        TagIt &copy; 2015 CMPE-275 Team 8
-    </footer>
 </div>

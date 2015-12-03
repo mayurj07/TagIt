@@ -9,10 +9,10 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
     var userId = parsedUserCookie.userid;
     var sharedNotebooks = [];
 
-    am.userId = parsedUserCookie.userid;
+    //am.userId = parsedUserCookie.userid;
 
     am.getAllBookmark = function(){
-        $http.get('../../../bookmark/user/' + userId)
+        $http.get('../../../bookmark/user/' + parsedUserCookie.userid)
             .success(function(allbookmarks){
 
                 console.log(allbookmarks);

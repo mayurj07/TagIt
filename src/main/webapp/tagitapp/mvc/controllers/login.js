@@ -48,6 +48,13 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         });
     };
 
+    $scope.logout = function () {
+        return $http.get('../../../user/logout').success(function(data) {
+            $location.path('/login');
+        }).error(function (data) {
+        });
+    };
+
 
     $scope.openSignup = function(){
         console.log("openSignup");
