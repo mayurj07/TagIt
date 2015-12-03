@@ -108,6 +108,28 @@ public class BookmarkController {
 
     }
 
+
+    @RequestMapping(value = "/getCount/notebook/{nbId}", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<Integer> getCountOfBookmarksForNotebook(@PathVariable(value = "nbId") int notebookId) {
+
+        try {
+            Notebook notebook = notebookService.getNotebookByID(notebookId);
+            if(notebook.getName()!=null){
+
+                ArrayList<Bookmark> bookmarks = bookmarkService.getAllBookmarkByNotebookId(notebookId);
+
+                return new ResponseEntity<Integer>(bookmarks.size(), HttpStatus.OK);
+            }
+            else{
+                throw new EntityNotFound("Notebook " + notebookId + " not found.");
+            }
+        }
+        catch (Exception e) {
+            throw new EntityNotFound("Notebook " + notebookId + " not found.");
+        }
+
+    }
+
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<ArrayList<Bookmark>> getAllBookmarkForUser(@PathVariable(value = "id") int userId) {
 

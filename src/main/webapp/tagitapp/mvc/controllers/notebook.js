@@ -1,5 +1,5 @@
 angular.module('app.controllers.notebook', []).
-controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location) {
+controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location, $route) {
     var vm = this;
     $scope.animationsEnabled = true;
     var sharedNotebooks = [];
@@ -12,6 +12,20 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
         $http.get('../../../notebook/getAll/user/' + userId)
             .success(function(allNotebooks){
                 //$log.info(allNotebooks);
+                //get count of bookmarks for the notebook
+                /*for(var i=0; i<allNotebooks.length; i++){
+                    $log.info(allNotebooks[i].notebookid);
+
+                    $http.get('../../../bookmark/getCount/notebook/' + allNotebooks[i].notebookid)
+                        .success(function(bookmarkCount){
+                            $log.info("Count: " +bookmarkCount);
+                            allNotebooks[i].bookmarkCount = bookmarkCount;
+                        })
+                        .error(function (error) {
+                            console.log(error);
+                        });
+                }*/
+
                 vm.myNotebooks = allNotebooks;
             })
             .error(function (error) {
@@ -63,14 +77,26 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
                 $log.info(newBookmark);
 
                 //show count of all bookmarks
-                /*$http.get('../../../boomark/getCount/user/' + userId)
-                    .success(function(allNotebooks){
-                        //$log.info(allNotebooks);
-                        $uibModalInstance.close(allNotebooks);
+                /*$http.get('../../../bookmark/getCount/notebook/' + notebookId)
+                    .success(function(bookmarkCount){
+                        $log.info(bookmarkCount);
                     })
                     .error(function (error) {
                         console.log(error);
                     });*/
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
+
+    vm.deleteNotebook = function(notebookId){
+        $http.delete('../../../notebook/' + notebookId)
+            .success(function(deletedNB){
+                $log.info(deletedNB);
+
+                $route.reload();
             })
             .error(function (error) {
                 console.log(error);

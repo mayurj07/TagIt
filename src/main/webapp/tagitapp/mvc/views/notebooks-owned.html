@@ -25,6 +25,7 @@
                 <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
                 <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{notebook.name}}</span></h4>
                 <h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>
+                <!--<h6>BookMarks: <span class="fw-semi-bold">{{notebook.bookmarkCount}}</span></h6>-->
 
                 <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
                     <label>Name:</label>
@@ -32,9 +33,9 @@
                     <br/>
                     <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
                 </form>
-                <span class="label label-info">Updated At: {{}}</span>
+                <!--<span class="label label-info">Updated At: {{}}</span>-->
 
-                <br/><br/>
+                <br/>
                 <button ng-hide="addBk" ng-click="addBk = true" class="btn btn-success" type="submit">Add Bookmark
                 </button>
                 <form ng-show="addBk" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">
@@ -44,8 +45,9 @@
                     <button class="btn btn-success" type="submit" ng-click="addBk = false;">Add</button>
                 </form>
 
-                &nbsp;&nbsp; <button ng-hide="showBk" ng-click="nb.showBookmarksForNotebook(notebook.notebookid)" class="btn btn-info" type="submit">View Bookmarks
-                </button>
+                &nbsp;&nbsp; <button ng-click="nb.showBookmarksForNotebook(notebook.notebookid)" class="btn btn-info" type="submit">View Bookmarks</button>
+
+                &nbsp;&nbsp; <button ng-click="nb.deleteNotebook(notebook.notebookid)" class="btn btn-danger">Delete</button>
 
             </div>
         </div>

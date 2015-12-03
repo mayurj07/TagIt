@@ -31,7 +31,7 @@ import java.util.Map;
 @EnableAutoConfiguration
 @ComponentScan
 @Component("TagController")
-@RequestMapping("/tag/*")
+@RequestMapping("/tag")
 public class TagController {
 
     @Autowired

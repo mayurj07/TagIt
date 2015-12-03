@@ -9,8 +9,10 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
     var userId = parsedUserCookie.userid;
     var sharedNotebooks = [];
 
+    am.userId = parsedUserCookie.userid;
+
     am.getAllBookmark = function(){
-        $http.get('../../../bookmark/getAll/' + userId)
+        $http.get('../../../bookmark/user/' + userId)
             .success(function(allbookmarks){
 
                 console.log(allbookmarks);
@@ -30,6 +32,18 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
                 console.log(error);
             });
     };
+
+
+    am.addTag = function(bookmarkId, tagName){
+        $http.post('../../../tag', { "tagName": tagName, "bookmarkID": bookmarkId, "tag_userid": userId})
+            .success(function(newTag){
+                $log.info(newTag);
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };
+
 
     am.open = function (size) {
 
