@@ -21,6 +21,7 @@ angular.module('app', [
     'app.controllers.login',
     'app.controllers.notebook',
     'app.controllers.bookmark',
+    'app.controller.myAccount',
     'app.controllers.feedbacks'
 ]).config(['$routeProvider', function ($routeProvider) {
 
@@ -52,6 +53,10 @@ angular.module('app', [
             .when('/bookmarks', {
                 templateUrl: 'mvc/views/bookmark.html',
                 controller: 'BookmarkCtrl'
+            })
+            .when('/myAccount', {
+                templateUrl: 'mvc/views/my-account.html',
+                controller: 'MyAccountCtrl'
             })
             .when('/user/users', {
                 templateUrl: 'mvc/views/user-users.html',
