@@ -14,7 +14,10 @@ angular.module('app', [
     'app.controllers.user',
     'app.controllers.login',
     'app.controllers.notebook',
-    'app.controllers.bookmark'
+    'app.controllers.bookmark',
+    'app.controllers.myaccount',
+    'app.controllers.tag'
+
 ]).config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
@@ -45,6 +48,14 @@ angular.module('app', [
             .when('/bookmarks', {
                 templateUrl: 'mvc/views/bookmark.html',
                 controller: 'BookmarkCtrl'
+            })
+            .when('/myAccount', {
+                templateUrl: 'mvc/views/myAccount.html',
+                controller: 'MyAccountCtrl'
+            })
+            .when('/tag', {
+                templateUrl: 'mvc/views/tag.html',
+                controller: 'TagCtrl'
             })
             .otherwise({
                 redirectTo: '/login'

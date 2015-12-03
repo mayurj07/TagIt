@@ -24,7 +24,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).error(function (data) {
             AuthenticationModel.removeUser();
             $location.path('/login');
-            AuthenticationModel.errorMessage = data;
+            AuthenticationModel.errorMessage = data.message;
         });
     };
 
