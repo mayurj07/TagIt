@@ -118,17 +118,6 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             });
     };
 
-    /*vm.shareNotebook = function(userEmail, access){
-        $http.post('../../../share/' + userId, { "shareWith": userEmail, "shareNotebookId" : "24", "write" : access})
-            .success(function(deletedNB){
-                $log.info(deletedNB);
-                $route.reload();
-            })
-            .error(function (error) {
-                console.log(error);
-            });
-    };*/
-
     vm.open = function (size) {
 
         var modalInstance = $uibModal.open({
@@ -182,41 +171,22 @@ angular.module('app.controllers.notebook')
         var parsedUserCookie = JSON.parse(userCookie);
         var userId = parsedUserCookie.userid;
 
-        console.log("notebookid: " + shareNotebookid);
-
-       /* $scope.createNotebook = function(nbName){
-            //$log.info(nbName);
-            $http.post('../../../notebook', {"name": nbName, "owner_id": userId})
-                .success(function(newNotebook){
-                    $log.info(newNotebook);
-
-                    $http.get('../../../notebook/getAll/user/' + userId)
-                        .success(function(allNotebooks){
-                            //$log.info(allNotebooks);
-                            $uibModalInstance.close(allNotebooks);
-                        })
-                        .error(function (error) {
-                            console.log(error);
-                        });
-
-                })
-                .error(function (error) {
-                    console.log(error);
-                });
-        };*/
-
-
         $scope.shareNotebook = function(userEmail, access){
-            console.log(userEmail + " , " + access);
 
-            $http.post('../../../share/' + userId, { "shareWith": userEmail, "shareNotebookId" : shareNotebookid, "write" : access})
+            if(access == undefined)
+                access = false;
+
+            $http.post('../../../share/' + userId, { "shareWithEmailId": userEmail, "shareNotebookId" : shareNotebookid, "write" : access })
                 .success(function(response){
-                    $log.info(response);
-                    //$route.reload();
-
+                    if(response.shareId == undefined){
+                        alert(response.message);
+                    }else{
+                        alert("Share Email notification sent to " + userEmail);
+                    }
                     $uibModalInstance.close(response);
                 })
                 .error(function (error) {
+                    alert(error.message);
                     console.log(error);
                 });
         };
