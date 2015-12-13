@@ -1,6 +1,6 @@
 
 angular.module('app.controllers.bookmark', []).
-controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies) {
+controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $route) {
     var vm = this;
     $scope.animationsEnabled = true;
 
@@ -23,6 +23,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
         $http.put('../../../bookmark/'+ bookmarkId, { "bookmarkName": newName, "bookmarkDescription": "", "notebookId": ""})
             .success(function(updatedBookmark){
                 $log.info(updatedBookmark);
+                $route.reload();
             })
             .error(function (error) {
                 console.log(error);

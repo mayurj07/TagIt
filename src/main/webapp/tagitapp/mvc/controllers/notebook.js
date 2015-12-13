@@ -160,6 +160,11 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+    vm.reloadView = function(){
+        $route.reload();
+    }
+
 });
 
 

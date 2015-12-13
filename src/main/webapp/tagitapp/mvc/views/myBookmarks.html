@@ -11,20 +11,22 @@
                         {{bookmark.bookmarkDescription}}</a>
                 </span></h5>
 
-                <form ng-show="editing" ng-submit="nb.updateBookmarkName(bookmark.bookmarkName, bookmark.bookmarkId)">
-                    <label>Name:</label>
-                    <input type="text" ng-model="bookmark.bookmarkName" placeholder="Bookmark Name" ng-required/>
+                <div ng-controller="BookmarkCtrl as bm">
+                    <form ng-show="editing" ng-submit="bm.updateBookmarkName(bookmark.bookmarkName, bookmark.bookmarkId)">
+                        <label>Name:</label>
+                        <input type="text" ng-model="bookmark.bookmarkName" placeholder="Bookmark Name" ng-required/>
+                        <br/>
+                        <button class="btn btn-success" type="submit" ng-click="editing = false;">Update</button>
+                    </form>
                     <br/>
-                    <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
-                </form>
-                <br/>
-                <button ng-hide="addTag" ng-click="addTag = true" class="btn btn-success" type="submit">Tag-It
-                </button>
-                <form ng-show="addTag" ng-submit="bm.addTag(bookmark.bookmarkId, tagName)">
-                    <h4><span class="fw-semi-bold"><label>Add Tag</label></span></h4>
-                    <label>Name:</label> <input type="text" ng-model="tagName" placeholder="Tag Name" ng-required/><br/>
-                    <button class="btn btn-success" type="submit" ng-click="addTag = false;">Add</button>
-                </form>
+                    <button ng-hide="addTag" ng-click="addTag = true" class="btn btn-success" type="submit">Tag-It
+                    </button>
+                    <form ng-show="addTag" ng-submit="bm.addTag(bookmark.bookmarkId, tagName)">
+                        <h4><span class="fw-semi-bold"><label>Add Tag</label></span></h4>
+                        <label>Name:</label> <input type="text" ng-model="tagName" placeholder="Tag Name" ng-required/><br/>
+                        <button class="btn btn-success" type="submit" ng-click="addTag = false;">Add</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
