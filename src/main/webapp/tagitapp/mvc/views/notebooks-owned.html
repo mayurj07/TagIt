@@ -3,27 +3,13 @@
     <br/>
     <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">Add Notebook</button>
 
-
-    <script type="text/ng-template" id="createNotebookModal.html">
-        <div class="modal-header">
-            <h3 class="modal-title">Notebook Name</h3>
-        </div>
-        <form class="form-horizontal form-label-left" method="post" ng-submit="createNotebook(nbName)">
-            <input type="text" class="form-control" ng-model="nbName" ng-init="name= MyNotebook" required="required">
-
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">OK</button>
-                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-            </div>
-        </form>
-    </script>
-
     <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
 
         <div class="col-lg-4 col-md-4">
             <div class="bs-callout ng-class: status.WS.cls;">
 
-                <span class="glyphicon glyphicon-share-alt pull-right" ng-click="nb.shareNotebook(notebook.notebookid)">Share
+                <span class="glyphicon glyphicon-share-alt pull-right"
+                      ng-click="nb.openShareModal(notebook.notebookid)">Share
                 </span>
                 &nbsp;&nbsp;
                 <a href="javascript:void(0);"><span class="glyphicon glyphicon-book"></span></a>
@@ -64,4 +50,39 @@
         </div>
 
     </div>
+
+    <script type="text/ng-template" id="createNotebookModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Notebook Name</h3>
+        </div>
+        <form class="form-horizontal form-label-left" method="post" ng-submit="createNotebook(nbName)">
+            <input type="text" class="form-control" ng-model="nbName" ng-init="name= MyNotebook" required="required">
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+    </script>
+
+    <script type="text/ng-template" id="shareNotebookModal.html">
+
+        <h3 class="modal-title" align="center">Share Notebook</h3>
+        <br/>
+        <form class="form-horizontal form-label-left" method="post" ng-submit="shareNotebook(userEmail, access)">
+            &nbsp;
+            <label>Email: </label>
+            <input type="text" ng-model="userEmail" required="required">
+            <br/>
+            &nbsp;
+            <label>Permission: </label>
+            <input type="checkbox" ng-model="access" value="true">Write<br>
+
+            <div align="center">
+                <button type="submit" class="btn btn-primary">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </form>
+        <br/>
+    </script>
 </div>

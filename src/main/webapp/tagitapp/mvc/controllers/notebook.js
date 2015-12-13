@@ -2,9 +2,8 @@ angular.module('app.controllers.notebook', []).
 controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location, $route, $rootScope) {
     var vm = this;
     $scope.animationsEnabled = true;
+    $scope.shareNotebookid;
     var sharedNotebooks = [];
-    var selectedNotebookID;
-    //vm.allBookmarksForNotebook = [];
     var userCookie = $cookies.getObject('tagit');
     var parsedUserCookie = JSON.parse(userCookie);
     var userId = parsedUserCookie.userid;
@@ -119,6 +118,17 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             });
     };
 
+    /*vm.shareNotebook = function(userEmail, access){
+        $http.post('../../../share/' + userId, { "shareWith": userEmail, "shareNotebookId" : "24", "write" : access})
+            .success(function(deletedNB){
+                $log.info(deletedNB);
+                $route.reload();
+            })
+            .error(function (error) {
+                console.log(error);
+            });
+    };*/
+
     vm.open = function (size) {
 
         var modalInstance = $uibModal.open({
@@ -140,7 +150,82 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+    vm.openShareModal = function (notebookid) {
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'shareNotebookModal.html',
+            controller: 'shareNotebookModalCtrl',
+            size: 'sm',
+            resolve: {
+                shareNotebookid: function () {
+                    return notebookid;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (response) {
+            //vm.myNotebooks = allNotebooks;
+            $log.info(response);
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
 });
+
+
+
+angular.module('app.controllers.notebook')
+    .controller('shareNotebookModalCtrl', function ($scope, $uibModalInstance, $log, $http, $cookies, shareNotebookid) {
+
+        var userCookie = $cookies.getObject('tagit');
+        var parsedUserCookie = JSON.parse(userCookie);
+        var userId = parsedUserCookie.userid;
+
+        console.log("notebookid: " + shareNotebookid);
+
+       /* $scope.createNotebook = function(nbName){
+            //$log.info(nbName);
+            $http.post('../../../notebook', {"name": nbName, "owner_id": userId})
+                .success(function(newNotebook){
+                    $log.info(newNotebook);
+
+                    $http.get('../../../notebook/getAll/user/' + userId)
+                        .success(function(allNotebooks){
+                            //$log.info(allNotebooks);
+                            $uibModalInstance.close(allNotebooks);
+                        })
+                        .error(function (error) {
+                            console.log(error);
+                        });
+
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+        };*/
+
+
+        $scope.shareNotebook = function(userEmail, access){
+            console.log(userEmail + " , " + access);
+
+            $http.post('../../../share/' + userId, { "shareWith": userEmail, "shareNotebookId" : shareNotebookid, "write" : access})
+                .success(function(response){
+                    $log.info(response);
+                    //$route.reload();
+
+                    $uibModalInstance.close(response);
+                })
+                .error(function (error) {
+                    console.log(error);
+                });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    });
+
 
 
 angular.module('app.controllers.notebook')
@@ -180,5 +265,7 @@ angular.module('app.controllers.notebook')
         $uibModalInstance.dismiss('cancel');
     };
 });
+
+
 
 
