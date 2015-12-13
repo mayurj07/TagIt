@@ -9,5 +9,5 @@ public interface ShareService {
 
     public Share shareBookmark(Share share);
     public long unShareBookmark(long shareid);
-    public long getShareId(long sharedOwnerId, long notebookId);
+    public Long verifyIfAlredyShared(String sharedOwnerId, long notebookId);
 }

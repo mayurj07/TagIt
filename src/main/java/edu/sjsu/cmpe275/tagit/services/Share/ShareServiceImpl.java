@@ -23,8 +23,14 @@ public class ShareServiceImpl implements ShareService{
     }
 
     @Override
-    public long getShareId(long sharedOwnerId, long notebookId)throws EntityNotFound {
-        long shareid = shareDao.getShareByNotebookIdAndSharedOwnerId(sharedOwnerId,notebookId);
+    public Long verifyIfAlredyShared(String sharedOwnerId, long notebookId)throws EntityNotFound {
+
+        Long shareid;
+
+        shareid = shareDao.getShareByNotebookIdAndSharedOwnerId(sharedOwnerId, notebookId);
+       //throw new BadRequestException("This notebook has already shared with the given user");
+
         return shareid;
     }
+
 }

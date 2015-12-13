@@ -73,6 +73,11 @@ public class ShareController {
             }
 
 
+            Long shareid=shareService.verifyIfAlredyShared(share.getShareWithEmailId(),Long.parseLong(share.getShareNotebookId()));
+
+            if(shareid != null){
+                throw new BadRequestException("This notebook has already shared with the user : "+ share.getShareWithEmailId());
+            }
 
             emailNotification.sendEmailOnSharing(user2.getEmail(),user2.getName(),user1.getName(),notebook.getName());
 
@@ -82,7 +87,7 @@ public class ShareController {
             throw new UnauthorizedException("Unauthorized Access....This notebook does not belong to this owner.");
         }
     }
-
+/*
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public void unShareNotebook(@PathVariable(value = "id") String ownerId, @Valid @RequestBody Share share, BindingResult result) {
 
@@ -105,11 +110,11 @@ public class ShareController {
 
         if(notebookService.validateOwner(ownerId,share.getShareNotebookId())) {
 
-            shareid = shareService.getShareId(Long.parseLong(share.getShareWithEmailId()),Long.parseLong(share.getShareNotebookId()));
+            shareid = shareService.verifyIfAlredyShared(Long.parseLong(share.getShareWithEmailId()),Long.parseLong(share.getShareNotebookId()));
             shareService.unShareBookmark(shareid);
         }else{
             throw new UnauthorizedException("Unauthorized Access....This notebook does not belong to this owner.");
         }
     }
-
+*/
 }
