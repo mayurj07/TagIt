@@ -1,9 +1,10 @@
 angular.module('app.controllers.notebook', []).
-controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location, $route) {
+controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location, $route, $rootScope) {
     var vm = this;
     $scope.animationsEnabled = true;
     var sharedNotebooks = [];
-    $scope.allBookmarksForNotebook = [];
+    var selectedNotebookID;
+    //vm.allBookmarksForNotebook = [];
     var userCookie = $cookies.getObject('tagit');
     var parsedUserCookie = JSON.parse(userCookie);
     var userId = parsedUserCookie.userid;
@@ -90,7 +91,6 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             });
     };
 
-
     vm.deleteNotebook = function(notebookId){
         $http.delete('../../../notebook/' + notebookId)
             .success(function(deletedNB){
@@ -104,18 +104,20 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
     };
 
     vm.showBookmarksForNotebook = function(notebookId){
-        $http.get('../../../bookmark/getAll/' + notebookId)
+        $rootScope.selectedNotebook = notebookId;
+        $location.path('/getMyBookmarks');
+    };
+
+    vm.initBookmarksView = function () {
+        $http.get('../../../bookmark/getAll/' + $rootScope.selectedNotebook)
             .success(function(allBookmarks){
                 $log.info(allBookmarks);
-                $scope.allBookmarksForNotebook = allBookmarks;
-                $location.path('/getMyBookmarks');
+                vm.allBookmarksForNotebook = allBookmarks;
             })
             .error(function (error) {
                 console.log(error);
             });
     };
-
-
 
     vm.open = function (size) {
 
@@ -141,7 +143,8 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
 });
 
 
-angular.module('app.controllers.notebook').controller('createNotebookModalCtrl', function ($scope, $uibModalInstance, $log, $http, $cookies) {
+angular.module('app.controllers.notebook')
+    .controller('createNotebookModalCtrl', function ($scope, $uibModalInstance, $log, $http, $cookies) {
 
     var userCookie = $cookies.getObject('tagit');
     var parsedUserCookie = JSON.parse(userCookie);
@@ -177,3 +180,5 @@ angular.module('app.controllers.notebook').controller('createNotebookModalCtrl',
         $uibModalInstance.dismiss('cancel');
     };
 });
+
+
