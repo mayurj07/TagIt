@@ -2,9 +2,8 @@ angular.module('app.controllers.notebook', []).
 controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies, $location, $route, $rootScope) {
     var vm = this;
     $scope.animationsEnabled = true;
+    $scope.shareNotebookid;
     var sharedNotebooks = [];
-    var selectedNotebookID;
-    //vm.allBookmarksForNotebook = [];
     var userCookie = $cookies.getObject('tagit');
     var parsedUserCookie = JSON.parse(userCookie);
     var userId = parsedUserCookie.userid;
@@ -140,7 +139,68 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
+
+    vm.openShareModal = function (notebookid) {
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'shareNotebookModal.html',
+            controller: 'shareNotebookModalCtrl',
+            size: 'sm',
+            resolve: {
+                shareNotebookid: function () {
+                    return notebookid;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (response) {
+            //vm.myNotebooks = allNotebooks;
+            $log.info(response);
+        }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+        });
+    };
+
+    vm.reloadView = function(){
+        $route.reload();
+    }
+
 });
+
+
+
+angular.module('app.controllers.notebook')
+    .controller('shareNotebookModalCtrl', function ($scope, $uibModalInstance, $log, $http, $cookies, shareNotebookid) {
+
+        var userCookie = $cookies.getObject('tagit');
+        var parsedUserCookie = JSON.parse(userCookie);
+        var userId = parsedUserCookie.userid;
+
+        $scope.shareNotebook = function(userEmail, access){
+
+            if(access == undefined)
+                access = false;
+
+            $http.post('../../../share/' + userId, { "shareWithEmailId": userEmail, "shareNotebookId" : shareNotebookid, "write" : access })
+                .success(function(response){
+                    if(response.shareId == undefined){
+                        alert(response.message);
+                    }else{
+                        alert("Share Email notification sent to " + userEmail);
+                    }
+                    $uibModalInstance.close(response);
+                })
+                .error(function (error) {
+                    alert(error.message);
+                    console.log(error);
+                });
+        };
+
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+    });
+
 
 
 angular.module('app.controllers.notebook')
@@ -180,5 +240,7 @@ angular.module('app.controllers.notebook')
         $uibModalInstance.dismiss('cancel');
     };
 });
+
+
 
 

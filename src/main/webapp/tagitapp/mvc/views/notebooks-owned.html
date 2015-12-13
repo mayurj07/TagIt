@@ -1,8 +1,71 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksOwned()">
 
     <br/>
-    <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">Add Notebook</button>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 style="margin-left: 3%">NoteBooks Owned</h3>
+            <h5 style="margin-left: 3%">Click on Notebook name to update.</h5>
+        </div>
+        <div class="col-lg-6">
+            <button type="button" style="margin-left: 78%" class="btn btn-danger" ng-click="nb.open('sm')">
+                <span class="glyphicon glyphicon-plus"></span>Add Notebook</button>
+        </div>
+    </div>
 
+
+    <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
+
+        <div class="col-lg-4 col-md-4">
+            <div class="bs-callout ng-class: status.WS.cls;">
+
+
+                <button ng-click="nb.openShareModal(notebook.notebookid)" class="btn btn-success pull-right">
+                    <span class="glyphicon glyphicon-share-alt"></span>Share
+                </button>
+
+                <h4 ng-hide="editing" ng-click="editing = true">
+                    <span class="glyphicon glyphicon-book">
+                        <span class="fw-semi-bold">{{notebook.name}}</span>
+                    </span>
+                </h4>
+                <h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>
+                <!--<h6>BookMarks: <span class="fw-semi-bold">{{notebook.bookmarkCount}}</span></h6>-->
+
+                <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
+                    <label>Name:</label>
+                    <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
+                    <br/>
+                    <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
+                </form>
+                <!--<span class="label label-info">Updated At: {{}}</span>-->
+
+                <br/>
+                <button ng-hide="addBk" ng-click="addBk = true" class="btn btn-success" type="submit">
+                    <span class="glyphicon glyphicon-plus"></span>Add Bookmark
+                </button>
+                <form ng-show="addBk" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">
+                    <h4><span class="fw-semi-bold"><label>Add NoteBook</label></span></h4>
+                    <label>Name:</label> <input type="text" ng-model="boomarkName" placeholder="Name" ng-required/><br/>
+                    <label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link" ng-required/><br/>
+                    <button class="btn btn-success" type="submit" ng-click="addBk = false;">Add</button>
+                    <br/>
+                </form>
+
+                &nbsp;&nbsp;
+                <button ng-click="nb.showBookmarksForNotebook(notebook.notebookid)" class="btn btn-info" type="submit">
+                    View Bookmarks <span class="glyphicon glyphicon-bookmark"></span>
+                </button>
+
+                &nbsp;&nbsp;
+                <button ng-click="nb.deleteNotebook(notebook.notebookid)" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+
+
+            </div>
+        </div>
+
+    </div>
 
     <script type="text/ng-template" id="createNotebookModal.html">
         <div class="modal-header">
@@ -18,50 +81,24 @@
         </form>
     </script>
 
-    <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
+    <script type="text/ng-template" id="shareNotebookModal.html">
 
-        <div class="col-lg-4 col-md-4">
-            <div class="bs-callout ng-class: status.WS.cls;">
+        <h3 class="modal-title" align="center">Share Notebook</h3>
+        <br/>
+        <form class="form-horizontal form-label-left" method="post" ng-submit="shareNotebook(userEmail, access)">
+            &nbsp;
+            <label>Email: </label>
+            <input type="text" ng-model="userEmail" required="required">
+            <br/>
+            &nbsp;
+            <label>Permission: </label>
+            <input type="checkbox" ng-model="access" value="true">Write<br>
 
-                <span class="glyphicon glyphicon-share-alt pull-right" ng-click="nb.shareNotebook(notebook.notebookid)">Share
-                </span>
-                &nbsp;&nbsp;
-                <a href="javascript:void(0);"><span class="glyphicon glyphicon-book"></span></a>
-                <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{notebook.name}}</span></h4>
-                <h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>
-                <!--<h6>BookMarks: <span class="fw-semi-bold">{{notebook.bookmarkCount}}</span></h6>-->
-
-                <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
-                    <label>Name:</label>
-                    <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
-                    <br/>
-                    <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
-                </form>
-                <!--<span class="label label-info">Updated At: {{}}</span>-->
-
-                <br/>
-                <button ng-hide="addBk" ng-click="addBk = true" class="btn btn-success" type="submit">Add Bookmark
-                </button>
-                <form ng-show="addBk" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">
-                    <h4><span class="fw-semi-bold"><label>Add NoteBook</label></span></h4>
-                    <label>Name:</label> <input type="text" ng-model="boomarkName" placeholder="Name" ng-required/><br/>
-                    <label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link"
-                                                ng-required/><br/>
-                    <button class="btn btn-success" type="submit" ng-click="addBk = false;">Add</button>
-                    <br/>
-                </form>
-
-                &nbsp;&nbsp;
-                <button ng-click="nb.showBookmarksForNotebook(notebook.notebookid)" class="btn btn-info" type="submit">
-                    View Bookmarks
-                </button>
-
-                &nbsp;&nbsp;
-                <button ng-click="nb.deleteNotebook(notebook.notebookid)" class="btn btn-danger">Delete</button>
-
-
+            <div align="center">
+                <button type="submit" class="btn btn-primary">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
             </div>
-        </div>
-
-    </div>
+        </form>
+        <br/>
+    </script>
 </div>

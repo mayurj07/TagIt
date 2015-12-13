@@ -53,8 +53,7 @@ public class ShareController {
         }
         catch(Exception e){
                 emailNotification.sendEmailUserNotExist(share.getShareWithEmailId(),share.getShareWithEmailId(),user1.getName());
-                throw new BadRequestException("Given user2 is not valid. Email invite has been sent to him. Once he joins the application you can again try to share with him.");
-
+                throw new BadRequestException( "User " + share.getShareWithEmailId() + " is not on TagIt. Invitation Email has been sent. Try Sharing later.");
         }
 
 

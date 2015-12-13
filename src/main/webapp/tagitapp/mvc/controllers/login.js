@@ -51,6 +51,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
     $scope.logout = function () {
         return $http.get('../../../user/logout').success(function(data) {
             $location.path('/login');
+            location.reload();
         }).error(function (data) {
         });
     };

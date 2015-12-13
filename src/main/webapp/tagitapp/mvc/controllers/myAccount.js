@@ -5,8 +5,8 @@ controller('MyAccountCtrl', function($scope, $uibModal, $log, $routeParams, $htt
     var parsedUserCookie = JSON.parse(userCookie);
 
     $scope.getUser = function(){
-        console.log(parsedUserCookie);
-        console.log(parsedUserCookie.name);
+        //console.log(parsedUserCookie);
+        //console.log(parsedUserCookie.name);
         $scope.user = parsedUserCookie;
 
     };
