@@ -1,9 +1,17 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksOwned()">
 
     <br/>
-    <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">
-        <span class="glyphicon glyphicon-plus"></span>
-        Add Notebook</button>
+    <div class="row">
+        <div class="col-lg-6">
+            <h3 style="margin-left: 3%">NoteBooks Owned</h3>
+            <h5 style="margin-left: 3%">Click on Notebook name to update.</h5>
+        </div>
+        <div class="col-lg-6">
+            <button type="button" style="margin-left: 78%" class="btn btn-danger" ng-click="nb.open('sm')">
+                <span class="glyphicon glyphicon-plus"></span>Add Notebook</button>
+        </div>
+    </div>
+
 
     <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
 

@@ -1,5 +1,10 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksSharedWithMe()">
 
+    <br/>
+    <div class="row">
+        <div class="col-lg-6"><h3 style="margin-left: 3%">NoteBooks Shared with me.</h3></div>
+    </div>
+
     <div class="row-fluid" ng-repeat="notebook in nb.sharedNotebooks">
 
     <div class="col-lg-4 col-md-4">
