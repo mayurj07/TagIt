@@ -18,7 +18,7 @@ public class Share {
     @NotNull
     @JsonProperty
     @Column(name="share_user_id")
-    private String shareUserId;
+    private String shareWithEmailId;
 
     @NotNull
     @JsonProperty
@@ -34,8 +34,8 @@ public class Share {
     public Share(){}
 
 
-    public Share(@JsonProperty String shareUserId, @JsonProperty String shareNotebookId, @JsonProperty String write) {
-        this.shareUserId = shareUserId;
+    public Share(@JsonProperty String shareWithEmailId, @JsonProperty String shareNotebookId, @JsonProperty String write) {
+        this.shareWithEmailId = shareWithEmailId;
         this.shareNotebookId = shareNotebookId;
         this.write = write;
     }
@@ -44,8 +44,8 @@ public class Share {
         return shareId;
     }
 
-    public String getShareUserId() {
-        return shareUserId;
+    public String getShareWithEmailId() {
+        return shareWithEmailId;
     }
 
     public String getShareNotebookId() {
@@ -60,8 +60,8 @@ public class Share {
         this.shareId = shareId;
     }
 
-    public void setShareUserId(String shareUserId) {
-        this.shareUserId = shareUserId;
+    public void setShareWithEmailId(String shareWithEmailId) {
+        this.shareWithEmailId = shareWithEmailId;
     }
 
     public void setShareNotebookId(String shareNotebookId) {
