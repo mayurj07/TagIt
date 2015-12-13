@@ -21,7 +21,7 @@ public class EmailNotification {
                 "\n\nThank you for choosing TagIt !" + "\n\nNow you can easily store and share bookmarks !!\n\n" +
                 "Team TagIt !!! \n\n\n\n"+
                 "\nClick the link below to verify your email address: \n\n"+
-                "http://localhost:8080/user/verify/"+userEmailAddress+"/"+token;
+                "http://52.8.241.222:8080/user/verify/"+userEmailAddress+"/"+token;
 
         emailGenerator(userEmailAddress, userName, subject, msgBody);
 
@@ -32,7 +32,7 @@ public class EmailNotification {
     {
 
         String subject = "Your friend [ " + SharingUser + " ]" + " has shared a notebook with you !";
-        String msgBody = "Hello "+ userEmailAddress + ",\n\nA notebook has been shared with you [Notebook Ref :"+ notebookName +"] by " + SharingUser +"."+
+        String msgBody = "Hello "+ userEmailAddress + ",\n\nA notebook has been shared with you Notebook ["+ notebookName +"] by " + SharingUser +"."+
                 "\n\nPlease login to your TagIt account to view your bookmarks."+
                 "\n\n" +
                 "Team TagIt !!! ";
@@ -50,7 +50,7 @@ public class EmailNotification {
                 "\n\nPlease create an account on Tagit for easy sharing of bookmarks."+
                 "\n\n" +
                 "below is the link to join the application:\n"+
-                "http://localhost:8080/tagitapp/index.html#/signup"+
+                "http://52.8.241.222:8080/tagitapp/index.html#/signup"+
                 "\n\nTeam TagIt !!! ";
 
         emailGenerator(userEmailAddress, userName, subject, msgBody);
