@@ -39,17 +39,24 @@ public class ShareController {
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Share> shareNotebook(@PathVariable(value = "id") String ownerId, @Valid @RequestBody Share share, BindingResult result) {
 
-        if(share.getShareUserId() == null || share.getShareUserId().trim().equals(""))
+        if(share.getShareWithEmailId() == null || share.getShareWithEmailId().trim().equals(""))
             throw new BadRequestException("Please tell whome with you want to share.");
         if(share.getShareNotebookId() == null || share.getShareNotebookId().trim().equals(""))
             throw new BadRequestException("Valid notebook must be shared.");
         Share shareObj=null;
 
         User user1 =userService.getUserById(Long.parseLong(ownerId));
-        User user2 = userService.getUserById(Long.parseLong(share.getShareUserId()));
-        if (user2.getName() == null || user2.getName().trim().equals("")){
-            throw new BadRequestException("Given user2 is not valid. Please share with valid user2.");
+
+        User user2;
+        try {
+            user2 = userService.getUserByEmail(share.getShareWithEmailId());
         }
+        catch(Exception e){
+                emailNotification.sendEmailUserNotExist(share.getShareWithEmailId(),share.getShareWithEmailId(),user1.getName());
+                throw new BadRequestException("Given user2 is not valid. Email invite has been sent to him. Once he joins the application you can again try to share with him.");
+
+        }
+
 
         Notebook notebook = notebookService.getNotebookByID(Long.parseLong(share.getShareNotebookId()));
         if (notebook.getName() == null || notebook.getName().trim().equals("")){
@@ -60,13 +67,17 @@ public class ShareController {
 
 
             try {
-                shareObj = new Share(share.getShareUserId(), share.getShareNotebookId(), share.getWrite());
+                shareObj = new Share(share.getShareWithEmailId(), share.getShareNotebookId(), share.getWrite());
 
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
 
+
+
             emailNotification.sendEmailOnSharing(user2.getEmail(),user2.getName(),user1.getName(),notebook.getName());
+
+
             return new ResponseEntity<Share>(shareService.shareBookmark(shareObj), HttpStatus.CREATED);
         }else{
             throw new UnauthorizedException("Unauthorized Access....This notebook does not belong to this owner.");
@@ -76,14 +87,14 @@ public class ShareController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public void unShareNotebook(@PathVariable(value = "id") String ownerId, @Valid @RequestBody Share share, BindingResult result) {
 
-        if(share.getShareUserId() == null || share.getShareUserId().trim().equals(""))
+        if(share.getShareWithEmailId() == null || share.getShareWithEmailId().trim().equals(""))
             throw new BadRequestException("Please tell whome with you want to unshare.");
         if(share.getShareNotebookId() == null || share.getShareNotebookId().trim().equals(""))
             throw new BadRequestException("Valid notebook must be shared.");
 
         long shareid;
         User user1 =userService.getUserById(Long.parseLong(ownerId));
-        User user2 = userService.getUserById(Long.parseLong(share.getShareUserId()));
+        User user2 = userService.getUserById(Long.parseLong(share.getShareWithEmailId()));
         if (user2.getName() == null || user2.getName().trim().equals("")){
             throw new BadRequestException("Given user2 is not valid. Please share with valid user2.");
         }
@@ -95,7 +106,7 @@ public class ShareController {
 
         if(notebookService.validateOwner(ownerId,share.getShareNotebookId())) {
 
-            shareid = shareService.getShareId(Long.parseLong(share.getShareUserId()),Long.parseLong(share.getShareNotebookId()));
+            shareid = shareService.getShareId(Long.parseLong(share.getShareWithEmailId()),Long.parseLong(share.getShareNotebookId()));
             shareService.unShareBookmark(shareid);
         }else{
             throw new UnauthorizedException("Unauthorized Access....This notebook does not belong to this owner.");

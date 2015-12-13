@@ -108,14 +108,14 @@ DROP TABLE IF EXISTS `share`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `share` (
   `shareid` int(11) NOT NULL AUTO_INCREMENT,
-  `share_user_id` int(11) DEFAULT NULL,
+  `share_user_id` varchar(50) DEFAULT NULL,
   `share_notebook_id` int(11) DEFAULT NULL,
-  `write` int(1) DEFAULT '0',
+  `access` varchar(10) DEFAULT '0',
   PRIMARY KEY (`shareid`),
   KEY `share_user_id_idx` (`share_user_id`),
   KEY `share_notebook_id_idx` (`share_notebook_id`),
   CONSTRAINT `share_notebook_id` FOREIGN KEY (`share_notebook_id`) REFERENCES `notebooks` (`notebookid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `share_user_id` FOREIGN KEY (`share_user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `share_user_id` FOREIGN KEY (`share_user_id`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

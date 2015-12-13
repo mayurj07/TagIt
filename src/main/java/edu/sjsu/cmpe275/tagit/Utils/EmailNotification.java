@@ -42,6 +42,22 @@ public class EmailNotification {
     }
 
 
+    public void sendEmailUserNotExist(String userEmailAddress, String userName, String SharingUser)
+    {
+
+        String subject = "Your friend [ " + SharingUser + " ]" + " wants to share a notebook with you !";
+        String msgBody = "Hello "+ userEmailAddress + ",\n\nYour friend " + SharingUser +" wants to share a notebook with you."+
+                "\n\nPlease create an account on Tagit for easy sharing of bookmarks."+
+                "\n\n" +
+                "below is the link to join the application:\n"+
+                "http://localhost:8080/tagitapp/index.html#/signup"+
+                "\n\nTeam TagIt !!! ";
+
+        emailGenerator(userEmailAddress, userName, subject, msgBody);
+
+    }
+
+
     public void emailGenerator(String userEmailAddress, String userName, String subject, String msgBody)
 
     {
