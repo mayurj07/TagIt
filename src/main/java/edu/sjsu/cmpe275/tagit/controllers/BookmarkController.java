@@ -34,7 +34,6 @@ public class BookmarkController {
     private NotebookService notebookService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-
     public ResponseEntity<Bookmark>  createBookmark(@Valid @RequestBody Bookmark bookmark, BindingResult result) {
 
         if (bookmark.getBookmarkName() == null || bookmark.getBookmarkName().trim().equals(""))
@@ -186,5 +185,32 @@ public class BookmarkController {
             throw new EntityNotFound("User " + userId + " not found.");
         }
 
+    }
+
+
+
+    /**
+     * Update a Bookmark. PUT method
+     *
+     * @param bkId
+     * @param bookmark
+     * @return Updated Bookmark object.
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = "application/json")
+    public ResponseEntity<Bookmark> updateNotebook(@PathVariable(value = "id") int bkId, @Valid @RequestBody Bookmark bookmark, BindingResult result) {
+        if (result.hasErrors())
+            throw new BadRequestException("Bad Request Exception");
+
+        try {
+            Bookmark bkToUpdate = bookmarkService.getBookmarkByID(bkId);
+
+            if (bookmark.getBookmarkName() != null || !bookmark.getBookmarkName().trim().equals(""))
+                bkToUpdate.setBookmarkName(bookmark.getBookmarkName());
+
+            return new ResponseEntity<Bookmark>(bookmarkService.create(bkToUpdate), HttpStatus.OK);
+
+        } catch (Exception e) {
+            throw new EntityNotFound("Notebook " + bkId + " does not exist to update.");
+        }
     }
 }

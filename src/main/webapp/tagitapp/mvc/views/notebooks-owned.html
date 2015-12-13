@@ -1,17 +1,20 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.getAllNotebooksOwned()">
 
     <br/>
-    <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">Add Notebook</button>
+    <button type="button" style="margin-left: 90%" class="btn btn-danger" ng-click="nb.open('sm')">
+        <span class="glyphicon glyphicon-plus"></span>
+        Add Notebook</button>
 
     <div class="row-fluid" ng-repeat="notebook in nb.myNotebooks">
 
         <div class="col-lg-4 col-md-4">
             <div class="bs-callout ng-class: status.WS.cls;">
 
-                <span class="glyphicon glyphicon-share-alt pull-right"
-                      ng-click="nb.openShareModal(notebook.notebookid)">Share
-                </span>
-                &nbsp;&nbsp;
+
+                <button ng-click="nb.openShareModal(notebook.notebookid)" class="btn btn-success pull-right">
+                    <span class="glyphicon glyphicon-share-alt"></span>Share
+                </button>
+
                 <a href="javascript:void(0);"><span class="glyphicon glyphicon-book"></span></a>
                 <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{notebook.name}}</span></h4>
                 <h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>
@@ -26,24 +29,26 @@
                 <!--<span class="label label-info">Updated At: {{}}</span>-->
 
                 <br/>
-                <button ng-hide="addBk" ng-click="addBk = true" class="btn btn-success" type="submit">Add Bookmark
+                <button ng-hide="addBk" ng-click="addBk = true" class="btn btn-success" type="submit">
+                    <span class="glyphicon glyphicon-plus"></span>Add Bookmark
                 </button>
                 <form ng-show="addBk" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">
                     <h4><span class="fw-semi-bold"><label>Add NoteBook</label></span></h4>
                     <label>Name:</label> <input type="text" ng-model="boomarkName" placeholder="Name" ng-required/><br/>
-                    <label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link"
-                                                ng-required/><br/>
+                    <label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link" ng-required/><br/>
                     <button class="btn btn-success" type="submit" ng-click="addBk = false;">Add</button>
                     <br/>
                 </form>
 
                 &nbsp;&nbsp;
                 <button ng-click="nb.showBookmarksForNotebook(notebook.notebookid)" class="btn btn-info" type="submit">
-                    View Bookmarks
+                    View Bookmarks <span class="glyphicon glyphicon-bookmark"></span>
                 </button>
 
                 &nbsp;&nbsp;
-                <button ng-click="nb.deleteNotebook(notebook.notebookid)" class="btn btn-danger">Delete</button>
+                <button ng-click="nb.deleteNotebook(notebook.notebookid)" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
 
 
             </div>

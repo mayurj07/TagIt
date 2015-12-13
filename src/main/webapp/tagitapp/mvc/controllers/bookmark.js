@@ -1,32 +1,28 @@
 
 angular.module('app.controllers.bookmark', []).
 controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http, $cookies) {
-    var am = this;
+    var vm = this;
     $scope.animationsEnabled = true;
 
     var userCookie = $cookies.getObject('tagit');
     var parsedUserCookie = JSON.parse(userCookie);
     var userId = parsedUserCookie.userid;
-    var sharedNotebooks = [];
 
-    //am.userId = parsedUserCookie.userid;
-
-    am.getAllBookmark = function(){
+    vm.getAllBookmark = function(){
         $http.get('../../../bookmark/user/' + parsedUserCookie.userid)
             .success(function(allbookmarks){
-
                 console.log(allbookmarks);
-                am.mybookmarks = allbookmarks;
+                vm.mybookmarks = allbookmarks;
             })
             .error(function (error) {
                 console.log(error);
             });
     };
 
-    am.updateBookmark = function(newName, bookmarkId){
-        $http.put('../../../bookmark/'+ bookmarkId, { "name": newName, "owner_id": userId})
+    vm.updateBookmarkName = function(newName, bookmarkId){
+        $http.put('../../../bookmark/'+ bookmarkId, { "bookmarkName": newName, "bookmarkDescription": "", "notebookId": ""})
             .success(function(updatedBookmark){
-                //$log.info(updatedNotebook);
+                $log.info(updatedBookmark);
             })
             .error(function (error) {
                 console.log(error);
@@ -34,7 +30,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
     };
 
 
-    am.addTag = function(bookmarkId, tagName){
+    vm.addTag = function(bookmarkId, tagName){
         $http.post('../../../tag', { "tagName": tagName, "bookmarkID": bookmarkId, "tag_userid": userId})
             .success(function(newTag){
                 $log.info(newTag);
@@ -45,7 +41,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
     };
 
 
-    am.open = function (size) {
+    vm.open = function (size) {
 
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -60,10 +56,9 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
         });
 
         modalInstance.result.then(function (allBookmarks) {
-            am.mybookmarks = allBookmarks;
-            //$log.info(allNotebooks);
+            vm.mybookmarks = allBookmarks;
         }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
+            //$log.info('Modal dismissed at: ' + new Date());
         });
     };
 });

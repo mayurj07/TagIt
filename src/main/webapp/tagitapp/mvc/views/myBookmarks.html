@@ -1,62 +1,31 @@
 <div class="container-fluid" ng-controller="NotebookCtrl as nb" ng-init="nb.initBookmarksView(selectedNotebook)">
-
-    <h2>Bookmarks</h2>
+    <h2>Bookmarks inside selected Note Book. </h2>
     <div class="row-fluid" ng-repeat="bookmark in nb.allBookmarksForNotebook">
         <div class="col-lg-4 col-md-4">
             <div class="bs-callout ng-class: status.WS.cls;">
-                <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
-                <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{bookmark.bookmarkName}}</span></h4>
-                <h6>Link: <span class="fw-semi-bold">{{notebook.bookmarkDescription}}</span></h6>
+                <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-bookmark"></span></a>
+                <h4 ng-hide="editing" ng-click="editing = true"><span
+                        class="fw-semi-bold">{{bookmark.bookmarkName}}</span></h4>
+                <h5><span class="fw-semi-bold">
+                    <a href="{{bookmark.bookmarkDescription}}" target="_blank">
+                        {{bookmark.bookmarkDescription}}</a>
+                </span></h5>
 
-                <form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">
+                <form ng-show="editing" ng-submit="nb.updateBookmarkName(bookmark.bookmarkName, bookmark.bookmarkId)">
                     <label>Name:</label>
-                    <input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>
+                    <input type="text" ng-model="bookmark.bookmarkName" placeholder="Bookmark Name" ng-required/>
                     <br/>
                     <button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>
                 </form>
-                <span class="label label-info">Updated At: {{}}</span>
-
+                <br/>
+                <button ng-hide="addTag" ng-click="addTag = true" class="btn btn-success" type="submit">Tag-It
+                </button>
+                <form ng-show="addTag" ng-submit="bm.addTag(bookmark.bookmarkId, tagName)">
+                    <h4><span class="fw-semi-bold"><label>Add Tag</label></span></h4>
+                    <label>Name:</label> <input type="text" ng-model="tagName" placeholder="Tag Name" ng-required/><br/>
+                    <button class="btn btn-success" type="submit" ng-click="addTag = false;">Add</button>
+                </form>
             </div>
         </div>
-
     </div>
-
-     <!--<div class="row-fluid" ng-repeat="notebook in nb.allBookmarksForNotebook">-->
-
-        <!--<div class="col-lg-4 col-md-4">-->
-            <!--<div class="bs-callout ng-class: status.WS.cls;">-->
-                <!--<a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>-->
-                <!--<h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{notebook.name}}</span></h4>-->
-                <!--<h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>-->
-                <!--&lt;!&ndash;<h6>BookMarks: <span class="fw-semi-bold">{{notebook.bookmarkCount}}</span></h6>&ndash;&gt;-->
-
-                <!--<form ng-show="editing" ng-submit="nb.updateNotebookName(notebook.name, notebook.notebookid)">-->
-                    <!--<label>Name:</label>-->
-                    <!--<input type="text" ng-model="notebook.name" placeholder="Name" ng-required/>-->
-                    <!--<br/>-->
-                    <!--<button class="btn btn-success" type="submit" ng-click="editing = false;">Save</button>-->
-                <!--</form>-->
-                <!--&lt;!&ndash;<span class="label label-info">Updated At: {{}}</span>&ndash;&gt;-->
-
-                <!--<br/>-->
-                <!--<button ng-hide="addBk" ng-click="addBk = true" class="btn btn-success" type="submit">Add Bookmark-->
-                <!--</button>-->
-                <!--<form ng-show="addBk" ng-submit="nb.addBookmark(boomarkName, boomarkLink, notebook.notebookid)">-->
-                    <!--<h4><span class="fw-semi-bold"><label>Add NoteBook</label></span></h4>-->
-                    <!--<label>Name:</label> <input type="text" ng-model="boomarkName" placeholder="Name" ng-required/><br />-->
-                    <!--<label>Link:</label> <input type="text" ng-model="boomarkLink" placeholder="Boomark Link" ng-required/><br/>-->
-                    <!--<button class="btn btn-success" type="submit" ng-click="addBk = false;">Add</button>-->
-                    <!--<br />-->
-                <!--</form>-->
-
-
-                <!--&nbsp;&nbsp; <button ng-click="nb.showBookmarksForNotebook(notebook.notebookid)" class="btn btn-info" type="submit">View Bookmarks</button>-->
-
-                <!--&nbsp;&nbsp; <button ng-click="nb.deleteNotebook(notebook.notebookid)" class="btn btn-danger">Delete</button>-->
-
-            <!--</div>-->
-        <!--</div>-->
-
-    <!--</div>-->
-
 </div>
