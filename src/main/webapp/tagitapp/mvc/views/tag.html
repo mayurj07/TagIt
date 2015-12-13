@@ -1,0 +1,18 @@
+<div class="container-fluid" ng-controller="TagCtrl as tg" ng-init="tg.getAllTags()">
+
+    <br />
+
+    <div class="row-fluid" ng-repeat="tag in tg.mytags">
+
+        <div class="col-lg-3 col-md-3">
+            <div class="bs-callout ng-class: status.WS.cls;">
+                <a href="javascript:void(0);" class="pull-right"><span class="glyphicon glyphicon-book"></span></a>
+                <h4>Name: <span class="fw-semi-bold">{{tag.tagName}}</span></h4>
+                <h4>Count: <span class="fw-semi-bold">{{tag.tagCount}}</span></h4>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -149,7 +149,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/verify/{email}/{token}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<User> verifyUser(@PathVariable(value = "email") String  email,@PathVariable(value = "token") String  token) {
+    public String verifyUser(@PathVariable(value = "email") String  email, @PathVariable(value = "token") String  token) {
 
 
         User user = userService.getUserByEmail(email);
@@ -159,7 +159,7 @@ public class UserController {
             userService.create(user);
             user.setPassword(null);
             user.setToken(null);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            return "Email Account verified";
         }
         else{
             throw new BadRequestException("Incorrect user");

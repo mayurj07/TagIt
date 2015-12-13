@@ -24,7 +24,7 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).error(function (data) {
             AuthenticationModel.removeUser();
             $location.path('/login');
-            AuthenticationModel.errorMessage = data;
+            AuthenticationModel.errorMessage = data.message;
         });
     };
 
@@ -45,6 +45,13 @@ controller('loginCtrl', function ($scope, $http, $location, $window, $log, Authe
         }).error(function (data) {
             alert(data.message);
             AuthenticationModel.errorMessage = data.message;
+        });
+    };
+
+    $scope.logout = function () {
+        return $http.get('../../../user/logout').success(function(data) {
+            $location.path('/login');
+        }).error(function (data) {
         });
     };
 
