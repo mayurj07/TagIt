@@ -23,8 +23,11 @@
                     <span class="glyphicon glyphicon-share-alt"></span>Share
                 </button>
 
-                <a href="javascript:void(0);"><span class="glyphicon glyphicon-book"></span></a>
-                <h4 ng-hide="editing" ng-click="editing = true"><span class="fw-semi-bold">{{notebook.name}}</span></h4>
+                <h4 ng-hide="editing" ng-click="editing = true">
+                    <span class="glyphicon glyphicon-book">
+                        <span class="fw-semi-bold">{{notebook.name}}</span>
+                    </span>
+                </h4>
                 <h6>Write Access: <span class="fw-semi-bold">{{notebook.access}}</span></h6>
                 <!--<h6>BookMarks: <span class="fw-semi-bold">{{notebook.bookmarkCount}}</span></h6>-->
 
