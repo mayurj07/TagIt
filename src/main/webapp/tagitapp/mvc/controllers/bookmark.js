@@ -16,6 +16,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
             })
             .error(function (error) {
                 console.log(error);
+                alert(error.message);
             });
     };
 
@@ -27,6 +28,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
             })
             .error(function (error) {
                 console.log(error);
+                alert(error.message);
             });
     };
 
@@ -38,6 +40,7 @@ controller('BookmarkCtrl', function($scope, $uibModal, $log, $routeParams, $http
             })
             .error(function (error) {
                 console.log(error);
+                alert(error.message);
             });
     };
 
@@ -85,6 +88,7 @@ angular.module('app.controllers.bookmark').controller('createBookmarkModalCtrl',
                     })
                     .error(function (error) {
                         console.log(error);
+                        alert(error.message);
                     });
 
             })

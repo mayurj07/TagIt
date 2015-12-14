@@ -149,11 +149,11 @@ public class BookmarkController {
                 return new ResponseEntity<ArrayList<Bookmark>>(bookmarks, HttpStatus.OK);
             }
             else{
-                throw new EntityNotFound("User " + userId + " not found.");
+                throw new EntityNotFound("User not found.");
             }
         }
         catch (Exception e) {
-            throw new EntityNotFound("User " + userId + " not found.");
+            throw new EntityNotFound("You do not have any Bookmarks yet. Add Bookmarks to your Notebook.");
         }
 
     }

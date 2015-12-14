@@ -66,3 +66,7 @@ Import as *Existing Maven Project* and run it as *Spring Boot App*.
 ### Usage:-
 
 Run the application using startup.sh script and go on http://localhost:8080/
+
+### Live Demo:-
+
+[View Demo](http://52.8.241.222:8080/tagitapp/index.html)

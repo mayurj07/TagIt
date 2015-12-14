@@ -51,6 +51,7 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
                         })
                         .error(function (error) {
                             console.log(error);
+                            alert(error.message);
                         });
                 }
                 vm.sharedNotebooks = sharedNotebooks;
@@ -58,6 +59,7 @@ controller('NotebookCtrl', function($scope, $uibModal, $log, $routeParams, $http
             })
             .error(function (error) {
                 console.log(error);
+                alert(error.message);
             });
     };
 
@@ -183,7 +185,7 @@ angular.module('app.controllers.notebook')
 
             $http.post('../../../share/' + userId, { "shareWithEmailId": userEmail, "shareNotebookId" : shareNotebookid, "write" : access })
                 .success(function(response){
-                    if(response.shareId == undefined){
+                    if(response == undefined){
                         alert(response.message);
                     }else{
                         alert("Share Email notification sent to " + userEmail);
