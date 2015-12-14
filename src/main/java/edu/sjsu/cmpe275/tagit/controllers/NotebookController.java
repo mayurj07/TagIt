@@ -129,7 +129,7 @@ public class NotebookController {
 
     /**
      * Get all Notebooks for the user.
-     * 
+     *
      * @param userId
      * @return List of notebooks
      */

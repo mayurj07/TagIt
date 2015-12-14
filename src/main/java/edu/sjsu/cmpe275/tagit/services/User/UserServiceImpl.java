@@ -29,16 +29,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long userid) {
         User user = userDao.findOne(userid);
-        System.out.println(" in the user dao :: "+user.getUserid()+user.getName());
         return user;
     }
 
     @Override
     public void isEmailAvailable(String email){
         ArrayList<User> users = userDao.getUserByEmail(email);
-       if(users.size()!=0){
-           throw new BadRequestException("Email already in use");
-       }
+        if(users.size()!=0){
+            throw new BadRequestException("Email already in use");
+        }
     }
 
     @Override
