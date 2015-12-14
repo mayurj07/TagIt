@@ -49,7 +49,7 @@ public class NotebookServiceImpl implements NotebookService {
     }
 
     @Override
-    public ArrayList<Notebook> getShared(long id) throws EntityNotFound {
+    public ArrayList<Notebook> getShared(String id) throws EntityNotFound {
         ArrayList<Notebook> notebookArrayList = new ArrayList<Notebook>();
         Iterable<Notebook> notebooks = noteBookDao.findSharedNotebook(id);
         for (Notebook nb : notebooks) {

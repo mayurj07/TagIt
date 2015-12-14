@@ -157,7 +157,7 @@ public class NotebookController {
         try {
             User user = userService.getUserById(userId);
             if (user.getName() != null) {
-                ArrayList<Notebook> notebooks = notebookService.getShared(userId);
+                ArrayList<Notebook> notebooks = notebookService.getShared(user.getEmail());
                 return new ResponseEntity<ArrayList<Notebook>>(notebooks, HttpStatus.OK);
             } else
                 throw new EntityNotFound("User " + userId + " not found.");

@@ -15,7 +15,7 @@ public interface NotebookService {
 
     public ArrayList<Notebook> getAllNotebooks(long id);
 
-    public ArrayList<Notebook> getShared(long id);
+    public ArrayList<Notebook> getShared(String id);
 
     public boolean validateOwner(String ownerId, String notebookId);
 }
