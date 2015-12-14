@@ -16,3 +16,5 @@ mvn clean install
 sleep 5
 
 nohup mvn spring-boot:run &
+
+tail -f nohup.out
