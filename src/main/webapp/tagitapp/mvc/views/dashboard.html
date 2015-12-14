@@ -1,0 +1,7 @@
+<div class="container-fluid" ng-controller="TagCtrl as tag" ng-init="tag.getAllTags()">
+
+    <h1>Dashboard - Tag Analytics</h1><br><br>
+
+    <canvas id="bar" class="chart chart-bar ng-isolate-scope" chart-data="tag.data" chart-labels="tag.labels" colours="tag.config.colours" style="height: 50px">
+    </canvas>
+</div>

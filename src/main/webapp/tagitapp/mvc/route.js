@@ -7,6 +7,7 @@ angular.module('app', [
     'ui.tinymce',
     'ui.ace',
     'angularFileUpload',
+    'chart.js',
 
     'app.services.ui',
     'app.directives.nav',
@@ -59,6 +60,10 @@ angular.module('app', [
             })
             .when('/tag', {
                 templateUrl: 'mvc/views/tag.html',
+                controller: 'TagCtrl'
+            })
+            .when('/dashboard', {
+                templateUrl: 'mvc/views/dashboard.html',
                 controller: 'TagCtrl'
             })
             .otherwise({
