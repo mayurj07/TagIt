@@ -1,19 +1,30 @@
 #CMPE-275 Project - TAGIT
 
-#### Team-8
- 1. Mayur Jain, mayurj07@gmail.com, 009991059
- 2. Harkirat Singh, harkirat.singh@sjsu.edu, 010027823
- 3. Akanksha Singh, akanksha848@gmail.com, 010030839
- 4. Deep Trivedi, deep.trivedi@sjsu.edu, 010028252
- 5. Cherisha Choukse, cherisha58@gmail.com, 010114845
+### TagIT - Tag & Share your Bookmarks with your friends.
 
-## Using MySQL in Spring Boot via Spring Data JPA and Hibernate
+#### Team-8
+ 1. Mayur Jain,       mayurj07@gmail.com,      (009991059)
+ 2. Harkirat Singh,   harkirat.singh@sjsu.edu, (010027823)
+ 3. Akanksha Singh,   akanksha848@gmail.com,   (010030839)
+ 4. Deep Trivedi,     deep.trivedi@sjsu.edu,   (010028252)
+ 5. Cherisha Choukse, cherisha58@gmail.com,    (010114845)
+
+### Built using:-
+
+- Spring Boot via Spring Data JPA annotations and Hibernate ORM
+- Spring AOP (Aspect Oriented Programming)
+- Spring Transactions Management
+- Javascript, Angular.js, HTML5, CSS, Bootstrap
+- Bower (Frontend package management)
+- Mysql Database
 
 #### Prerequisites
 
 - Java 8
 - Maven 3
 - Mysql
+- Node.js and NPM
+- Bower
 
 
 ### Deployment Steps for Ubuntu :-
@@ -28,7 +39,7 @@
 
    Go on the project's root folder, then type:-
 
-   $ 'cd TagIt/'
+   $ `cd TagIt/`
 
    $ `apt-cache search maven`
 
@@ -48,10 +59,10 @@
 
 
 
-#### From Eclipse (Spring Tool Suite)
+#### From Eclipse / Spring Tool Suite / Intellij IDEA:-
 
 Import as *Existing Maven Project* and run it as *Spring Boot App*.
 
+### Usage:-
 
-### Usage
-- Run the application and go on http://localhost:8080/
+Run the application using startup.sh script and go on http://localhost:8080/
