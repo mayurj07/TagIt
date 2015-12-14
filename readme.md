@@ -1,36 +1,57 @@
+#CMPE-275 Project - TAGIT
+
+#### Team-8
+ 1. Mayur Jain, mayurj07@gmail.com, 009991059
+ 2. Harkirat Singh, harkirat.singh@sjsu.edu, 010027823
+ 3. Akanksha Singh, akanksha848@gmail.com, 010030839
+ 4. Deep Trivedi, deep.trivedi@sjsu.edu, 010028252
+ 5. Cherisha Choukse, cherisha58@gmail.com, 010114845
+
 ## Using MySQL in Spring Boot via Spring Data JPA and Hibernate
-
-
-### Usage
-
-- Run the application and go on http://localhost:8080/
-- Use the following urls to invoke controllers methods and see the interactions
-  with the database:
-    * `/create?email=[email]&name=[name]`: create a new user with an 
-      auto-generated id and email and name as passed values.
-    * `/delete?id=[id]`: delete the user with the passed id.
-    * `/get-by-email?email=[email]`: retrieve the id for the user with the 
-      passed email address.
-    * `/update?id=[id]&email=[email]&name=[name]`: update the email and the 
-      name for the user indentified by the passed id.
-
-### Build and run
-
-#### Configurations
-
-Open the `application.properties` file and set your own configurations.
 
 #### Prerequisites
 
-- Java 7
+- Java 8
 - Maven 3
+- Mysql
+
+
+### Deployment Steps for Ubuntu :-
 
 #### From terminal
 
-Go on the project's root folder, then type:
+1. Clone project from github:-
 
-    $ mvn spring-boot:run
+   $ `git clone https://github.com/mayurj07/TagIt.git`
+
+2. Install Maven:-
+
+   Go on the project's root folder, then type:-
+
+   $ 'cd TagIt/'
+
+   $ `apt-cache search maven`
+
+   $ `sudo apt-get install maven`
+
+3. Import Database schema for Mysql:-
+
+   Inside Mysql terminal:
+
+   $ `source tagit-schema`
+
+3. Run the startup script:-
+
+   $ `chmod 777 startup.sh`
+
+   $ `./startup.sh`
+
+
 
 #### From Eclipse (Spring Tool Suite)
 
 Import as *Existing Maven Project* and run it as *Spring Boot App*.
+
+
+### Usage
+- Run the application and go on http://localhost:8080/
