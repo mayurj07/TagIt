@@ -43,7 +43,7 @@ public class NotebookServiceImpl implements NotebookService {
             notebookArrayList.add(nb);
         }
         if(notebookArrayList.isEmpty()){
-            throw new EntityNotFound("User does not have any notebooks.");
+            throw new EntityNotFound("You do not have any notebooks yet. Please create a notebook and add boomarks to it.");
         }
         return notebookArrayList;
     }
@@ -57,7 +57,7 @@ public class NotebookServiceImpl implements NotebookService {
             notebookArrayList.add(nb);
         }
         if(notebookArrayList.isEmpty()){
-            throw new EntityNotFound("User does not have any notebooks.");
+            throw new EntityNotFound("No Notebooks have been shared with you yet.");
         }
         return notebookArrayList;
     }
