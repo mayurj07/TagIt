@@ -17,16 +17,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by akanksha on 11/22/2015.
- */
 @RestController
 @EnableAutoConfiguration
 @ComponentScan
@@ -172,10 +167,4 @@ public class TagController {
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value="/test",method = RequestMethod.POST)
-    public ResponseEntity testInterceptor(@Valid @RequestBody Tag tag, HttpServletResponse response)
-    {
-        response.addCookie(new Cookie("tagName",tag.getTagName()));
-        return new ResponseEntity(HttpStatus.OK);
-    }
 }

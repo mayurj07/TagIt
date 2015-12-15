@@ -31,10 +31,7 @@ public class CommentController {
     private BookmarkService bookmarkService;
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-
     public ResponseEntity<Comment>  createComment(@Valid @RequestBody Comment comment, BindingResult result) {
-
-
 
         if (comment.getCommentBookmarkId()<= 0 ) {
             throw new BadRequestException("Comment must belong to a valid bookmark.");
@@ -43,11 +40,9 @@ public class CommentController {
             throw new BadRequestException("invalid user id.");
         }
 
-
         Comment commentObj = null;
         try {
             commentObj = new Comment(comment.getCommentDescription(),comment.getCommentUserId(),comment.getCommentBookmarkId());
-            // commentService.create(comment);
         }
         catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

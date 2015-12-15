@@ -49,7 +49,22 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         LoginInterceptor loginInterceptor= loginInterceptor();
         registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/*");
         registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook/getAll/user/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/notebook/getShared/user/*");
 
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/bookmark/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/bookmark/getAll/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/bookmark/getCount/notebook/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/bookmark/user/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/bookmark/getCount/user/*");
+
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/comment/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/comment/getAll/*");
+
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/share/*");
+
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/*");
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/tag/getAll/user/*");
     }
 
 }
