@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void isEmailAvailable(String email){
         ArrayList<User> users = userDao.getUserByEmail(email);
-       if(users.size()!=0){
-           throw new BadRequestException("Email already in use");
-       }
+        if(users.size()!=0){
+            throw new BadRequestException("Email already in use");
+        }
     }
 
     @Override
