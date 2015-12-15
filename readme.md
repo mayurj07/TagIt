@@ -51,12 +51,21 @@
 
    $ `source tagit-schema`
 
-3. Run the startup script:-
+4. After making sure that you have npm installed:-
+
+    4.1 Install Bower:
+
+        $ `npm install -g bower`
+
+    4.2 Install Bower dependencies:
+
+        $ `bower install`
+
+5. Run the startup script:-
 
    $ `chmod 777 startup.sh`
 
    $ `./startup.sh`
-
 
 
 #### From Eclipse / Spring Tool Suite / Intellij IDEA:-
